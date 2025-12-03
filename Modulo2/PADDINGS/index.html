@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Paddings | Box Model</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Experimentando con Paddings</h1>
+        <p class="subtitle">Entendiendo cómo el padding afecta el espacio interno de los elementos</p>
+
+        <!-- Sección 1: Padding Uniforme -->
+        <section class="demo-section">
+            <h2>1. Padding Uniforme</h2>
+            <div class="examples-grid">
+                <div class="box">
+                    <div class="content padding-none">
+                        <p><strong>Sin padding</strong></p>
+                        <p>padding: 0;</p>
+                    </div>
+                </div>
+                
+                <div class="box">
+                    <div class="content padding-small">
+                        <p><strong>Padding pequeño</strong></p>
+                        <p>padding: 10px;</p>
+                    </div>
+                </div>
+                
+                <div class="box">
+                    <div class="content padding-medium">
+                        <p><strong>Padding mediano</strong></p>
+                        <p>padding: 20px;</p>
+                    </div>
+                </div>
+                
+                <div class="box">
+                    <div class="content padding-large">
+                        <p><strong>Padding grande</strong></p>
+                        <p>padding: 40px;</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2: Padding Asimétrico -->
+        <section class="demo-section">
+            <h2>2. Padding Asimétrico (diferentes valores)</h2>
+            <div class="examples-grid">
+                <div class="box">
+                    <div class="content padding-vertical">
+                        <p><strong>Vertical</strong></p>
+                        <p>padding: 30px 10px;</p>
+                        <p>Más arriba/abajo</p>
+                    </div>
+                </div>
+                
+                <div class="box">
+                    <div class="content padding-horizontal">
+                        <p><strong>Horizontal</strong></p>
+                        <p>padding: 10px 40px;</p>
+                        <p>Más izq/der</p>
+                    </div>
+                </div>
+                
+                <div class="box">
+                    <div class="content padding-custom">
+                        <p><strong>Personalizado</strong></p>
+                        <p>padding: 10px 20px 30px 40px;</p>
+                        <p>T-R-B-L diferentes</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 3: Casos de Uso Prácticos -->
+        <section class="demo-section">
+            <h2>3. Casos de Uso Prácticos</h2>
+            
+            <h3>Botones</h3>
+            <div class="buttons-demo">
+                <button class="btn btn-small">Pequeño</button>
+                <button class="btn btn-medium">Mediano</button>
+                <button class="btn btn-large">Grande</button>
+            </div>
+
+            <h3>Inputs</h3>
+            <div class="inputs-demo">
+                <input type="text" class="input input-small" placeholder="Input pequeño">
+                <input type="text" class="input input-medium" placeholder="Input mediano">
+                <input type="text" class="input input-large" placeholder="Input grande">
+            </div>
+
+            <h3>Cards</h3>
+            <div class="cards-demo">
+                <div class="card card-compact">
+                    <h4>Card Compacta</h4>
+                    <p>padding: 10px;</p>
+                </div>
+                <div class="card card-comfortable">
+                    <h4>Card Cómoda</h4>
+                    <p>padding: 20px;</p>
+                </div>
+                <div class="card card-spacious">
+                    <h4>Card Espaciosa</h4>
+                    <p>padding: 40px;</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 4: Padding con Background -->
+        <section class="demo-section">
+            <h2>4. Padding y Backgrounds</h2>
+            <p class="info">💡 <strong>Importante:</strong> El background se extiende hasta el borde, incluyendo el padding</p>
+            
+            <div class="bg-demo">
+                <div class="bg-box bg-no-padding">
+                    <div class="inner-content">Sin padding</div>
+                </div>
+                <div class="bg-box bg-with-padding">
+                    <div class="inner-content">Con padding: 30px</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 5: Box-Sizing Comparison -->
+        <section class="demo-section">
+            <h2>5. Padding y Box-Sizing</h2>
+            
+            <div class="comparison-grid">
+                <div class="comparison-box">
+                    <h3>content-box (defecto)</h3>
+                    <div class="sized-box content-box-demo">
+                        <p>width: 200px</p>
+                        <p>padding: 20px</p>
+                        <p class="highlight">Tamaño total: 240px</p>
+                    </div>
+                    <p class="explanation">El padding se SUMA al width</p>
+                </div>
+
+                <div class="comparison-box">
+                    <h3>border-box (recomendado)</h3>
+                    <div class="sized-box border-box-demo">
+                        <p>width: 200px</p>
+                        <p>padding: 20px</p>
+                        <p class="highlight">Tamaño total: 200px</p>
+                    </div>
+                    <p class="explanation">El padding se RESTA del width</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 6: Padding con Inline vs Block -->
+        <section class="demo-section">
+            <h2>6. Padding en Elementos Inline vs Block</h2>
+            
+            <h3>Inline (span)</h3>
+            <p>
+                Este es un <span class="inline-padded">elemento inline con padding</span> dentro del texto.
+                Observa cómo el padding horizontal funciona, pero el vertical se superpone.
+            </p>
+
+            <h3>Inline-block</h3>
+            <p>
+                Este es un <span class="inline-block-padded">elemento inline-block con padding</span> dentro del texto.
+                El padding funciona correctamente en todos los lados.
+            </p>
+
+            <h3>Block</h3>
+            <div class="block-padded">
+                Elemento block con padding. Ocupa todo el ancho disponible.
+            </div>
+        </section>
+
+        <!-- Código de Referencia -->
+        <section class="demo-section code-section">
+            <h2>📝 Referencia Rápida de Padding</h2>
+            <pre><code>/* Un solo valor (todos los lados) */
+padding: 20px;
+
+/* Dos valores (vertical | horizontal) */
+padding: 10px 20px;
+
+/* Tres valores (top | horizontal | bottom) */
+padding: 10px 20px 30px;
+
+/* Cuatro valores (top | right | bottom | left) - sentido horario */
+padding: 10px 15px 20px 25px;
+
+/* Lados individuales */
+padding-top: 10px;
+padding-right: 15px;
+padding-bottom: 20px;
+padding-left: 25px;</code></pre>
+        </section>
+    </div>
+</body>
+</html>

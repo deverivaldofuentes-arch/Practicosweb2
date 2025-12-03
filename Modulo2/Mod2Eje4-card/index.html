@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominando el Box Model: Tarjeta de Producto Profesional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .slide-container {
+            position: relative;
+            width: 900px;
+            height: 600px;
+            perspective: 1000px;
+        }
+        
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1.000), opacity 0.6s;
+            backface-visibility: hidden;
+            opacity: 0;
+            transform: rotateY(90deg);
+        }
+        
+        .slide.active {
+            opacity: 1;
+            transform: rotateY(0);
+        }
+        
+        .slide.next {
+            transform: rotateY(-90deg);
+        }
+        
+        .slide-title {
+            font-size: 2.4rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: 700;
+        }
+        
+        .slide-content {
+            flex: 1;
+            display: flex;
+            gap: 30px;
+        }
+        
+        .text-content {
+            flex: 1;
+        }
+        
+        .visual-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        ul {
+            padding-left: 25px;
+            margin: 20px 0;
+            line-height: 1.7;
+        }
+        
+        li {
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+            color: #2c3e50;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .product-card {
+            width: 300px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            background: white;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .product-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+            border-color: #3498db;
+        }
+        
+        .card-image {
+            width: calc(100% + 40px);
+            margin-left: -20px;
+            margin-right: -20px;
+            margin-top: -20px;
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+            height: 180px;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .card-content {
+            padding: 15px 0;
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .card-price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+        
+        .card-description {
+            color: #7f8c8d;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            min-height: 60px;
+        }
+        
+        .card-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            width: 100%;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .card-button:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
+        
+        .box-model-diagram {
+            width: 280px;
+            height: 350px;
+            background: #f8f9fa;
+            border: 3px solid #3498db;
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            margin: 20px;
+        }
+        
+        .box-model-content {
+            flex: 1;
+            background: #2ecc71;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .box-model-label {
+            position: absolute;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        .label-margin {
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .label-border {
+            top: 5px;
+            left: 5px;
+            background: #3498db;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        
+        .label-padding {
+            top: 40px;
+            left: 40px;
+            background: #9b59b6;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        
+        .label-content {
+            top: 80px;
+            left: 80px;
+        }
+        
+        .cards-grid {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .card-breakdown {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .breakdown-item {
+            display: flex;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .breakdown-label {
+            width: 120px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .breakdown-value {
+            flex: 1;
+        }
+        
+        .implementation-steps {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+            font-size: 1.1rem;
+        }
+        
+        .step::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .responsive-demo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .responsive-container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px;
+        }
+        
+        .highlight {
+            background: #fffacd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .key-point {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .slide-counter {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            font-weight: bold;
+        }
+        
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 40px;
+            box-sizing: border-box;
+        }
+        
+        .nav-side {
+            width: 100px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            pointer-events: none;
+        }
+        
+        .nav-side-btn {
+            pointer-events: all;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.9);
+            color: white;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .nav-side-btn:hover {
+            background: rgba(41, 128, 185, 0.95);
+            transform: scale(1.1);
+        }
+        
+        .nav-side-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .prev-btn {
+            margin-right: 20px;
+        }
+        
+        .next-btn {
+            margin-left: 20px;
+        }
+        
+        @media (max-width: 950px) {
+            .slide-container {
+                width: 90%;
+                height: 85vh;
+            }
+            
+            .slide {
+                padding: 30px;
+            }
+            
+            .slide-title {
+                font-size: 2rem;
+            }
+            
+            .nav-container {
+                padding: 0 20px;
+            }
+            
+            .nav-side-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1 class="slide-title">Dominando el Box Model: Tarjeta de Producto Profesional</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <p style="font-size: 1.8rem; line-height: 1.6; margin-top: 80px;">
+                        Aplicando todos los conceptos del Box Model<br>
+                        <span style="color:#3498db; font-weight:bold">padding</span>, <span style="color:#3498db; font-weight:bold">border</span>, <span style="color:#3498db; font-weight:bold">margin</span>, <span style="color:#3498db; font-weight:bold">border-radius</span> y <span style="color:#3498db; font-weight:bold">box-sizing</span><br>
+                        <span style="font-size:1.4rem; color:#7f8c8d; margin-top:20px; display:block">Creando componentes reutilizables y profesionales</span>
+                    </p>
+                </div>
+                <div class="visual-content">
+                    <div class="product-card" style="box-shadow:0 5px 15px rgba(0,0,0,0.2);">
+                        <div class="card-image" style="background:linear-gradient(45deg, #3498db, #2ecc71); height:120px; border-radius:12px 12px 0 0; margin:-20px -20px 15px -20px; display:flex; justify-content:center; align-items:center; font-size:2rem;">CSS</div>
+                        <div class="card-content">
+                            <div class="card-title">Tarjeta Ejemplo</div>
+                            <div class="card-price">$29.99</div>
+                            <div class="card-description">Componente profesional con Box Model completo</div>
+                            <button class="card-button">Añadir al carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">1/10</div>
+        </div>
+        
+        <!-- Slide 2: Box Model Recap -->
+        <div class="slide">
+            <h1 class="slide-title">Repaso: El Box Model en CSS</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <ul>
+                        <li>Cada elemento es una caja con 4 capas:</li>
+                        <li>1. <span class="highlight">Contenido</span> - texto, imágenes, etc.</li>
+                        <li>2. <span class="highlight">Padding</span> - espacio interno</li>
+                        <li>3. <span class="highlight">Border</span> - borde alrededor del padding</li>
+                        <li>4. <span class="highlight">Margin</span> - espacio externo</li>
+                    </ul>
+                    <div class="key-point">
+                        <strong>¡Importante!</strong> El orden es: contenido → padding → border → margin (de adentro hacia afuera)
+                    </div>
+                    <div class="code-block">
+                        /* Box Model completo */<br>
+                        .element {<br>
+                        &nbsp;&nbsp;width: 300px;<br>
+                        &nbsp;&nbsp;padding: 20px;<br>
+                        &nbsp;&nbsp;border: 1px solid #ddd;<br>
+                        &nbsp;&nbsp;margin: 20px;<br>
+                        &nbsp;&nbsp;box-sizing: border-box;<br>
+                        }
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="box-model-diagram">
+                        <div class="box-model-label label-margin">margin: 20px</div>
+                        <div class="box-model-label label-border">border: 1px</div>
+                        <div class="box-model-label label-padding">padding: 20px</div>
+                        <div class="box-model-label label-content">Contenido</div>
+                        <div class="box-model-content">Contenido</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">2/10</div>
+        </div>
+        
+        <!-- Slide 3: Why Border-box -->
+        <div class="slide">
+            <h1 class="slide-title">¿Por qué usar border-box?</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <ul>
+                        <li>Control total del tamaño del elemento</li>
+                        <li>padding y border se incluyen en el width/height</li>
+                        <li>Sin cálculos complejos para layouts responsivos</li>
+                        <li>Componentes reutilizables con tamaños predecibles</li>
+                    </ul>
+                    <div class="key-point">
+                        <strong>Ventaja crítica:</strong> La tarjeta siempre medirá 300px de ancho, sin importar padding o border.
+                    </div>
+                    <div class="card-breakdown">
+                        <div class="breakdown-item">
+                            <div class="breakdown-label">Ancho total:</div>
+                            <div class="breakdown-value">300px (fijo)</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <div class="breakdown-label">Padding:</div>
+                            <div class="breakdown-value">20px en todos los lados</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <div class="breakdown-label">Border:</div>
+                            <div class="breakdown-value">1px sólido</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <div class="breakdown-label">Contenido:</div>
+                            <div class="breakdown-value">258px (300 - 40px padding - 2px border)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="product-card" style="position:relative;">
+                        <div class="card-image" style="background:#3498db; height:100px; margin:-20px -20px 15px -20px;"></div>
+                        <div class="box-model-label" style="top:-35px; left:50%; transform:translateX(-50%); background:#e74c3c; color:white; padding:2px 8px; border-radius:4px;">width: 300px total</div>
+                        <div class="box-model-label" style="top:10px; right:10px; background:#2ecc71; color:white; padding:2px 8px; border-radius:4px; font-size:0.9rem;">border-box</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">3/10</div>
+        </div>
+        
+        <!-- Slide 4: Card Structure -->
+        <div class="slide">
+            <h1 class="slide-title">Estructura HTML de la Tarjeta</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <ul>
+                        <li>Estructura semántica con section/article</li>
+                        <li>Contenedor principal para la tarjeta</li>
+                        <li>Imagen como primer elemento (con margen negativo)</li>
+                        <li>Contenido en un div interno</li>
+                        <li>Elementos específicos para cada parte</li>
+                    </ul>
+                    <div class="implementation-steps">
+                        <div class="step">Crear contenedor principal con clase 'product-card'</div>
+                        <div class="step">Añadir div para la imagen con margen negativo</div>
+                        <div class="step">Incluir div para el contenido (title, price, description, button)</div>
+                        <div class="step">Aplicar box-sizing: border-box a todo el componente</div>
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="code-block" style="width:100%; height:100%; display:flex; flex-direction:column;">
+                        &lt;div class="product-card"&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="card-image"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Producto Imagen<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="card-content"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;h3 class="card-title"&gt;Título&lt;/h3&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="card-price"&gt;$99.99&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p class="card-description"&gt;Descripción breve&lt;/p&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="card-button"&gt;Añadir al carrito&lt;/button&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &lt;/div&gt;
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">4/10</div>
+        </div>
+        
+        <!-- Slide 5: CSS Implementation -->
+        <div class="slide">
+            <h1 class="slide-title">Implementación CSS Completa</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <ul>
+                        <li>Aplicar box-sizing: border-box globalmente</li>
+                        <li>Dimensiones fijas con padding interno controlado</li>
+                        <li>Técnica de margen negativo para la imagen</li>
+                        <li>Efectos hover para interactividad</li>
+                        <li>Sombra sutil para profundidad</li>
+                    </ul>
+                    <div class="key-point">
+                        <strong>Truco profesional:</strong> Usa margen negativo en la imagen para que toque los bordes de la tarjeta, manteniendo el padding para el resto del contenido.
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="code-block" style="width:100%; height:100%; font-size:0.95rem; overflow:auto;">
+                        /* Reset global */<br>
+                        *, *::before, *::after {<br>
+                        &nbsp;&nbsp;box-sizing: border-box;<br>
+                        }<br><br>
+                        .product-card {<br>
+                        &nbsp;&nbsp;width: 300px;<br>
+                        &nbsp;&nbsp;border: 1px solid #e0e0e0;<br>
+                        &nbsp;&nbsp;border-radius: 12px;<br>
+                        &nbsp;&nbsp;padding: 20px;<br>
+                        &nbsp;&nbsp;margin: 20px;<br>
+                        &nbsp;&nbsp;box-shadow: 0 2px 8px rgba(0,0,0,0.1);<br>
+                        &nbsp;&nbsp;background: white;<br>
+                        &nbsp;&nbsp;transition: all 0.3s ease;<br>
+                        }<br><br>
+                        .card-image {<br>
+                        &nbsp;&nbsp;width: calc(100% + 40px); /* Ancho total + padding*2 */<br>
+                        &nbsp;&nbsp;margin: -20px -20px 15px -20px; /* Margen negativo */<br>
+                        &nbsp;&nbsp;border-radius: 12px 12px 0 0;<br>
+                        &nbsp;&nbsp;height: 180px;<br>
+                        }<br><br>
+                        .product-card:hover {<br>
+                        &nbsp;&nbsp;box-shadow: 0 5px 15px rgba(0,0,0,0.15);<br>
+                        &nbsp;&nbsp;transform: translateY(-3px);<br>
+                        &nbsp;&nbsp;border-color: #3498db;<br>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">5/10</div>
+        </div>
+        
+        <!-- Slide 6: Negative Margin Technique -->
+        <div class="slide">
+            <h1 class="slide-title">Técnica: Margen Negativo para Imágenes</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <ul>
+                        <li>Problema: ¿Cómo hacer que la imagen toque los bordes manteniendo padding?</li>
+                        <li>Solución: margen negativo igual al padding del contenedor</li>
+                        <li>Fórmula: <span class="highlight">width: calc(100% + (padding*2))</span></li>
+                        <li>Margen: <span class="highlight">margin: -padding</span> en los lados necesarios</li>
+                    </ul>
+                    <div class="key-point">
+                        <strong>¿Por qué funciona?</strong> El margen negativo "cancela" el padding del contenedor, permitiendo que la imagen se extienda hasta los bordes visuales de la tarjeta.
+                    </div>
+                    <div class="code-block">
+                        .card-image {<br>
+                        &nbsp;&nbsp;/* Ancho = 100% + padding izquierdo + padding derecho */<br>
+                        &nbsp;&nbsp;width: calc(100% + 40px);<br><br>
+                        &nbsp;&nbsp;/* Margen negativo = -padding */<br>
+                        &nbsp;&nbsp;margin-left: -20px;<br>
+                        &nbsp;&nbsp;margin-right: -20px;<br>
+                        &nbsp;&nbsp;margin-top: -20px;<br>
+                        }
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="product-card" style="position:relative; padding:20px;">
+                        <div class="card-image" style="background:linear-gradient(45deg, #e74c3c, #f39c12); margin:-20px -20px 15px -20px; height:120px; position:relative;">
+                            <div class="box-model-label" style="top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(255,255,255,0.8); color:#2c3e50; padding:5px 10px; border-radius:4px; font-weight:bold;">Imagen con margen negativo</div>
+                        </div>
+                        <div class="box-model-label" style="top:10px; right:10px; background:#3498db; color:white; padding:2px 6px; border-radius:3px; font-size:0.8rem;">padding: 20px</div>
+                        <div class="box-model-label" style="bottom:-30px; left:50%; transform:translateX(-50%); background:#2ecc71; color:white; padding:2px 6px; border-radius:3px; font-size:0.8rem;">margin: 20px</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">6/10</div>
+        </div>
+        
+        <!-- Slide 7: Complete Card Demo -->
+        <div class="slide">
+            <h1 class="slide-title">Demo: Tarjeta de Producto Completa</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <ul>
+                        <li>Ejemplo funcional con todos los elementos</li>
+                        <li>Hover effect para mejor interactividad</li>
+                        <li>Espaciado interno equilibrado</li>
+                        <li>Bordes redondeados para diseño moderno</li>
+                        <li>Sombra sutil para profundidad visual</li>
+                    </ul>
+                    <div class="key-point">
+                        <strong>Mejor práctica:</strong> Este componente es 100% reutilizable. Simplemente duplica el HTML y cámbiale el contenido.
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="card-container">
+                        <div class="product-card">
+                            <div class="card-image" style="background:linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); display:flex; justify-content:center; align-items:center; color:white; font-size:2rem;">
+                                <div style="text-align:center; padding:20px;">
+                                    <div style="font-size:3rem; margin-bottom:10px;">📱</div>
+                                    <div style="font-weight:bold; font-size:1.2rem;">Smartphone X</div>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title">Smartphone Premium</div>
+                                <div class="card-price">$599.99</div>
+                                <div class="card-description">Pantalla 6.5", 128GB almacenamiento, cámara 48MP, batería de larga duración.</div>
+                                <button class="card-button">Añadir al carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">7/10</div>
+        </div>
+        
+        <!-- Slide 8: Multiple Cards Layout -->
+        <div class="slide">
+            <h1 class="slide-title">Layout con Múltiples Tarjetas</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <ul>
+                        <li>El margin: 20px crea espacio perfecto entre tarjetas</li>
+                        <li>Flexbox o Grid para el contenedor padre</li>
+                        <li>Responsive: se reorganizan en pantallas pequeñas</li>
+                        <li>Consistencia visual en todo el sitio</li>
+                    </ul>
+                    <div class="implementation-steps">
+                        <div class="step">Crear un contenedor con display: flex o grid</div>
+                        <div class="step">gap: 20px para espacio consistente</div>
+                        <div class="step">flex-wrap: wrap para responsive</div>
+                        <div class="step">Justify-content: center para centrado</div>
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="responsive-container">
+                        <div class="product-card" style="margin:0;">
+                            <div class="card-image" style="background:#3498db; height:100px;"></div>
+                            <div class="card-content" style="text-align:center;">
+                                <div class="card-title">Producto 1</div>
+                                <div class="card-price">$49.99</div>
+                            </div>
+                        </div>
+                        <div class="product-card" style="margin:0;">
+                            <div class="card-image" style="background:#2ecc71; height:100px;"></div>
+                            <div class="card-content" style="text-align:center;">
+                                <div class="card-title">Producto 2</div>
+                                <div class="card-price">$79.99</div>
+                            </div>
+                        </div>
+                        <div class="product-card" style="margin:0;">
+                            <div class="card-image" style="background:#e74c3c; height:100px;"></div>
+                            <div class="card-content" style="text-align:center;">
+                                <div class="card-title">Producto 3</div>
+                                <div class="card-price">$29.99</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">8/10</div>
+        </div>
+        
+        <!-- Slide 9: Professional Tips -->
+        <div class="slide">
+            <h1 class="slide-title">Consejos Profesionales para Tarjetas</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <ul>
+                        <li><span class="highlight">Consistencia:</span> Usa variables CSS para colores y espaciados</li>
+                        <li><span class="highlight">Accesibilidad:</span> Contraste mínimo 4.5:1 para texto</li>
+                        <li><span class="highlight">Performance:</span> Optimiza imágenes para carga rápida</li>
+                        <li><span class="highlight">Responsive:</span> Ajusta padding y tamaños en mobile</li>
+                        <li><span class="highlight">Animaciones:</span> Usa transform en lugar de top/left para mejor performance</li>
+                    </ul>
+                    <div class="code-block" style="margin-top:15px; font-size:0.95rem;">
+                        :root {<br>
+                        &nbsp;&nbsp;--card-padding: 20px;<br>
+                        &nbsp;&nbsp;--card-radius: 12px;<br>
+                        &nbsp;&nbsp;--card-shadow: 0 2px 8px rgba(0,0,0,0.1);<br>
+                        &nbsp;&nbsp;--primary-color: #3498db;<br>
+                        }<br><br>
+                        .product-card {<br>
+                        &nbsp;&nbsp;padding: var(--card-padding);<br>
+                        &nbsp;&nbsp;border-radius: var(--card-radius);<br>
+                        &nbsp;&nbsp;box-shadow: var(--card-shadow);<br>
+                        }
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div style="text-align:center;">
+                        <div style="font-size:5rem; margin-bottom:20px; color:#3498db;">✓</div>
+                        <div style="font-size:1.8rem; font-weight:bold; margin-bottom:20px;">Buenas Prácticas</div>
+                        <div style="display:flex; flex-direction:column; gap:15px; width:250px; margin:0 auto;">
+                            <div style="background:#f8f9fa; padding:15px; border-radius:8px; border-left:3px solid #3498db;">
+                                <div style="font-weight:bold; margin-bottom:5px;">Variables CSS</div>
+                                <div style="font-size:0.9rem; color:#7f8c8d;">Reutilización y mantenimiento</div>
+                            </div>
+                            <div style="background:#f8f9fa; padding:15px; border-radius:8px; border-left:3px solid #2ecc71;">
+                                <div style="font-weight:bold; margin-bottom:5px;">Transiciones Suaves</div>
+                                <div style="font-size:0.9rem; color:#7f8c8d;">Mejor experiencia de usuario</div>
+                            </div>
+                            <div style="background:#f8f9fa; padding:15px; border-radius:8px; border-left:3px solid #e74c3c;">
+                                <div style="font-weight:bold; margin-bottom:5px;">Responsive Design</div>
+                                <div style="font-size:0.9rem; color:#7f8c8d;">Adaptación a todos los dispositivos</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">9/10</div>
+        </div>
+        
+        <!-- Slide 10: Practice Exercise -->
+        <div class="slide">
+            <h1 class="slide-title">¡Tu Turno: Crea tu Propia Tarjeta!</h1>
+            <div class="slide-content">
+                <div class="text-content" style="text-align:center; margin-top:50px">
+                    <p style="font-size:1.8rem; margin-bottom:30px; color:#2c3e50">Retos para Practicar</p>
+                    <ul style="display:inline-block; text-align:left; max-width:500px; margin:0 auto;">
+                        <li style="margin-bottom:15px;">🎯 Crea una tarjeta con tus dimensiones</li>
+                        <li style="margin-bottom:15px;">🎯 Experimenta con diferentes border-radius</li>
+                        <li style="margin-bottom:15px;">🎯 Añade un efecto hover único</li>
+                        <li style="margin-bottom:15px;">🎯 Implementa variables CSS</li>
+                        <li>🎯 Hazla responsive para mobile</li>
+                    </ul>
+                    <div style="margin-top:30px; padding:20px; background:#e8f4f8; border-radius:8px; max-width:500px; margin:30px auto 0 auto;">
+                        <div style="font-weight:bold; margin-bottom:10px; color:#3498db;">Recuerda:</div>
+                        <div style="line-height:1.6;">box-sizing: border-box es tu mejor amigo para crear componentes predecibles y profesionales.</div>
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div style="text-align:center; background:linear-gradient(135deg, #6a11cb, #2575fc); color:white; width:240px; height:240px; border-radius:20px; display:flex; flex-direction:column; justify-content:center; align-items:center; border:3px solid white; box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+                        <div style="font-size:3rem; margin-bottom:15px;">✨</div>
+                        <div style="font-size:1.8rem; font-weight:bold; margin-bottom:15px;">Box Model</div>
+                        <div style="font-size:1.5rem; background:rgba(255,255,255,0.2); padding:8px 20px; border-radius:30px; margin-bottom:15px;">
+                            Master
+                        </div>
+                        <div style="margin-top:15px; font-size:0.9rem; opacity:0.9;">
+                            Tu camino hacia el diseño profesional
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">10/10</div>
+        </div>
+    </div>
+
+    <div class="nav-container">
+        <div class="nav-side">
+            <button class="nav-side-btn prev-btn" id="prev">←</button>
+        </div>
+        <div class="nav-side">
+            <button class="nav-side-btn next-btn" id="next">→</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev');
+            const nextBtn = document.getElementById('next');
+            let currentSlide = 0;
+            
+            function updateSlides() {
+                slides.forEach((slide, index) => {
+                    slide.classList.remove('active', 'next');
+                    
+                    if (index === currentSlide) {
+                        slide.classList.add('active');
+                    } else if (index === currentSlide + 1) {
+                        slide.classList.add('next');
+                    }
+                });
+                
+                document.querySelectorAll('.slide-counter').forEach(counter => {
+                    counter.textContent = `${currentSlide + 1}/${slides.length}`;
+                });
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateSlides();
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateSlides();
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft' && currentSlide > 0) {
+                    currentSlide--;
+                    updateSlides();
+                } else if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateSlides();
+                }
+            });
+            
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            document.querySelector('.slide-container').addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            document.querySelector('.slide-container').addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                if (touchStartX - touchEndX > 50 && currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateSlides();
+                } else if (touchEndX - touchStartX > 50 && currentSlide > 0) {
+                    currentSlide--;
+                    updateSlides();
+                }
+            }
+            
+            // Hover effects para las cards de demostración
+            const demoCards = document.querySelectorAll('.product-card');
+            demoCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-3px)';
+                    card.style.boxShadow = '0 5px 15px rgba(0,0,0,0.15)';
+                    card.style.borderColor = '#3498db';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                    card.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                    card.style.borderColor = '#e0e0e0';
+                });
+            });
+            
+            updateSlides();
+        });
+    </script>
+</body>
+</html>
+
