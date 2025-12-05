@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery with CSS Grid | Auto-fit Responsive</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📸 Photo Gallery</h1>
+            <p class="subtitle">Responsive grid con <code>auto-fit</code> y <code>minmax()</code> - <strong>SIN media queries</strong></p>
+        </header>
+
+        <!-- Gallery Grid -->
+        <section class="gallery">
+            
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=500&fit=crop" alt="Mountain landscape">
+                <div class="overlay">
+                    <h3>Mountain View</h3>
+                    <p>Landscape Photography</p>
+                </div>
+            </div>
+
+            <div class="gallery-item featured">
+                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&h=500&fit=crop" alt="Forest path">
+                <div class="overlay">
+                    <h3>Forest Path</h3>
+                    <p>Nature Photography</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&h=500&fit=crop" alt="Beach sunset">
+                <div class="overlay">
+                    <h3>Beach Sunset</h3>
+                    <p>Seascape</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=500&h=500&fit=crop" alt="Night sky">
+                <div class="overlay">
+                    <h3>Starry Night</h3>
+                    <p>Astrophotography</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=500&h=500&fit=crop" alt="Flowers">
+                <div class="overlay">
+                    <h3>Spring Flowers</h3>
+                    <p>Macro Photography</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1516617442324-41f12f84c905?w=500&h=500&fit=crop" alt="City lights">
+                <div class="overlay">
+                    <h3>City Lights</h3>
+                    <p>Urban Photography</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=500&h=500&fit=crop" alt="Misty forest">
+                <div class="overlay">
+                    <h3>Misty Forest</h3>
+                    <p>Atmospheric</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&h=500&fit=crop" alt="Desert">
+                <div class="overlay">
+                    <h3>Desert Dunes</h3>
+                    <p>Adventure</p>
+                </div>
+            </div>
+
+            <div class="gallery-item featured">
+                <img src="https://images.unsplash.com/photo-1511884642898-4c92249e20b6?w=500&h=500&fit=crop" alt="Waterfall">
+                <div class="overlay">
+                    <h3>Waterfall</h3>
+                    <p>Long Exposure</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500&h=500&fit=crop" alt="Snowy mountains">
+                <div class="overlay">
+                    <h3>Snowy Peaks</h3>
+                    <p>Winter Wonderland</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=500&h=500&fit=crop" alt="Tropical beach">
+                <div class="overlay">
+                    <h3>Paradise Beach</h3>
+                    <p>Travel</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=500&h=500&fit=crop" alt="River valley">
+                <div class="overlay">
+                    <h3>River Valley</h3>
+                    <p>Aerial View</p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Explicación del Grid -->
+        <section class="explanation">
+            <h2>🎯 Cómo Funciona Este Grid</h2>
+            <div class="code-example">
+                <h3>CSS Grid Con Auto-fit</h3>
+                <pre><code>.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ⭐ auto-fit: Crea tantas columnas como quepan
+   ⭐ minmax(250px, 1fr): Mínimo 250px, máximo 1 fracción
+   ⭐ Resultado: Responsive automático SIN media queries */</code></pre>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature">
+                    <h4>🔄 Auto-fit</h4>
+                    <p>Crea automáticamente el número de columnas que caben en el contenedor</p>
+                </div>
+                <div class="feature">
+                    <h4>📏 Minmax()</h4>
+                    <p>Define un tamaño mínimo (250px) y máximo (1fr) para las columnas</p>
+                </div>
+                <div class="feature">
+                    <h4>🎨 1fr</h4>
+                    <p>Fracción del espacio disponible - las columnas crecen uniformemente</p>
+                </div>
+                <div class="feature">
+                    <h4>📱 Sin Media Queries</h4>
+                    <p>Se adapta automáticamente a cualquier tamaño de pantalla</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

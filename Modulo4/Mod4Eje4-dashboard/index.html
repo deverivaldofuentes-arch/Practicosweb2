@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solución: Dashboard Admin</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>📊 AdminPro</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active">
+                    <span class="nav-icon">🏠</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📈</span>
+                    <span>Analíticas</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span>Usuarios</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📦</span>
+                    <span>Productos</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">💰</span>
+                    <span>Ventas</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-search">
+                <input type="search" placeholder="Buscar...">
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn">🔔<span class="badge">3</span></button>
+                <button class="icon-btn">✉️<span class="badge">5</span></button>
+                <div class="user-profile">
+                    <img src="https://i.pravatar.cc/40" alt="Usuario">
+                    <span>Admin User</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Dashboard</h1>
+                <button class="btn-primary">+ Nuevo</button>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card stat-blue">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <h3>2,543</h3>
+                        <p>Total Usuarios</p>
+                        <span class="stat-change positive">+12.5%</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-green">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-info">
+                        <h3>$45,678</h3>
+                        <p>Ingresos</p>
+                        <span class="stat-change positive">+8.2%</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-orange">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-info">
+                        <h3>1,234</h3>
+                        <p>Pedidos</p>
+                        <span class="stat-change negative">-3.1%</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-purple">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-info">
+                        <h3>4.8</h3>
+                        <p>Satisfacción</p>
+                        <span class="stat-change positive">+0.3</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts and Tables -->
+            <div class="content-grid">
+                <!-- Recent Activity -->
+                <div class="card">
+                    <h3>Actividad Reciente</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">💙</div>
+                            <div class="activity-content">
+                                <p><strong>Nuevo usuario registrado</strong></p>
+                                <span>Hace 5 minutos</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">💰</div>
+                            <div class="activity-content">
+                                <p><strong>Venta completada: $234</strong></p>
+                                <span>Hace 15 minutos</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">📦</div>
+                            <div class="activity-content">
+                                <p><strong>Pedido #1234 enviado</strong></p>
+                                <span>Hace 1 hora</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">⭐</div>
+                            <div class="activity-content">
+                                <p><strong>Nueva reseña 5 estrellas</strong></p>
+                                <span>Hace 2 horas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Products -->
+                <div class="card">
+                    <h3>Productos Destacados</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Ventas</th>
+                                <th>Ingresos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Producto A</td>
+                                <td>234</td>
+                                <td>$12,340</td>
+                            </tr>
+                            <tr>
+                                <td>Producto B</td>
+                                <td>189</td>
+                                <td>$9,450</td>
+                            </tr>
+                            <tr>
+                                <td>Producto C</td>
+                                <td>156</td>
+                                <td>$7,800</td>
+                            </tr>
+                            <tr>
+                                <td>Producto D</td>
+                                <td>143</td>
+                                <td>$7,150</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Sales Chart (simulated) -->
+                <div class="card card-full">
+                    <h3>Ventas Mensuales</h3>
+                    <div class="chart-container">
+                        <div class="bar-chart">
+                            <div class="bar" style="height: 60%"><span>Ene</span></div>
+                            <div class="bar" style="height: 75%"><span>Feb</span></div>
+                            <div class="bar" style="height: 55%"><span>Mar</span></div>
+                            <div class="bar" style="height: 85%"><span>Abr</span></div>
+                            <div class="bar" style="height: 70%"><span>May</span></div>
+                            <div class="bar" style="height: 90%"><span>Jun</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

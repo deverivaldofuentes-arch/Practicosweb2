@@ -1,0 +1,341 @@
+/* =====================================
+   RESET Y BASE ACCESIBLE
+   ===================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #3498db;
+  --secondary: #2c3e50;
+  --accent: #9b59b6;
+  --success: #2ecc71;
+  --warning: #ffc107;
+  --danger: #e74c3c;
+  --light: #f5f7fa;
+  --dark: #2c3e50;
+  --gray: #7f8c8d;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e7ec 100%);
+  color: var(--dark);
+  line-height: 1.7;
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* =====================================
+   TIPOGRAFÍA MEJORADA
+   ===================================== */
+h1 {
+  text-align: center;
+  color: var(--dark);
+  margin-bottom: 0.75rem;
+  font-size: 2.75rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--gray);
+  margin-bottom: 3.5rem;
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =====================================
+   SECCIONES CON EFECTOS
+   ===================================== */
+.demo-section {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2.5rem;
+  margin-bottom: 2.5rem;
+  border-radius: 16px;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.demo-section:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+}
+
+.demo-section h2 {
+  color: var(--primary);
+  margin-bottom: 2rem;
+  font-size: 1.9rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid linear-gradient(90deg, var(--primary), transparent);
+  position: relative;
+}
+
+.demo-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), transparent);
+  border-radius: 3px;
+}
+
+/* =====================================
+   GRIDS MEJORADOS
+   ===================================== */
+.examples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+/* =====================================
+   ANIMACIONES Y TRANSICIONES
+   ===================================== */
+.box {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.box:hover::before {
+  opacity: 1;
+}
+
+.box:hover {
+  border-color: var(--primary);
+  box-shadow: 0 8px 25px rgba(52, 152, 219, 0.15);
+  transform: translateY(-4px);
+}
+
+/* =====================================
+   COMPONENTES INTERACTIVOS
+   ===================================== */
+.btn {
+  background: linear-gradient(135deg, var(--primary) 0%, #2980b9 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
+}
+
+.btn:active::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(40, 40);
+    opacity: 0;
+  }
+}
+
+/* =====================================
+   TARJETAS MEJORADAS
+   ===================================== */
+.card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* =====================================
+   CÓDIGO CON SINTAX HIGHLIGHT MEJORADO
+   ===================================== */
+pre {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  padding: 2rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  line-height: 1.8;
+  border: 1px solid #404b5e;
+  position: relative;
+}
+
+pre::before {
+  content: 'CSS';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--primary);
+  color: white;
+  padding: 0.25rem 1rem;
+  border-bottom-right-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+code {
+  color: #1abc9c;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+/* =====================================
+   RESPONSIVE MEJORADO
+   ===================================== */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  .demo-section {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .examples-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* =====================================
+   ESTADOS DE FOCUS PARA ACCESIBILIDAD
+   ===================================== */
+.btn:focus,
+.input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* =====================================
+   EFECTOS ESPECIALES
+   ===================================== */
+.highlight {
+  position: relative;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background: linear-gradient(120deg, rgba(52, 152, 219, 0.2) 0%, rgba(155, 89, 182, 0.2) 100%);
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.highlight::before {
+  content: '⭐';
+  margin-right: 0.5rem;
+}
+
+/* =====================================
+   UTILIDADES
+   ===================================== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

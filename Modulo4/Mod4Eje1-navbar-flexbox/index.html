@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solución: Navbar Flexbox Responsive</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar sticky con flexbox -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <!-- Logo -->
+            <div class="navbar-logo">
+                <a href="#inicio">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    <span>DesignPro</span>
+                </a>
+            </div>
+
+            <!-- Menú de navegación -->
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+                <li><a href="#servicios" class="nav-link">Servicios</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            </ul>
+
+            <!-- Botones de acción -->
+            <div class="navbar-actions">
+                <button class="btn btn-login">Iniciar Sesión</button>
+                <button class="btn btn-signup">Registrarse</button>
+            </div>
+
+            <!-- Botón hamburguesa para móviles -->
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main>
+        <!-- Sección Inicio -->
+        <section id="inicio" class="section section-hero">
+            <div class="section-content">
+                <h1 class="fade-in">Bienvenido a DesignPro</h1>
+                <p class="fade-in">Creamos experiencias digitales excepcionales</p>
+                <button class="btn btn-cta fade-in">Comenzar Ahora</button>
+            </div>
+        </section>
+
+        <!-- Sección Servicios -->
+        <section id="servicios" class="section">
+            <div class="section-content">
+                <h2>Nuestros Servicios</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🎨</div>
+                        <h3>Diseño UI/UX</h3>
+                        <p>Interfaces intuitivas y atractivas que cautivan a tus usuarios.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💻</div>
+                        <h3>Desarrollo Web</h3>
+                        <p>Sitios web modernos y escalables con las últimas tecnologías.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📱</div>
+                        <h3>Apps Móviles</h3>
+                        <p>Aplicaciones móviles nativas y multiplataforma de alta calidad.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🚀</div>
+                        <h3>Marketing Digital</h3>
+                        <p>Estrategias efectivas para hacer crecer tu negocio online.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Portfolio -->
+        <section id="portfolio" class="section section-dark">
+            <div class="section-content">
+                <h2>Proyectos Destacados</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop" alt="Proyecto 1">
+                        <div class="portfolio-overlay">
+                            <h3>E-commerce Fashion</h3>
+                            <p>Tienda online de moda</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" alt="Proyecto 2">
+                        <div class="portfolio-overlay">
+                            <h3>Dashboard Analytics</h3>
+                            <p>Panel de control de datos</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop" alt="Proyecto 3">
+                        <div class="portfolio-overlay">
+                            <h3>App Fitness</h3>
+                            <p>Aplicación de entrenamiento</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Testimonios -->
+        <section id="testimonios" class="section">
+            <div class="section-content">
+                <h2>Lo Que Dicen Nuestros Clientes</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Excelente trabajo, superaron todas nuestras expectativas. El diseño es impecable."</p>
+                        <div class="testimonial-author">
+                            <strong>María González</strong>
+                            <span>CEO, TechStart</span>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Profesionales, creativos y muy atentos a los detalles. Totalmente recomendados."</p>
+                        <div class="testimonial-author">
+                            <strong>Carlos Ramírez</strong>
+                            <span>Director, Innovate Co.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Contacto -->
+        <section id="contacto" class="section section-contact">
+            <div class="section-content">
+                <h2>Hablemos de Tu Proyecto</h2>
+                <p>Estamos listos para hacer realidad tus ideas</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <span>info@designpro.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📱</span>
+                        <span>+1 (555) 123-4567</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <span>123 Design Street, Creative City</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 DesignPro. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

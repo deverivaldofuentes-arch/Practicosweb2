@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explora cómo funciona el padding en CSS con ejemplos interactivos y visuales">
+  <meta name="keywords" content="CSS, padding, box model, frontend, diseño web">
+  <title>Guía Completa de Padding en CSS | Box Model</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .no-js .demo-section {
+      opacity: 1 !important;
+    }
+  </style>
+  <script>
+    document.documentElement.classList.remove('no-js');
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <header role="banner">
+      <h1 id="main-title">Experimentando con Paddings</h1>
+      <p class="subtitle" aria-describedby="main-title">
+        Entendiendo cómo el padding afecta el espacio interno de los elementos -
+        <span class="highlight">Guía Visual Interactiva</span>
+      </p>
+      <nav aria-label="Navegación principal" class="sr-only">
+        <ul>
+          <li><a href="#uniforme">Padding Uniforme</a></li>
+          <li><a href="#asimétrico">Padding Asimétrico</a></li>
+          <li><a href="#casos-uso">Casos Prácticos</a></li>
+          <li><a href="#backgrounds">Padding y Backgrounds</a></li>
+          <li><a href="#box-sizing">Box-Sizing</a></li>
+          <li><a href="#inline-block">Inline vs Block</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main role="main">
+      <!-- Sección 1: Padding Uniforme -->
+      <section id="uniforme" class="demo-section" aria-labelledby="uniforme-title">
+        <h2 id="uniforme-title">1. Padding Uniforme</h2>
+        <p class="info" role="note">💡 El padding uniforme aplica el mismo espacio en los 4 lados del elemento.</p>
+
+        <div class="examples-grid">
+          <article class="box">
+            <div class="content padding-none" tabindex="0" role="article">
+              <p><strong>Sin padding</strong></p>
+              <p><code>padding: 0;</code></p>
+              <p class="sr-only">El contenido toca los bordes del contenedor</p>
+            </div>
+          </article>
+
+          <article class="box">
+            <div class="content padding-small" tabindex="0" role="article">
+              <p><strong>Padding pequeño</strong></p>
+              <p><code>padding: 10px;</code></p>
+            </div>
+          </article>
+
+          <article class="box">
+            <div class="content padding-medium" tabindex="0" role="article">
+              <p><strong>Padding mediano</strong></p>
+              <p><code>padding: 20px;</code></p>
+            </div>
+          </article>
+
+          <article class="box">
+            <div class="content padding-large" tabindex="0" role="article">
+              <p><strong>Padding grande</strong></p>
+              <p><code>padding: 40px;</code></p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Sección 2: Padding Asimétrico -->
+      <section id="asimétrico" class="demo-section" aria-labelledby="asimétrico-title">
+        <h2 id="asimétrico-title">2. Padding Asimétrico (diferentes valores)</h2>
+        <p class="info" role="note">🎯 Controla cada lado del padding individualmente para diseños más precisos.</p>
+
+        <div class="examples-grid">
+          <article class="box">
+            <div class="content padding-vertical" tabindex="0" role="article">
+              <p><strong>Vertical</strong></p>
+              <p><code>padding: 30px 10px;</code></p>
+              <p>Más espacio arriba/abajo</p>
+            </div>
+          </article>
+
+          <article class="box">
+            <div class="content padding-horizontal" tabindex="0" role="article">
+              <p><strong>Horizontal</strong></p>
+              <p><code>padding: 10px 40px;</code></p>
+              <p>Más espacio izquierda/derecha</p>
+            </div>
+          </article>
+
+          <article class="box">
+            <div class="content padding-custom" tabindex="0" role="article">
+              <p><strong>Personalizado</strong></p>
+              <p><code>padding: 10px 20px 30px 40px;</code></p>
+              <p>Top-Right-Bottom-Left diferentes</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Sección 3: Casos de Uso Prácticos -->
+      <section id="casos-uso" class="demo-section" aria-labelledby="casos-uso-title">
+        <h2 id="casos-uso-title">3. Casos de Uso Prácticos</h2>
+
+        <article aria-labelledby="botones-title">
+          <h3 id="botones-title">Botones</h3>
+          <p class="info" role="note">🎨 El padding define la "respiración" y tamaño táctil de los botones.</p>
+          <div class="buttons-demo">
+            <button class="btn btn-small" aria-label="Botón pequeño con padding reducido">Pequeño</button>
+            <button class="btn btn-medium" aria-label="Botón mediano con padding estándar">Mediano</button>
+            <button class="btn btn-large" aria-label="Botón grande con padding amplio">Grande</button>
+          </div>
+        </article>
+
+        <article aria-labelledby="inputs-title">
+          <h3 id="inputs-title">Inputs</h3>
+          <p class="info" role="note">📝 Padding adecuado mejora la usabilidad y legibilidad.</p>
+          <div class="inputs-demo">
+            <label for="input-small" class="sr-only">Input pequeño</label>
+            <input type="text" id="input-small" class="input input-small" placeholder="Input pequeño (8px 12px)"
+              aria-label="Input con padding pequeño">
+
+            <label for="input-medium" class="sr-only">Input mediano</label>
+            <input type="text" id="input-medium" class="input input-medium" placeholder="Input mediano (12px 16px)"
+              aria-label="Input con padding mediano">
+
+            <label for="input-large" class="sr-only">Input grande</label>
+            <input type="text" id="input-large" class="input input-large" placeholder="Input grande (16px 20px)"
+              aria-label="Input con padding grande">
+          </div>
+        </article>
+
+        <article aria-labelledby="cards-title">
+          <h3 id="cards-title">Cards</h3>
+          <div class="cards-demo">
+            <div class="card card-compact" tabindex="0" role="article">
+              <h4>Card Compacta</h4>
+              <p><code>padding: 10px;</code></p>
+              <p class="sr-only">Padding mínimo para información densa</p>
+            </div>
+            <div class="card card-comfortable" tabindex="0" role="article">
+              <h4>Card Cómoda</h4>
+              <p><code>padding: 20px;</code></p>
+              <p class="sr-only">Padding estándar para contenido balanceado</p>
+            </div>
+            <div class="card card-spacious" tabindex="0" role="article">
+              <h4>Card Espaciosa</h4>
+              <p><code>padding: 40px;</code></p>
+              <p class="sr-only">Padding amplio para énfasis visual</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Sección 4: Padding con Background -->
+      <section id="backgrounds" class="demo-section" aria-labelledby="backgrounds-title">
+        <h2 id="backgrounds-title">4. Padding y Backgrounds</h2>
+        <p class="info" role="note">
+          💡 <strong>Importante:</strong> El background se extiende hasta el borde, incluyendo el padding.
+          Esto permite crear efectos visuales interesantes.
+        </p>
+
+        <div class="bg-demo">
+          <article class="bg-box bg-no-padding" tabindex="0">
+            <div class="inner-content">
+              <h4>Sin padding</h4>
+              <p>El background toca los bordes</p>
+            </div>
+          </article>
+          <article class="bg-box bg-with-padding" tabindex="0">
+            <div class="inner-content">
+              <h4>Con padding: 30px</h4>
+              <p>El background se extiende con el padding</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Sección 5: Box-Sizing Comparison -->
+      <section id="box-sizing" class="demo-section" aria-labelledby="box-sizing-title">
+        <h2 id="box-sizing-title">5. Padding y Box-Sizing</h2>
+        <p class="info" role="note">⚖️ Entender box-sizing es crucial para layouts predecibles.</p>
+
+        <div class="comparison-grid">
+          <article class="comparison-box" tabindex="0">
+            <h3><code>content-box</code> (valor por defecto)</h3>
+            <div class="sized-box content-box-demo">
+              <p><code>width: 200px</code></p>
+              <p><code>padding: 20px</code></p>
+              <p class="highlight">Tamaño total: 240px</p>
+              <p class="sr-only">El padding se suma al ancho especificado</p>
+            </div>
+            <p class="explanation">El padding se <strong>SUMA</strong> al width/height</p>
+          </article>
+
+          <article class="comparison-box" tabindex="0">
+            <h3><code>border-box</code> (recomendado)</h3>
+            <div class="sized-box border-box-demo">
+              <p><code>width: 200px</code></p>
+              <p><code>padding: 20px</code></p>
+              <p class="highlight">Tamaño total: 200px</p>
+              <p class="sr-only">El padding se incluye dentro del ancho especificado</p>
+            </div>
+            <p class="explanation">El padding se <strong>INCLUYE</strong> en el width/height</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Sección 6: Padding con Inline vs Block -->
+      <section id="inline-block" class="demo-section" aria-labelledby="inline-block-title">
+        <h2 id="inline-block-title">6. Padding en Elementos Inline vs Block</h2>
+        <p class="info" role="note">📐 El comportamiento del padding varía según el display del elemento.</p>
+
+        <article aria-labelledby="inline-title">
+          <h3 id="inline-title">Inline (<code>&lt;span&gt;</code>)</h3>
+          <p>
+            Este es un <span class="inline-padded" tabindex="0">elemento inline con padding</span> dentro del texto.
+            Observa cómo el padding horizontal funciona, pero el vertical no afecta el flujo.
+          </p>
+        </article>
+
+        <article aria-labelledby="inline-block-title2">
+          <h3 id="inline-block-title2">Inline-block</h3>
+          <p>
+            Este es un <span class="inline-block-padded" tabindex="0">elemento inline-block con padding</span> dentro
+            del texto.
+            El padding funciona correctamente en todos los lados.
+          </p>
+        </article>
+
+        <article aria-labelledby="block-title">
+          <h3 id="block-title">Block</h3>
+          <div class="block-padded" tabindex="0" role="article">
+            <p>Elemento block con padding. Ocupa todo el ancho disponible y el padding funciona normalmente.</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- Código de Referencia -->
+      <section class="demo-section code-section" aria-labelledby="referencia-title">
+        <h2 id="referencia-title">📝 Referencia Rápida de Padding</h2>
+        <p class="info" role="note">📋 Copia y pega estos ejemplos en tu código.</p>
+        <pre><code>/* Un solo valor (todos los lados) */
+            padding: 20px;
+
+            /* Dos valores (vertical | horizontal) */
+            padding: 10px 20px;
+
+            /* Tres valores (top | horizontal | bottom) */
+            padding: 10px 20px 30px;
+
+            /* Cuatro valores (top | right | bottom | left) - sentido horario */
+            padding: 10px 15px 20px 25px;
+
+            /* Lados individuales (menos común) */
+            padding-top: 10px;
+            padding-right: 15px;
+            padding-bottom: 20px;
+            padding-left: 25px;
+
+            /* Shorthand con unidades diferentes */
+            padding: 1rem 2em 3% 4vw;</code></pre>
+      </section>
+    </main>
+
+    <footer role="contentinfo" class="footer">
+      <div class="container">
+        <p>🎓 <strong>Guía Educativa de CSS</strong> - Practica estos conceptos en tus proyectos.</p>
+        <p class="footer-note">💡 <em>Consejo:</em> Usa siempre <code>box-sizing: border-box;</code> para un layout más
+          predecible.</p>
+        <p class="footer-meta">Hecho con ❤️ para la comunidad de desarrollo web</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Mejoras progresivas
+    document.addEventListener('DOMContentLoaded', function () {
+      // Añadir interactividad a las tarjetas
+      const cards = document.querySelectorAll('.box, .card');
+      cards.forEach(card => {
+        card.addEventListener('focus', function () {
+          this.style.zIndex = '10';
+        });
+
+        card.addEventListener('blur', function () {
+          this.style.zIndex = '1';
+        });
+      });
+
+      // Feedback táctil para botones
+      const buttons = document.querySelectorAll('.btn');
+      buttons.forEach(btn => {
+        btn.addEventListener('touchstart', function () {
+          this.style.transform = 'translateY(-1px)';
+        });
+
+        btn.addEventListener('touchend', function () {
+          this.style.transform = 'translateY(-3px)';
+        });
+      });
+
+      // Mejorar accesibilidad del código
+      const codeBlocks = document.querySelectorAll('pre');
+      codeBlocks.forEach(block => {
+        block.setAttribute('tabindex', '0');
+        block.setAttribute('role', 'textbox');
+        block.setAttribute('aria-label', 'Ejemplo de código CSS');
+      });
+    });
+  </script>
+</body>
+
+</html>

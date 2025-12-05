@@ -1,0 +1,348 @@
+/* =====================================
+   RESET
+   ===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-primary: #667eea;
+    --color-primary-dark: #5568d3;
+    --color-text: #2d3748;
+    --color-text-light: #718096;
+    --color-bg: #f7fafc;
+    --spacing: 1.5rem;
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+code {
+    background: #e2e8f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: var(--color-primary);
+}
+
+/* =====================================
+   HEADER
+   ===================================== */
+
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.header h1 {
+    font-size: 3rem;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+}
+
+/* =====================================
+   GALLERY - CSS GRID ⭐
+   ===================================== */
+
+.gallery {
+    /* ⭐ CSS GRID CON AUTO-FIT */
+    display: grid;
+    
+    /* ⭐ LA MAGIA ESTÁ AQUÍ */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    
+    /* Explicación:
+       - repeat(): Repite la definición de columnas
+       - auto-fit: Crea tantas columnas como quepan (responsive automático)
+       - minmax(250px, 1fr): Mínimo 250px, máximo 1 fracción del espacio
+       - Resultado: Se adapta a cualquier pantalla SIN media queries
+    */
+    
+    gap: var(--spacing);
+    margin-bottom: 4rem;
+}
+
+/* =====================================
+   GALLERY ITEMS
+   ===================================== */
+
+.gallery-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    
+    /* Aspect ratio para mantener proporción */
+    aspect-ratio: 1 / 1;
+}
+
+.gallery-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cubre el área sin distorsión */
+    display: block;
+    transition: var(--transition);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* Overlay */
+.overlay {
+    /* ⭐ POSITION ABSOLUTE - Relativo a .gallery-item */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.4) 50%,
+        transparent 100%
+    );
+    
+    color: white;
+    padding: 1.5rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .overlay {
+    transform: translateY(0);
+}
+
+.overlay h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.overlay p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* =====================================
+   FEATURED ITEMS - GRID POSITIONING ⭐
+   ===================================== */
+
+.gallery-item.featured {
+    /* ⭐ GRID POSITIONING: Ocupa 2 columnas */
+    grid-column: span 2;
+    
+    /* ⭐ O puedes usar: */
+    /* grid-column: auto / span 2; */
+    
+    /* En pantallas pequeñas, volverá a 1 columna automáticamente */
+}
+
+/* =====================================
+   EXPLANATION SECTION
+   ===================================== */
+
+.explanation {
+    background: white;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.explanation h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--color-text);
+}
+
+.code-example {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+}
+
+.code-example h3 {
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.code-example pre {
+    margin: 0;
+}
+
+.code-example code {
+    background: transparent;
+    color: #68d391;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    padding: 0;
+}
+
+/* =====================================
+   FEATURES GRID - FLEXBOX DENTRO DE GRID ⭐
+   ===================================== */
+
+.features-grid {
+    /* ⭐ También podemos usar Grid aquí */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.feature {
+    padding: 1.5rem;
+    background: var(--color-bg);
+    border-radius: 8px;
+    border-left: 4px solid var(--color-primary);
+}
+
+.feature h4 {
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.feature p {
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* =====================================
+   RESPONSIVE - SIN MEDIA QUERIES ⭐
+   ===================================== */
+
+/*
+💡 OBSERVA: NO HAY MEDIA QUERIES
+
+El grid se adapta automáticamente gracias a:
+- auto-fit: Ajusta el número de columnas
+- minmax(250px, 1fr): Define tamaño flexible
+- gap: Se mantiene consistente
+
+EN PANTALLAS GRANDES:
+grid-template-columns podría ser: 250px 250px 250px 250px 250px
+
+EN TABLET:
+grid-template-columns podría ser: 1fr 1fr 1fr
+
+EN MÓVIL:
+grid-template-columns podría ser: 1fr
+
+¡Todo automático!
+*/
+
+/* Sin embargo, podemos añadir media queries para ajustes finos */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .gallery-item.featured {
+        /* En móvil, los featured items vuelven a 1 columna */
+        grid-column: span 1;
+    }
+    
+    .explanation {
+        padding: 2rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .gallery {
+        gap: 1rem;
+    }
+    
+    .code-example {
+        padding: 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* =====================================
+   NOTAS EDUCATIVAS
+   ===================================== */
+
+/*
+📚 CONCEPTOS CLAVE APLICADOS:
+
+1. CSS GRID:
+   display: grid;
+   → Activa el sistema de grid
+
+2. AUTO-FIT:
+   repeat(auto-fit, ...)
+   → Crea tantas columnas como quepan
+   → Las columnas se ajustan automáticamente al ancho
+
+3. MINMAX():
+   minmax(250px, 1fr)
+   → Mínimo: 250px (no más pequeño)
+   → Máximo: 1fr (puede crecer para llenar espacio)
+
+4. GAP:
+   gap: 1.5rem;
+   → Espacio entre items
+   → Más limpio que usar margin
+
+5. GRID-COLUMN SPAN:
+   grid-column: span 2;
+   → El item ocupa 2 columnas
+   → Perfecto para items destacados
+
+6. ASPECT-RATIO:
+   aspect-ratio: 1 / 1;
+   → Mantiene proporción cuadrada
+   → Propiedad CSS moderna
+
+7. OBJECT-FIT:
+   object-fit: cover;
+   → La imagen cubre el área sin distorsión
+   → Como background-size: cover pero para <img>
+
+🎯 RESULTADO:
+   - Galería responsive SIN media queries (mayormente)
+   - Se adapta a cualquier pantalla automáticamente
+   - Items destacados ocupan más espacio
+   - Diseño limpio y moderno
+
+⚡ VENTAJAS DE ESTE ENFOQUE:
+   - Menos código
+   - Más mantenible
+   - Responsive intrínseco (no reactivo)
+   - Funciona en cualquier tamaño de pantalla
+*/

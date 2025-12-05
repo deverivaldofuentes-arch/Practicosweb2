@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solución: Modal Centrado</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Ejercicio: Modal Centrado</h1>
+        <p>Haz clic en el botón para abrir el modal</p>
+        <button class="btn-open">Abrir Modal</button>
+        
+        <div class="info">
+            <h3>Características del Modal:</h3>
+            <ul>
+                <li>Centrado con position: fixed</li>
+                <li>Overlay semitransparente</li>
+                <li>Cierre con botón X</li>
+                <li>Cierre al hacer clic fuera</li>
+                <li>Transiciones suaves</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="btn-close" aria-label="Cerrar modal">&times;</button>
+            <div class="modal-icon">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h2>¡Bienvenido al Modal!</h2>
+            <p>Este es un modal centrado usando <code>position: fixed</code>.</p>
+            <p>El modal está perfectamente centrado tanto horizontal como verticalmente usando flexbox en el overlay.</p>
+            <div class="modal-features">
+                <div class="feature">
+                    <span class="feature-icon">✓</span>
+                    <span>Centrado perfecto</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">✓</span>
+                    <span>Overlay responsive</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">✓</span>
+                    <span>Animaciones suaves</span>
+                </div>
+            </div>
+            <button class="btn-modal-action">Entendido</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominando el Espaciado: Guía Definitiva del Padding CSS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .slide-container {
+            position: relative;
+            width: 900px;
+            height: 600px;
+            perspective: 1000px;
+        }
+        
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1.000), opacity 0.6s;
+            backface-visibility: hidden;
+            opacity: 0;
+            transform: rotateY(90deg);
+        }
+        
+        .slide.active {
+            opacity: 1;
+            transform: rotateY(0);
+        }
+        
+        .slide.next {
+            transform: rotateY(-90deg);
+        }
+        
+        .slide-title {
+            font-size: 2.4rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: 700;
+        }
+        
+        .slide-content {
+            flex: 1;
+            display: flex;
+            gap: 30px;
+        }
+        
+        .text-content {
+            flex: 1;
+        }
+        
+        .visual-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        ul {
+            padding-left: 25px;
+            margin: 20px 0;
+            line-height: 1.7;
+        }
+        
+        li {
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+            color: #2c3e50;
+        }
+        
+        .box-model {
+            width: 280px;
+            height: 280px;
+            background: #ecf0f1;
+            border: 8px solid #3498db;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+        }
+        
+        .padding-area {
+            width: 100%;
+            height: 100%;
+            background: #3498db;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            position: absolute;
+            padding: 30px;
+            box-sizing: content-box;
+        }
+        
+        .content-area {
+            background: #2ecc71;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .arrow {
+            position: absolute;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        .arrow-top {
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .arrow-right {
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .arrow-bottom {
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .arrow-left {
+            left: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .clock-diagram {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: #3498db;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+        
+        .clock-hand {
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background: white;
+            transform-origin: 0 50%;
+        }
+        
+        .clock-hand.top {
+            transform: rotate(0deg) translateY(-110px);
+        }
+        
+        .clock-hand.right {
+            transform: rotate(90deg) translateY(-110px);
+        }
+        
+        .clock-hand.bottom {
+            transform: rotate(180deg) translateY(-110px);
+        }
+        
+        .clock-hand.left {
+            transform: rotate(270deg) translateY(-110px);
+        }
+        
+        .clock-label {
+            position: absolute;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        
+        .clock-label.top {
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .clock-label.right {
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+        
+        .clock-label.bottom {
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .clock-label.left {
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+        }
+        
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin: 30px auto;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: default;
+            transition: all 0.3s;
+            width: 200px;
+            margin: 0 auto;
+        }
+        
+        .btn-small {
+            background: #3498db;
+            padding: 5px 10px;
+        }
+        
+        .btn-medium {
+            background: #2ecc71;
+            padding: 10px 20px;
+        }
+        
+        .btn-large {
+            background: #e74c3c;
+            padding: 15px 30px;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        
+        .box-sizing-comparison {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .box {
+            width: 150px;
+            height: 150px;
+            border: 3px solid #3498db;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px 5px;
+            font-weight: bold;
+        }
+        
+        .box.content-box {
+            box-sizing: content-box;
+            background: rgba(231, 76, 60, 0.2);
+        }
+        
+        .box.border-box {
+            box-sizing: border-box;
+            background: rgba(46, 204, 113, 0.2);
+        }
+        
+        .navigation {
+            position: absolute;
+            bottom: 30px;
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .nav-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.1);
+            background: #2980b9;
+        }
+        
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .slide-counter {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #fffacd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1 class="slide-title">Dominando el Espaciado: Guía Definitiva del Padding CSS</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <p style="font-size: 1.8rem; line-height: 1.6; margin-top: 80px;">
+                        Una presentación para estudiantes de <span style="color:#3498db; font-weight:bold">Frontend Junior</span><br>
+                        <span style="font-size:1.4rem; color:#7f8c8d; margin-top:20px; display:block">Profesional · Educativo · Minimalista</span>
+                    </p>
+                </div>
+                <div class="visual-content">
+                    <div class="box-model">
+                        <div class="padding-area">
+                            <div class="content-area">Contenido</div>
+                        </div>
+                        <div class="arrow arrow-top">padding-top</div>
+                        <div class="arrow arrow-right">padding-right</div>
+                        <div class="arrow arrow-bottom">padding-bottom</div>
+                        <div class="arrow arrow-left">padding-left</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">1/8</div>
+        </div>
+        
+        <!-- Slide 2: Definition -->
+        <div class="slide">
+            <h1 class="slide-title">¿Qué es el Padding?</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <ul>
+                        <li>Espacio <span class="highlight">interno</span> entre el contenido y el borde del elemento</li>
+                        <li>A diferencia del <span style="color:#e74c3c">margin</span> (espacio externo)</li>
+                        <li>Afecta directamente el tamaño total del elemento</li>
+                        <li>No se colapsa como los márgenes</li>
+                    </ul>
+                </div>
+                <div class="visual-content">
+                    <div class="box-model">
+                        <div class="padding-area" style="background:#2980b9; padding:35px">
+                            <div class="content-area" style="background:#27ae60">Contenido</div>
+                        </div>
+                        <div style="position:absolute; top:40%; left:40%; font-weight:bold; color:#e74c3c">MARGIN (externo)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">2/8</div>
+        </div>
+        
+        <!-- Slide 3: Clock Rule -->
+        <div class="slide">
+            <h1 class="slide-title">La Regla del Reloj (TRBL)</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <ul>
+                        <li>Orden de los valores: <span class="highlight">Top → Right → Bottom → Left</span></li>
+                        <li>Sentido horario a partir de las 12</li>
+                        <li>Aplica para padding y margin</li>
+                        <li>Mnemotecnia: <span style="font-style:italic">"El reloj nunca miente"</span></li>
+                    </ul>
+                    <div class="code-block" style="margin-top:30px">
+                        /* Sentido horario */<br>
+                        padding: 10px 20px 15px 25px;<br>
+                        /*<br>
+                        10px = Top<br>
+                        20px = Right<br>
+                        15px = Bottom<br>
+                        25px = Left<br>
+                        */
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="clock-diagram">
+                        <div class="clock-hand top"></div>
+                        <div class="clock-hand right"></div>
+                        <div class="clock-hand bottom"></div>
+                        <div class="clock-hand left"></div>
+                        <div class="clock-label top">TOP</div>
+                        <div class="clock-label right">RIGHT</div>
+                        <div class="clock-label bottom">BOTTOM</div>
+                        <div class="clock-label left">LEFT</div>
+                        <div style="font-size:0.9rem; margin-top:25px">Sentido Horario</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">3/8</div>
+        </div>
+        
+        <!-- Slide 4: Shorthand Syntax -->
+        <div class="slide">
+            <h1 class="slide-title">Sintaxis Abreviada</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <ul>
+                        <li><span class="highlight">1 valor</span>: todos los lados<br><span style="color:#7f8c8d">(padding: 20px)</span></li>
+                        <li><span class="highlight">2 valores</span>: vertical + horizontal<br><span style="color:#7f8c8d">(padding: 10px 30px)</span></li>
+                        <li><span class="highlight">3 valores</span>: top + horizontal + bottom<br><span style="color:#7f8c8d">(padding: 10px 20px 15px)</span></li>
+                        <li><span class="highlight">4 valores</span>: TRBL completo<br><span style="color:#7f8c8d">(padding: 5px 10px 15px 20px)</span></li>
+                    </ul>
+                </div>
+                <div class="visual-content">
+                    <div style="text-align:center">
+                        <div class="box-model" style="width:220px; height:220px; margin:0 auto">
+                            <div class="padding-area" style="background:#9b59b6; padding:25px">
+                                <div class="content-area" style="background:#8e44ad">4 valores</div>
+                            </div>
+                        </div>
+                        <div class="box-model" style="width:220px; height:220px; margin:20px auto">
+                            <div class="padding-area" style="background:#f39c12; padding:15px 35px">
+                                <div class="content-area" style="background:#d35400">2 valores</div>
+                            </div>
+                        </div>
+                        <div class="box-model" style="width:220px; height:220px; margin:0 auto">
+                            <div class="padding-area" style="background:#1abc9c; padding:30px">
+                                <div class="content-area" style="background:#16a085">1 valor</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">4/8</div>
+        </div>
+        
+        <!-- Slide 5: Box Sizing -->
+        <div class="slide">
+            <h1 class="slide-title">El Problema Matemático: Box Sizing</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <ul>
+                        <li><span class="highlight">content-box</span> (default):<br>ancho = contenido + padding + borde</li>
+                        <li><span class="highlight">border-box</span> (recomendado):<br>ancho = contenido (incluye padding y borde)</li>
+                        <li>Solución moderna:<br><span style="color:#3498db; font-weight:bold">*, *::before, *::after {<br>&nbsp;&nbsp;box-sizing: border-box;<br>}</span></li>
+                    </ul>
+                </div>
+                <div class="visual-content">
+                    <div class="box-sizing-comparison">
+                        <div class="box content-box">
+                            content-box<br>
+                            <span style="font-size:0.9rem; margin-top:5px; display:block">(150px + padding)</span>
+                        </div>
+                        <div class="box border-box">
+                            border-box<br>
+                            <span style="font-size:0.9rem; margin-top:5px; display:block">(150px total)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">5/8</div>
+        </div>
+        
+        <!-- Slide 6: Button Examples -->
+        <div class="slide">
+            <h1 class="slide-title">Ejemplos Prácticos: Botones</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <ul>
+                        <li>Padding controla el "aliento" del botón</li>
+                        <li>Mejor legibilidad y área de clic</li>
+                        <li>Consistencia visual con diferentes textos</li>
+                        <li>Nunca uses height/width en botones, usa padding</li>
+                    </ul>
+                    <div class="code-block" style="margin-top:25px">
+                        .btn-small { padding: 5px 10px }<br>
+                        .btn-medium { padding: 10px 20px }<br>
+                        .btn-large { padding: 15px 30px }
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="button-container">
+                        <button class="btn btn-small">Pequeño</button>
+                        <button class="btn btn-medium">Mediano</button>
+                        <button class="btn btn-large">Grande</button>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">6/8</div>
+        </div>
+        
+        <!-- Slide 7: Key Takeaways -->
+        <div class="slide">
+            <h1 class="slide-title">Puntos Clave</h1>
+            <div class="slide-content">
+                <div class="text-content">
+                    <ul style="margin-top:50px">
+                        <li>Padding = espacio interno, margin = espacio externo</li>
+                        <li>TRBL: Orden de valores en sentido horario</li>
+                        <li>Sintaxis abreviada ahorra líneas de código</li>
+                        <li>Siempre usa <span style="color:#3498db">box-sizing: border-box</span> globalmente</li>
+                        <li>Padding es la herramienta ideal para componentes como botones</li>
+                    </ul>
+                </div>
+                <div class="visual-content">
+                    <div style="text-align:center; font-size:5rem; color:#3498db; font-weight:bold; margin-top:80px">CSS<br>BOX<br>MODEL</div>
+                </div>
+            </div>
+            <div class="slide-counter">7/8</div>
+        </div>
+        
+        <!-- Slide 8: Q&A -->
+        <div class="slide">
+            <h1 class="slide-title">¡Preguntas y Práctica!</h1>
+            <div class="slide-content">
+                <div class="text-content" style="text-align:center; margin-top:100px">
+                    <p style="font-size:1.8rem; margin-bottom:30px">Ahora es tu turno</p>
+                    <p style="font-size:1.4rem; color:#7f8c8d; line-height:1.7">
+                        Practica con los ejercicios proporcionados<br>
+                        Experimenta con diferentes valores de padding<br>
+                        Compara content-box vs border-box
+                    </p>
+                </div>
+                <div class="visual-content">
+                    <div class="box-model" style="width:250px; height:250px; margin:0 auto">
+                        <div class="padding-area" style="background:#e67e22; padding:40px">
+                            <div class="content-area" style="background:#d35400; font-size:1.5rem">¡A CODIFICAR!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-counter">8/8</div>
+        </div>
+        
+        <div class="navigation">
+            <button class="nav-btn" id="prev">←</button>
+            <button class="nav-btn" id="next">→</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev');
+            const nextBtn = document.getElementById('next');
+            let currentSlide = 0;
+            
+            function updateSlides() {
+                slides.forEach((slide, index) => {
+                    slide.classList.remove('active', 'next');
+                    
+                    if (index === currentSlide) {
+                        slide.classList.add('active');
+                    } else if (index === currentSlide + 1) {
+                        slide.classList.add('next');
+                    }
+                });
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateSlides();
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateSlides();
+                }
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    prevBtn.click();
+                } else if (e.key === 'ArrowRight') {
+                    nextBtn.click();
+                }
+            });
+            
+            // Initialize
+            updateSlides();
+        });
+    </script>
+</body>
+</html>
+
