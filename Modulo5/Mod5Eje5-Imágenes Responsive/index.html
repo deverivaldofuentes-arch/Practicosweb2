@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5: Imágenes Responsive</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Ejercicio 5: Imágenes Responsive</h1>
+        <p>Abre las herramientas de desarrollador (F12) y redimensiona la ventana para ver los cambios.</p>
+    </header>
+
+    <main class="container">
+
+        <section>
+            <h2>1. Srcset y Sizes (Misma imagen, distintos tamaños)</h2>
+            <p>El navegador elige la mejor imagen basándose en el ancho de pantalla y la densidad de píxeles (DPI).</p>
+            
+            <img 
+                src="https://placehold.co/400x300?text=Fallback+Img" 
+                srcset="
+                    https://placehold.co/400x300?text=Small+400w 400w,
+                    https://placehold.co/800x600?text=Medium+800w 800w,
+                    https://placehold.co/1200x900?text=Large+1200w 1200w
+                "
+                sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                alt="Ejemplo de srcset"
+                loading="lazy"
+                class="responsive-img"
+            >
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>2. Elemento Picture (Art Direction)</h2>
+            <p>Usamos una imagen vertical para móviles y una horizontal panorámica para escritorio.</p>
+            
+            <picture>
+                <source 
+                    media="(min-width: 1024px)" 
+                    srcset="https://placehold.co/1200x400/2ecc71/white?text=Desktop+Wide+(Art+Direction)"
+                >
+                <source 
+                    media="(min-width: 768px)" 
+                    srcset="https://placehold.co/800x500/3498db/white?text=Tablet+(Art+Direction)"
+                >
+                <img 
+                    src="https://placehold.co/400x400/e74c3c/white?text=Mobile+Square" 
+                    alt="Ejemplo de art direction"
+                    loading="lazy"
+                    class="responsive-img"
+                >
+            </picture>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>3. Background Image Responsive (CSS)</h2>
+            <p>La imagen de fondo de este div cambia según media queries en CSS.</p>
+            <div class="hero-background">
+                <h3>Contenido sobre el fondo</h3>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Fin del Ejercicio</p>
+    </footer>
+
+</body>
+</html>
