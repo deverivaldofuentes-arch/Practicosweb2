@@ -1,0 +1,363 @@
+/* ====================================
+   RESETEO Y ESTILOS GLOBALES
+   ==================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;               /* Evita problemas de padding/margin en todos los elementos */
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1a1a2e;                  /* Fondo oscuro elegante */
+    color: white;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;                       /* Centra el contenido principal */
+}
+.section {
+    padding: 4rem 2rem;                   /* Espaciado cómodo en todas las secciones */
+}
+.section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+}
+
+/* ================================
+   HERO SECTION
+   ================================ */
+.hero {
+    min-height: 100vh;                    /* Ocupa toda la pantalla inicial */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.hero-title {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    animation: fadeInDown 1s ease;        /* Aparece bajando desde arriba
+}
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    animation: fadeInUp 1s ease 0.3s backwards; /* Aparece subiendo con retraso */
+}
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-50px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Indicador de scroll */
+.scroll-indicator {
+    margin-top: 4rem;
+    animation: fadeInUp 1s ease 0.6s backwards;
+}
+.arrow {
+    width: 30px;
+    height: 30px;
+    border-right: 3px solid white;
+    border-bottom: 3px solid white;
+    transform: rotate(45deg);             /* Forma de flecha hacia abajo */
+    margin: 1rem auto;
+    animation: bounce 2s infinite;        /* Rebota para invitar a hacer scroll */
+}
+@keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(45deg); }
+    50%      { transform: translateY(-20px) rotate(45deg); }
+}
+
+/* ================================
+   LOADING ANIMATIONS
+   ================================ */
+.loaders {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 4rem;
+    flex-wrap: wrap;                      /* Responsive para móviles */
+}
+
+/* Spinner giratorio clásico */
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Tres puntitos rebotando */
+.dots {
+    display: flex;
+    gap: 0.5rem;
+}
+.dot {
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 50%;
+    animation: dotPulse 1.4s infinite both;
+}
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dotPulse {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+    40%           { transform: scale(1);   opacity: 1; }
+}
+
+/* Anillo que se expande y desaparece */
+.pulse-ring {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(102, 126, 234, 0.5);
+    animation: pulseRing 2s infinite;
+}
+@keyframes pulseRing {
+    0%   { transform: scale(0.8); opacity: 1; }
+    100% { transform: scale(2);   opacity: 0; }
+}
+
+/* ================================
+   CARDS CON EFECTOS HOVER
+   ================================ */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+.card {
+    height: 300px;
+    background: #2a2a3e;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Flip Card 3D */
+.card-flip { perspective: 1000px; }
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;         /* Oculta la cara trasera mientras gira */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.6s;
+}
+.card-back {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: rotateY(180deg);
+}
+.card-flip:hover .card-front { transform: rotateY(-180deg); }
+.card-flip:hover .card-back  { transform: rotateY(0); }
+
+/* Overlay que sube al hacer hover */
+.card-slide img { width: 100%; height: 100%; object-fit: cover; }
+.card-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    padding: 2rem;
+    transform: translateY(100%);
+    transition: transform 0.4s;
+}
+.card-slide:hover .card-overlay { transform: translateY(0); }
+
+/* Zoom de imagen */
+.card-zoom { overflow: hidden; }
+.card-zoom img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s;
+}
+.card-zoom:hover img { transform: scale(1.2); }
+.card-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+}
+
+/* ================================
+   ANIMACIONES AL HACER SCROLL
+   ================================ */
+.animate-on-scroll {
+    opacity: 0;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: #2a2a3e;
+    border-radius: 10px;
+}
+.animate-on-scroll.visible { opacity: 1; }
+
+.fade-in.visible      { animation: fadeIn 1s ease forwards; }
+.slide-in-left.visible  { animation: slideInLeft 0.8s ease forwards; }
+.slide-in-right.visible { animation: slideInRight 0.8s ease forwards; }
+.zoom-in.visible       { animation: zoomIn 0.8s ease forwards; }
+
+@keyframes fadeIn      { to { opacity: 1; } }
+@keyframes slideInLeft  { from { transform: translateX(-100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideInRight { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes zoomIn      { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* ================================
+   BOTONES CON EFECTOS
+   ================================ */
+.buttons-grid {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+/* Ripple (onda que sale del clic) */
+.btn-ripple { background: #667eea; color: white; }
+.btn-ripple::before {
+    content: '';
+    position: absolute;
+    width: 0; height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+.btn-ripple:active::before {   /* Se activa con click, no solo hover */
+    width: 300px;
+    height: 300px;
+}
+
+/* Fondo que se desliza de izquierda a derecha */
+.btn-slide {
+    background: transparent;
+    border: 2px solid #667eea;
+    color: #667eea;
+}
+.btn-slide::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: #667eea;
+    transition: left 0.3s;
+    z-index: -1;
+}
+.btn-slide:hover { color: white; }
+.btn-slide:hover::before { left: 0; }
+
+/* Brillo intenso */
+.btn-glow {
+    background: #667eea;
+    color: white;
+    box-shadow: 0 0 0 rgba(102,126,234,0.5);
+    transition: box-shadow 0.3s;
+}
+.btn-glow:hover {
+    box-shadow: 0 0 20px rgba(102,126,234,0.8),
+                0 0 40px rgba(102,126,234,0.6);
+}
+
+/* Rebote */
+.btn-bounce { background: #667eea; color: white; }
+.btn-bounce:hover { animation: bounceBtn 0.5s; }
+@keyframes bounceBtn {
+    0%,100% { transform: translateY(0); }
+    25%    { transform: translateY(-10px); }
+    50%    { transform: translateY(0); }
+    75%    { transform: translateY(-5px); }
+}
+
+/* ================================
+   ANIMACIONES DE TEXTO
+   ================================ */
+/* Efecto Glitch estilo cyberpunk */
+.glitch {
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    color: white;
+    animation: glitchText 5s infinite;
+}
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+}
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00de;
+    animation: glitchAnim 3s infinite linear alternate-reverse;
+}
+.glitch::after {
+    left: -2px;
+    text-shadow: 2px 0 #00ffff;
+    animation: glitchAnim 2s infinite linear alternate-reverse;
+}
+@keyframes glitchAnim {
+    0%   { clip-path: inset(40% 0 61% 0); }
+    20%  { clip-path: inset(92% 0 1% 0); }
+    40%  { clip-path: inset(43% 0 1% 0); }
+    60%  { clip-path: inset(25% 0 58% 0); }
+    80%  { clip-path: inset(54% 0 7% 0); }
+    100% { clip-path: inset(58% 0 43% 0); }
+}
+
+/* Texto con gradiente animado animado */
+.gradient-text {
+    font-size: 4rem;
+    text-align: center;
+    background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s ease infinite;
+}
+@keyframes gradientShift {
+    0%,100% { background-position: 0% 50%; }
+    50%    { background-position: 100% 50%; }
+}
+
+/* Efecto máquina de escribir + cursor parpadeante */
+.typing-text {
+    font-size: 3rem;
+    text-align: center;
+    overflow: hidden;
+    border-right: 3px solid white;        /* Cursor */
+    white-space: nowrap;
+    animation: typing 3.5s steps(40) 1s 1 normal both,
+               blink 0.7s infinite;
+}
+@keyframes typing {
+    from { width: 0; }
+    to   { width: 100%; }
+}
+@keyframes blink {
+    50% { border-color: transparent; }
+}

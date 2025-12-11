@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light"> <!-- data-theme controla el tema actual (light/dark) -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título que aparece en la pestaña del navegador -->
+    <title>Theme Switcher</title>
+    <!-- Hoja de estilos donde están todos los colores y el interruptor de tema -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ==================== INTERRUPTOR DE TEMA ==================== -->
+    <div class="theme-switch-wrapper">
+        <!-- Label que actúa como botón grande y accesible para el checkbox -->
+        <label class="theme-switch" for="checkbox">
+            <!-- Checkbox real (oculto visualmente, solo para funcionalidad) -->
+            <input type="checkbox" id="checkbox" />
+            <!-- Slider visual con forma redondeada que se mueve al cambiar el tema -->
+            <div class="slider round"></div>
+        </label>
+        <!-- Texto descriptivo al lado del interruptor -->
+        <span>Cambiar Tema</span>
+    </div>
+
+    <!-- ==================== TARJETA DE PERFIL ==================== -->
+    <div class="card">
+        <!-- Contenedor del avatar con efecto circular -->
+        <div class="avatar-container">
+            <img src="https://i.pravatar.cc/150?img=32" alt="Jane Doe" class="avatar">
+        </div>
+
+        <!-- Nombre completo -->
+        <h2>Jane Doe</h2>
+
+        <!-- Rol o profesión -->
+        <p class="role">Frontend Developer</p>
+
+        <!-- Descripción corta / bio -->
+        <p class="desc">Enthusiastic about clean code and user-centric designs.</p>
+       
+        <!-- Botones de acción -->
+        <div class="buttons">
+            <button class="btn btn-outline">Follow</button>
+            <button class="btn btn-outline">Message</button>
+        </div>
+    </div>
+
+    <!-- Script que controla el cambio de tema (guardar en localStorage, toggle clase, etc.) -->
+    <script src="app.js"></script>
+</body>
+</html>

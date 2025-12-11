@@ -1,0 +1,180 @@
+/* =========================================
+   1. DEFINICIÓN DE VARIABLES GLOBALES (:root)
+   ========================================= */
+/* Paleta de colores base (primitivos) – nunca se usan directamente en los componentes */
+:root {
+    --color-white: #ffffff;
+    --color-gray-50: #f9f9f9;
+    --color-gray-100: #e0e0e0;
+    --color-gray-500: #666666;
+    --color-gray-800: #333333;
+    --color-dark-bg: #1e1e1e;
+    --color-dark-card: #2d2d2d;
+    --color-blue: #0056b3;
+
+    /* VARIABLES SEMÁNTICAS → Aquí está la magia del theme switcher
+       Estas son las que realmente usan los elementos. Al cambiar el tema,
+       solo modificamos a qué valor apuntan estas variables. */
+    --bg-body: var(--color-gray-50);        /* Fondo del body en modo claro */
+    --bg-card: var(--color-white);          /* Fondo de la tarjeta en modo claro */
+    --text-primary: var(--color-gray-800);  /* Textos principales */
+    --text-secondary: var(--color-gray-500);/* Textos secundarios */
+    --btn-border: var(--color-blue);        /* Color del borde y texto de botones */
+    --btn-text: var(--color-blue);
+    --shadow-color: rgba(0, 0, 0, 0.1);     /* Sombra suave en modo claro */
+}
+
+/* =========================================
+   2. TEMA OSCURO – Sobrescribe solo las variables semánticas
+   ========================================= */
+[data-theme="dark"] {
+    /* ¡No tocamos ningún selector de componente! Solo cambiamos los valores de las variables */
+    --bg-body: #121212;             /* Fondo muy oscuro (estilo Material Dark) */
+    --bg-card: var(--color-dark-card);     /* Tarjeta gris oscuro */
+    --text-primary: var(--color-white);    /* Texto principal blanco */
+    --text-secondary: #aaaaaa;             /* Texto secundario gris claro */
+    --shadow-color: rgba(0, 0, 0, 0.5);     /* Sombra más intensa en modo oscuro */
+    --btn-border: #90caf9;                 /* Azul claro para buen contraste en fondo oscuro */
+    --btn-text: #90caf9;
+}
+
+/* =========================================
+   3. ESTILOS GENERALES – Usan exclusivamente variables semánticas
+   ========================================= */
+body {
+    background-color: var(--bg-body);       /* Cambia automáticamente según el tema */
+    color: var(--text-primary);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    /* Transiciones suaves al cambiar de tema */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Tarjeta principal – también usa solo variables */
+.card {
+    background-color: var(--bg-card);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    text-align: center;
+    width: 300px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    background-color: #ccc; /* Color de fondo por si la imagen falla */
+}
+
+h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.role {
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin: 5px 0;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+/* Botones outline reutilizables */
+.buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 8px 20px;
+    border: 2px solid var(--btn-border);
+    background: transparent;
+    color: var(--btn-text);
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--btn-border);
+    color: var(--bg-card); /* Texto toma el color del fondo de la tarjeta → contraste perfecto */
+}
+
+/* =========================================
+   4. INTERRUPTOR DE TEMA (Toggle Switch bonito y accesible)
+   ========================================= */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+    margin-right: 10px;
+}
+
+/* Ocultamos el checkbox real (mejor experiencia y accesibilidad) */
+.theme-switch input {
+    display: none;
+}
+
+/* Carril del interruptor */
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+/* Bolita que se desliza */
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+    border-radius: 50%;
+}
+
+/* Estado activado (tema oscuro) */
+input:checked + .slider {
+    background-color: #0056b3; /* Azul intenso cuando está ON */
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px); /* La bolita se mueve a la derecha */
+}
+
+/* Opcional: foco visible para accesibilidad */
+input:focus + .slider {
+    box-shadow: 0 0 1px #0056b3;
+}

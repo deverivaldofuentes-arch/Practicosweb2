@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título de la página que aparece en la pestaña del navegador -->
+    <title>Animaciones CSS Avanzadas</title>
+    <!-- Hoja de estilos externa donde están todas las animaciones -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ==================== HERO ==================== -->
+        <!-- Sección principal con fondo y animación de entrada -->
+        <section class="hero">
+            <h1 class="hero-title">Animaciones CSS</h1>
+            <p class="hero-subtitle">Explora el poder de las animaciones avanzadas</p>
+            <!-- Indicador visual para invitar al usuario a hacer scroll -->
+            <div class="scroll-indicator">
+                <span>Scroll</span>
+                <div class="arrow"></div>
+            </div>
+        </section>
+
+        <!-- ==================== LOADERS ==================== -->
+        <section class="section">
+            <h2>Loading Animations</h2>
+            <!-- Contenedor que agrupa diferentes tipos de spinners -->
+            <div class="loaders">
+                <!-- Spinner clásico giratorio -->
+                <div class="spinner"></div>
+                <!-- Tres puntitos que rebotan (estilo "cargando..." clásico) -->
+                <div class="dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <!-- Anillo que pulsa (muy usado en apps modernas) -->
+                <div class="pulse-ring"></div>
+            </div>
+        </section>
+
+        <!-- ==================== CARDS CON HOVER ==================== -->
+        <section class="section">
+            <h2>Hover Effects Avanzados</h2>
+            <div class="cards-grid">
+                <!-- Tarjeta que rota en 3D al pasar el ratón -->
+                <div class="card card-flip">
+                    <div class="card-front">
+                        <h3>Flip Card</h3>
+                        <p>Hover para voltear</p>
+                    </div>
+                    <div class="card-back">
+                        <h3>¡Sorpresa!</h3>
+                        <p>Efecto flip 3D</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta con overlay que se desliza desde abajo -->
+                <div class="card card-slide">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop" alt="Image">
+                    <div class="card-overlay">
+                        <h3>Slide Overlay</h3>
+                        <p>Overlay deslizante</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta cuya imagen hace zoom al hacer hover -->
+                <div class="card card-zoom">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=300&fit=crop" alt="Image">
+                    <div class="card-content">
+                        <h3>Zoom Effect</h3>
+                        <p>Imagen con zoom</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== ANIMACIONES AL HACER SCROLL ==================== -->
+        <section class="section">
+            <h2>Scroll Animations</h2>
+            <!-- Cada bloque tiene la clase animate-on-scroll + el tipo de animación -->
+            <div class="animate-on-scroll fade-in">
+                <h3>Fade In</h3>
+                <p>Aparece suavemente al hacer scroll</p>
+            </div>
+            <div class="animate-on-scroll slide-in-left">
+                <h3>Slide from Left</h3>
+                <p>Entra desde la izquierda</p>
+            </div>
+            <div class="animate-on-scroll slide-in-right">
+                <h3>Slide from Right</h3>
+                <p>Entra desde la derecha</p>
+            </div>
+            <div class="animate-on-scroll zoom-in">
+                <h3>Zoom In</h3>
+                <p>Crece desde el centro</p>
+            </div>
+        </section>
+
+        <!-- ==================== BOTONES CON EFECTOS ==================== -->
+        <section class="section">
+            <h2>Button Animations</h2>
+            <div class="buttons-grid">
+                <button class="btn btn-ripple">Ripple Effect</button>
+                <button class="btn btn-slide">Slide Background</button>
+                <button class="btn btn-glow">Glow Effect</button>
+                <button class="btn btn-bounce">Bounce Effect</button>
+            </div>
+        </section>
+
+        <!-- ==================== ANIMACIONES DE TEXTO ==================== -->
+        <section class="section">
+            <h2>Text Animations</h2>
+            <!-- Efecto glitch muy popular en diseños cyberpunk -->
+            <h1 class="glitch" data-text="GLITCH">GLITCH</h1>
+            <!-- Texto con gradiente animado que se mueve -->
+            <h1 class="gradient-text">Gradient Animation</h1>
+            <!-- Simulación de máquina de escribir -->
+            <h1 class="typing-text">Texto escribiéndose...</h1>
+        </section>
+    </div>
+
+    <!-- Script que probablemente controla las animaciones al hacer scroll (Intersection Observer, etc.) -->
+    <script src="script.js"></script>
+</body>
+</html>
