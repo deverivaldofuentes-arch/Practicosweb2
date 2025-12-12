@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Estilo Gótico Nórdico</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-primary: #2E3440; /* Gris oscuro nórdico */
+            --color-secondary: #4C566A; /* Gris medio nórdico */
+            --color-accent: #5E81AC; /* Azul nórdico suave */
+            --color-light: #ECEFF4; /* Blanco nórdico */
+            --color-bg: #F8F9FA; /* Fondo muy claro */
+            --color-text: #2E3440; /* Texto oscuro */
+            --color-highlight: #88C0D0; /* Azul claro nórdico */
+            --color-border: #D8DEE9; /* Borde suave */
+            --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-gothic: 0 0 20px rgba(94, 129, 172, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(136, 192, 208, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(94, 129, 172, 0.05) 0%, transparent 20%);
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Encabezado gótico */
+        .header {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+        }
+
+        .title {
+            font-family: 'Palatino Linotype', 'Book Antiqua', serif;
+            font-size: 3.2rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--color-secondary);
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+
+        .gothic-decoration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1.5rem 0;
+            gap: 1.5rem;
+        }
+
+        .gothic-line {
+            height: 2px;
+            width: 80px;
+            background-color: var(--color-border);
+        }
+
+        .gothic-icon {
+            color: var(--color-accent);
+            font-size: 1.5rem;
+        }
+
+        /* Panel de módulos */
+        .modules-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .module-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            border: 1px solid var(--color-border);
+        }
+
+        .module-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--color-highlight);
+        }
+
+        .module-header {
+            background-color: var(--color-primary);
+            color: var(--color-light);
+            padding: 1.2rem 1.5rem;
+            position: relative;
+        }
+
+        .module-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--color-accent);
+        }
+
+        .module-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .module-title i {
+            color: var(--color-highlight);
+        }
+
+        .module-content {
+            padding: 1.5rem;
+        }
+
+        .exercise-list {
+            list-style-type: none;
+        }
+
+        .exercise-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px dashed var(--color-border);
+            transition: all 0.2s;
+        }
+
+        .exercise-item:last-child {
+            border-bottom: none;
+        }
+
+        .exercise-item:hover {
+            background-color: rgba(136, 192, 208, 0.05);
+            padding-left: 8px;
+        }
+
+        .exercise-link {
+            text-decoration: none;
+            color: var(--color-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.2s;
+        }
+
+        .exercise-link:hover {
+            color: var(--color-accent);
+        }
+
+        .exercise-link i {
+            font-size: 0.9rem;
+            color: var(--color-highlight);
+        }
+
+        .exercise-name {
+            flex: 1;
+        }
+
+        .file-count {
+            background-color: var(--color-light);
+            color: var(--color-secondary);
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            color: var(--color-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .modules-panel {
+                grid-template-columns: 1fr;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .module-card {
+                margin: 0 10px;
+            }
+        }
+
+        /* Elementos decorativos góticos */
+        .gothic-border {
+            position: relative;
+            padding: 15px;
+        }
+
+        .gothic-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--color-border), transparent);
+        }
+
+        .gothic-border::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--color-border), transparent);
+        }
+
+        .pillar {
+            width: 6px;
+            height: 100%;
+            background-color: var(--color-accent);
+            position: absolute;
+            left: 20px;
+            top: 0;
+            opacity: 0.2;
+        }
+
+        .decorative-corner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--color-highlight);
+            opacity: 0.4;
+        }
+
+        .corner-tl {
+            top: 15px;
+            left: 15px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-tr {
+            top: 15px;
+            right: 15px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner-bl {
+            bottom: 15px;
+            left: 15px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner-br {
+            bottom: 15px;
+            right: 15px;
+            border-left: none;
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Portafolio de Proyectos</h1>
+            <p class="subtitle">Estilo Gótico Nórdico</p>
+            
+            <div class="gothic-decoration">
+                <div class="gothic-line"></div>
+                <i class="fas fa-code gothic-icon"></i>
+                <div class="gothic-line"></div>
+            </div>
+            
+            <p>Explora mis módulos de aprendizaje y proyectos de desarrollo web</p>
+        </header>
+
+        <main>
+            <div class="modules-panel">
+                <!-- Módulo 1 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <h2 class="module-title"><i class="fas fa-book"></i> Módulo 1: Fundamentos</h2>
+                    </div>
+                    <div class="module-content">
+                        <ul class="exercise-list">
+                            <li class="exercise-item">
+                                <a href="Modulo1/ARTICULO/index.html" class="exercise-link">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span class="exercise-name">Artículo de Perfil</span>
+                                    <span class="file-count">3 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo1/BORDERS/index.html" class="exercise-link">
+                                    <i class="fas fa-border-style"></i>
+                                    <span class="exercise-name">Bordes CSS</span>
+                                    <span class="file-count">2 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo1/NAVEGACION/index.html" class="exercise-link">
+                                    <i class="fas fa-compass"></i>
+                                    <span class="exercise-name">Navegación</span>
+                                    <span class="file-count">6 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo1/PADDINGS/index.html" class="exercise-link">
+                                    <i class="fas fa-square"></i>
+                                    <span class="exercise-name">Paddings CSS</span>
+                                    <span class="file-count">3 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo1/TARJETA-PERFIL/index.html" class="exercise-link">
+                                    <i class="fas fa-id-card"></i>
+                                    <span class="exercise-name">Tarjeta de Perfil</span>
+                                    <span class="file-count">3 archivos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Módulo 2 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <h2 class="module-title"><i class="fas fa-cube"></i> Módulo 2: Box Model</h2>
+                    </div>
+                    <div class="module-content">
+                        <ul class="exercise-list">
+                            <li class="exercise-item">
+                                <a href="Modulo2/ejercicio-1-paddings/index.html" class="exercise-link">
+                                    <i class="fas fa-arrows-alt"></i>
+                                    <span class="exercise-name">Ejercicio 1 - Paddings</span>
+                                    <span class="file-count">3 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo2/ejercicio-2-bordes/index.html" class="exercise-link">
+                                    <i class="fas fa-border-all"></i>
+                                    <span class="exercise-name">Ejercicio 2 - Bordes</span>
+                                    <span class="file-count">2 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo2/ejercicio-3-box-sizing/index.html" class="exercise-link">
+                                    <i class="fas fa-cube"></i>
+                                    <span class="exercise-name">Ejercicio 3 - Box Sizing</span>
+                                    <span class="file-count">3 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo2/ejercicio-4-card/index.html" class="exercise-link">
+                                    <i class="fas fa-id-badge"></i>
+                                    <span class="exercise-name">Ejercicio 4 - Card</span>
+                                    <span class="file-count">2 archivos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Módulo 3 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <h2 class="module-title"><i class="fas fa-layer-group"></i> Módulo 3: Componentes</h2>
+                    </div>
+                    <div class="module-content">
+                        <ul class="exercise-list">
+                            <li class="exercise-item">
+                                <a href="Modulo3/Mod3Eje1-modal/index.html" class="exercise-link">
+                                    <i class="fas fa-window-maximize"></i>
+                                    <span class="exercise-name">Modal Interactivo</span>
+                                    <span class="file-count">3 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo3/Mod3Eje2-navbar-stiky/index.html" class="exercise-link">
+                                    <i class="fas fa-bars"></i>
+                                    <span class="exercise-name">Navbar Sticky</span>
+                                    <span class="file-count">3 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo3/Mod3Eje3-card-badge/index.html" class="exercise-link">
+                                    <i class="fas fa-certificate"></i>
+                                    <span class="exercise-name">Card con Badge</span>
+                                    <span class="file-count">2 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo3/Mod3Eje4-hero-overlay/index.html" class="exercise-link">
+                                    <i class="fas fa-image"></i>
+                                    <span class="exercise-name">Hero Overlay</span>
+                                    <span class="file-count">2 archivos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Módulo 4 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <h2 class="module-title"><i class="fas fa-th-large"></i> Módulo 4: Layouts</h2>
+                    </div>
+                    <div class="module-content">
+                        <ul class="exercise-list">
+                            <li class="exercise-item">
+                                <a href="Modulo4/Mod4Eje1-navbar-flexbox/index.html" class="exercise-link">
+                                    <i class="fas fa-align-justify"></i>
+                                    <span class="exercise-name">Navbar Flexbox</span>
+                                    <span class="file-count">3 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo4/Mod4Eje2-gallery-grid/index.html" class="exercise-link">
+                                    <i class="fas fa-th"></i>
+                                    <span class="exercise-name">Galería Grid</span>
+                                    <span class="file-count">2 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo4/Mod4Eje3-holy-grail/index.html" class="exercise-link">
+                                    <i class="fas fa-church"></i>
+                                    <span class="exercise-name">Holy Grail Layout</span>
+                                    <span class="file-count">2 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo4/Mod4Eje4-dashboard/index.html" class="exercise-link">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    <span class="exercise-name">Dashboard</span>
+                                    <span class="file-count">2 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo4/Mod4Eje5-cards-responsive/index.html" class="exercise-link">
+                                    <i class="fas fa-columns"></i>
+                                    <span class="exercise-name">Cards Responsive</span>
+                                    <span class="file-count">2 archivos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Módulo 5 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <h2 class="module-title"><i class="fas fa-mobile-alt"></i> Módulo 5: Responsive</h2>
+                    </div>
+                    <div class="module-content">
+                        <ul class="exercise-list">
+                            <li class="exercise-item">
+                                <a href="Modulo5/mod5Eje4-Img-responsiva/index.html" class="exercise-link">
+                                    <i class="fas fa-expand-alt"></i>
+                                    <span class="exercise-name">Imágenes Responsivas</span>
+                                    <span class="file-count">2 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo5/Mod5Eje4-typography/index.html" class="exercise-link">
+                                    <i class="fas fa-font"></i>
+                                    <span class="exercise-name">Tipografía Responsive</span>
+                                    <span class="file-count">2 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo5/Mod5Eje5-Imágenes Responsive/index.html" class="exercise-link">
+                                    <i class="fas fa-images"></i>
+                                    <span class="exercise-name">Imágenes Responsive (2)</span>
+                                    <span class="file-count">2 archivos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Módulo 6 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <h2 class="module-title"><i class="fas fa-code"></i> Módulo 6: Avanzado</h2>
+                    </div>
+                    <div class="module-content">
+                        <ul class="exercise-list">
+                            <li class="exercise-item">
+                                <a href="Modulo6/mod6Eje1/index.html" class="exercise-link">
+                                    <i class="fas fa-laptop-code"></i>
+                                    <span class="exercise-name">Ejercicio 1</span>
+                                    <span class="file-count">2 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo6/Mod6Eje2/index.html" class="exercise-link">
+                                    <i class="fas fa-laptop-code"></i>
+                                    <span class="exercise-name">Ejercicio 2</span>
+                                    <span class="file-count">1 archivo</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Módulo 7 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <h2 class="module-title"><i class="fas fa-cogs"></i> Módulo 7: JavaScript</h2>
+                    </div>
+                    <div class="module-content">
+                        <ul class="exercise-list">
+                            <li class="exercise-item">
+                                <a href="Modulo7/Mod7Eje1/index.html" class="exercise-link">
+                                    <i class="fas fa-magic"></i>
+                                    <span class="exercise-name">Ejercicio 1</span>
+                                    <span class="file-count">3 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo7/MOD7EJE2/index.html" class="exercise-link">
+                                    <i class="fas fa-sliders-h"></i>
+                                    <span class="exercise-name">Ejercicio 2</span>
+                                    <span class="file-count">3 archivos</span>
+                                </a>
+                            </li>
+                            <li class="exercise-item">
+                                <a href="Modulo7/MOD7EJE3/index.html" class="exercise-link">
+                                    <i class="fas fa-project-diagram"></i>
+                                    <span class="exercise-name">Ejercicio 3</span>
+                                    <span class="file-count">3 archivos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="gothic-decoration">
+                <div class="gothic-line"></div>
+                <i class="fas fa-feather-alt gothic-icon"></i>
+                <div class="gothic-line"></div>
+            </div>
+            <p class="footer-text">
+                <i class="fas fa-code"></i>
+                Portafolio desarrollado con estilo gótico nórdico
+                <i class="fas fa-palette"></i>
+            </p>
+            <p>Total: 7 módulos • 24 proyectos • 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        // Añadir interactividad para mejorar la experiencia
+        document.addEventListener('DOMContentLoaded', function() {
+            // Añadir efecto de carga suave a las tarjetas
+            const cards = document.querySelectorAll('.module-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 + index * 100);
+            });
+            
+            // Añadir efecto de clic a los enlaces
+            const links = document.querySelectorAll('.exercise-link');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Comprobar si el enlace existe realmente
+                    const href = this.getAttribute('href');
+                    if (!href || href === '#') {
+                        e.preventDefault();
+                        alert('Este proyecto aún no está disponible o la ruta puede ser incorrecta.');
+                    }
+                });
+            });
+            
+            // Mostrar el número total de proyectos
+            const projectCount = document.querySelectorAll('.exercise-item').length;
+            const footer = document.querySelector('.footer p:last-child');
+            footer.textContent = `Total: 7 módulos • ${projectCount} proyectos • ${new Date().getFullYear()}`;
+        });
+    </script>
+</body>
+</html>
