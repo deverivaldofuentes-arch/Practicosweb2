@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List - Manipulación del DOM</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 Mi Lista de Tareas</h1>
+            <p>Organiza tu día de manera efectiva</p>
+        </header>
+
+        <div class="todo-app">
+            <div class="input-section">
+                <input type="text" id="todoInput" placeholder="¿Qué necesitas hacer?" />
+                <button id="addBtn">Agregar</button>
+            </div>
+
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">Todas <span class="count" id="allCount">0</span></button>
+                <button class="filter-btn" data-filter="active">Activas <span class="count" id="activeCount">0</span></button>
+                <button class="filter-btn" data-filter="completed">Completadas <span class="count" id="completedCount">0</span></button>
+            </div>
+
+            <ul id="todoList" class="todo-list"></ul>
+
+            <div class="actions">
+                <button id="clearCompleted">Limpiar Completadas</button>
+                <span id="itemsLeft">0 tareas pendientes</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

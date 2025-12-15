@@ -1,0 +1,219 @@
+/* styles.css - Diseño Moderno y Suave 2025 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%);
+    --card-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    --border-radius: 24px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+}
+
+.titulo {
+    font-size: 2.5rem;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.contador-display {
+    background: #f8fafc;
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+    border: 3px solid transparent;
+}
+
+.contador-display.positivo {
+    background: #ecfdf5;
+    border-color: #86efac;
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.2);
+}
+
+.contador-display.negativo {
+    background: #fef2f2;
+    border-color: #fca5a5;
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.2);
+}
+
+.contador-display.neutro {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.numero {
+    font-size: 6rem;
+    font-weight: 800;
+    transition: var(--transition);
+}
+
+.numero.positivo { color: #16a34a; }
+.numero.negativo { color: #dc2626; }
+.numero.neutro { color: #475569; }
+
+@keyframes pulso {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+.stats {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+
+.botones-principales {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn {
+    flex: 1;
+    min-width: 110px;
+    padding: 1.2rem 1rem;
+    border: none;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    color: white;
+}
+
+.btn .icono {
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.btn-incrementar {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.btn-decrementar {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.btn-resetear {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+}
+
+.btn:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+}
+
+.btn:active {
+    transform: translateY(-2px);
+}
+
+.botones-avanzados {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+}
+
+.btn-small {
+    padding: 1rem;
+    border: none;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.btn-small[data-value^="+"],
+.btn-small[data-value="5"],
+.btn-small[data-value="10"],
+.btn-small[data-value="50"] {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.btn-small[data-value^="-"] {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.btn-small:hover {
+    transform: scale(1.1);
+}
+
+.acciones-extra {
+    margin-bottom: 2rem;
+}
+
+.btn-copiar {
+    padding: 1rem 2rem;
+    background: #8b5cf6;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-copiar:hover {
+    background: #7c3aed;
+    transform: translateY(-3px);
+}
+
+.info {
+    padding: 1.2rem;
+    background: #f0f9ff;
+    border-radius: 14px;
+    border-left: 5px solid #0ea5e9;
+    font-size: 1.1rem;
+    color: #0c4a6e;
+}
+
+.info strong {
+    color: #0369a1;
+}
+
+@media (max-width: 500px) {
+    .titulo { font-size: 2rem; }
+    .numero { font-size: 4.5rem; }
+    .botones-principales { flex-direction: column; }
+    .btn { min-width: 100%; }
+    .botones-avanzados { grid-template-columns: repeat(2, 1fr); }
+}

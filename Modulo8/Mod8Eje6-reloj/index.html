@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reloj Digital</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="stars" id="stars"></div>
+
+  <div class="container">
+    <!-- Reloj Analógico -->
+    <div class="clock-wrapper">
+      <div class="clock-outer"></div>
+      <div class="clock-face">
+        <!-- Números principales -->
+        <div class="number number-12">12</div>
+        <div class="number number-3">3</div>
+        <div class="number number-6">6</div>
+        <div class="number number-9">9</div>
+
+        <!-- Marcas de minutos -->
+        <div id="ticks"></div>
+
+        <!-- Manecillas -->
+        <div class="hand hour-hand" id="hourHand"></div>
+        <div class="hand minute-hand" id="minuteHand"></div>
+        <div class="hand second-hand" id="secondHand"></div>
+
+        <!-- Centro -->
+        <div class="center-dot"></div>
+      </div>
+    </div>
+
+    <!-- Panel Digital -->
+    <div class="digital-panel">
+      <div class="greeting" id="greeting">Buenos días</div>
+      <div class="digital-time" id="digitalTime">00:00:00</div>
+      <div class="date" id="date">Lunes, 1 de Enero de 2024</div>
+
+      <div class="controls">
+        <button class="btn" id="formatBtn">
+          <span id="formatText">Cambiar a 24h</span>
+        </button>
+        <button class="btn" id="themeBtn">
+          🎨 Cambiar Tema
+        </button>
+      </div>
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div class="stat-value" id="dayOfYear">1</div>
+        <div class="stat-label">Día del año</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📆</div>
+        <div class="stat-value" id="weekNumber">1</div>
+        <div class="stat-label">Semana</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-value" id="secondsToday">0</div>
+        <div class="stat-label">Segundos hoy</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

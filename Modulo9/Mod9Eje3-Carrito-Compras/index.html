@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Encabezado -->
+        <header class="header">
+            <h1>🛒 Mi Tienda Online</h1>
+            <div class="cart-icon">
+                <span class="icon">🛍️</span>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Catálogo de Productos -->
+            <section class="products-section">
+                <h2>Productos Disponibles</h2>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Los productos se cargarán dinámicamente -->
+                </div>
+            </section>
+
+            <!-- Carrito de Compras -->
+            <aside class="cart-section">
+                <h2>Carrito de Compras</h2>
+                
+                <div class="cart-items" id="cartItems">
+                    <p class="empty-cart">Tu carrito está vacío</p>
+                </div>
+
+                <div class="cart-summary" id="cartSummary" style="display: none;">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>IVA (16%):</span>
+                        <span id="tax">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Envío:</span>
+                        <span id="shipping">$50.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="total">$0.00</span>
+                    </div>
+                    
+                    <button class="btn-checkout" id="checkoutBtn">
+                        Proceder al Pago
+                    </button>
+                    
+                    <button class="btn-clear" id="clearCartBtn">
+                        Vaciar Carrito
+                    </button>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="success-icon">✅</div>
+            <h2>¡Pedido Realizado!</h2>
+            <p>Tu pedido ha sido procesado exitosamente.</p>
+            <p><strong>Total pagado: <span id="orderTotal"></span></strong></p>
+            <button class="btn-primary" onclick="closeModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabs Dinámicos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="tabs-container">
+            <h1>📑 Sistema de Pestañas</h1>
+            <p class="subtitle">Navegación por tabs con JavaScript</p>
+            
+            <!-- Tab Buttons -->
+            <div class="tab-buttons" role="tablist">
+                <button class="tab-btn active" data-tab="tab1" role="tab" aria-selected="true">
+                    <span class="icon">🏠</span>
+                    Inicio
+                </button>
+                <button class="tab-btn" data-tab="tab2" role="tab" aria-selected="false">
+                    <span class="icon">💼</span>
+                    Servicios
+                </button>
+                <button class="tab-btn" data-tab="tab3" role="tab" aria-selected="false">
+                    <span class="icon">📊</span>
+                    Estadísticas
+                </button>
+                <button class="tab-btn" data-tab="tab4" role="tab" aria-selected="false">
+                    <span class="icon">📧</span>
+                    Contacto
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-contents">
+                <!-- Tab 1: Inicio -->
+                <div class="tab-content active" id="tab1" role="tabpanel">
+                    <h2>Bienvenido al Sistema de Tabs</h2>
+                    <p>Este es un ejemplo de navegación por pestañas implementado con JavaScript puro.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <span class="feature-icon">⚡</span>
+                            <h3>Rápido</h3>
+                            <p>Cambio instantáneo sin recargar</p>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🎨</span>
+                            <h3>Moderno</h3>
+                            <p>Diseño limpio y profesional</p>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">♿</span>
+                            <h3>Accesible</h3>
+                            <p>Navegación con teclado</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Servicios -->
+                <div class="tab-content" id="tab2" role="tabpanel">
+                    <h2>Nuestros Servicios</h2>
+                    <p>Ofrecemos una amplia gama de servicios profesionales.</p>
+                    <ul class="service-list">
+                        <li>✅ Desarrollo Web Completo</li>
+                        <li>✅ Diseño UI/UX Profesional</li>
+                        <li>✅ Optimización SEO</li>
+                        <li>✅ Aplicaciones Móviles</li>
+                        <li>✅ Consultoría Técnica</li>
+                        <li>✅ Mantenimiento y Soporte</li>
+                    </ul>
+                    <button class="cta-btn">Solicitar Cotización</button>
+                </div>
+
+                <!-- Tab 3: Estadísticas -->
+                <div class="tab-content" id="tab3" role="tabpanel">
+                    <h2>Estadísticas del Proyecto</h2>
+                    <p>Datos importantes sobre el rendimiento.</p>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">1,234</div>
+                            <div class="stat-label">Usuarios Activos</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">Satisfacción</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Disponibilidad</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">150+</div>
+                            <div class="stat-label">Proyectos</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 4: Contacto -->
+                <div class="tab-content" id="tab4" role="tabpanel">
+                    <h2>Contáctanos</h2>
+                    <p>Estamos aquí para ayudarte. Envíanos un mensaje.</p>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Nombre:</label>
+                            <input type="text" id="name" placeholder="Tu nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" placeholder="tu@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensaje:</label>
+                            <textarea id="message" rows="4" placeholder="Escribe tu mensaje..."></textarea>
+                        </div>
+                        <button type="submit" class="cta-btn">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="keyboard-hint">
+                💡 Tip: Usa las flechas ← → para navegar entre tabs
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

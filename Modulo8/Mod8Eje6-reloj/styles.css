@@ -1,0 +1,588 @@
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 2rem;
+          overflow: hidden;
+        }
+
+        /* Estrellas de fondo */
+        .stars {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+        }
+
+        .star {
+          position: absolute;
+          width: 2px;
+          height: 2px;
+          background: white;
+          border-radius: 50%;
+          animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+
+          0%,
+          100% {
+            opacity: 0.3;
+          }
+
+          50% {
+            opacity: 1;
+          }
+        }
+
+        .container {
+          max-width: 800px;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 2rem;
+        }
+
+        /* Reloj circular */
+        .clock-wrapper {
+          position: relative;
+          width: 400px;
+          height: 400px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .clock-outer {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+          backdrop-filter: blur(20px);
+          box-shadow:
+            0 0 60px rgba(0, 195, 255, 0.3),
+            inset 0 0 40px rgba(255, 255, 255, 0.05);
+          border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .clock-face {
+          position: relative;
+          width: 90%;
+          height: 90%;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(30, 30, 50, 0.95) 0%, rgba(20, 20, 40, 0.98) 100%);
+          box-shadow:
+            inset 0 0 50px rgba(0, 0, 0, 0.5),
+            0 0 20px rgba(0, 195, 255, 0.2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        /* Números del reloj */
+        .number {
+          position: absolute;
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: rgba(255, 255, 255, 0.9);
+          text-shadow: 0 0 10px rgba(0, 195, 255, 0.5);
+        }
+
+        .number-12 {
+          top: 8%;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .number-3 {
+          right: 8%;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        .number-6 {
+          bottom: 8%;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .number-9 {
+          left: 8%;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        /* Marcas de minutos */
+        .tick {
+          position: absolute;
+          width: 2px;
+          height: 8px;
+          background: rgba(255, 255, 255, 0.3);
+          left: 50%;
+          top: 5%;
+          transform-origin: 50% 180px;
+        }
+
+        .tick.major {
+          width: 3px;
+          height: 15px;
+          background: rgba(0, 195, 255, 0.6);
+        }
+
+        /* Centro del reloj */
+        .center-dot {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          background: radial-gradient(circle, #00c3ff 0%, #0066ff 100%);
+          border-radius: 50%;
+          z-index: 10;
+          box-shadow: 0 0 20px rgba(0, 195, 255, 0.8);
+        }
+
+        /* Manecillas */
+        .hand {
+          position: absolute;
+          bottom: 50%;
+          left: 50%;
+          transform-origin: bottom center;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hour-hand {
+          width: 6px;
+          height: 100px;
+          background: linear-gradient(to top, #00c3ff, #ffffff);
+          margin-left: -3px;
+          z-index: 3;
+          box-shadow: 0 0 15px rgba(0, 195, 255, 0.6);
+        }
+
+        .minute-hand {
+          width: 4px;
+          height: 140px;
+          background: linear-gradient(to top, #00d9ff, #ffffff);
+          margin-left: -2px;
+          z-index: 2;
+          box-shadow: 0 0 12px rgba(0, 217, 255, 0.6);
+        }
+
+        .second-hand {
+          width: 2px;
+          height: 160px;
+          background: linear-gradient(to top, #ff3366, #ff6699);
+          margin-left: -1px;
+          z-index: 1;
+          box-shadow: 0 0 10px rgba(255, 51, 102, 0.8);
+        }
+
+        /* Panel digital */
+        .digital-panel {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(20px);
+          border-radius: 20px;
+          padding: 2rem 3rem;
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+          text-align: center;
+          width: 100%;
+          max-width: 500px;
+        }
+
+        .greeting {
+          font-size: 1.5rem;
+          color: #00c3ff;
+          font-weight: 600;
+          margin-bottom: 1rem;
+          text-shadow: 0 0 20px rgba(0, 195, 255, 0.5);
+        }
+
+        .digital-time {
+          font-size: 3rem;
+          font-weight: bold;
+          color: white;
+          font-family: 'Courier New', monospace;
+          letter-spacing: 3px;
+          text-shadow: 0 0 20px rgba(0, 195, 255, 0.5);
+          margin-bottom: 0.5rem;
+        }
+
+        .date {
+          font-size: 1.2rem;
+          color: rgba(255, 255, 255, 0.7);
+          margin-bottom: 1.5rem;
+        }
+
+        .controls {
+          display: flex;
+          gap: 1rem;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .btn {
+          padding: 0.8rem 1.5rem;
+          background: linear-gradient(135deg, #00c3ff 0%, #0066ff 100%);
+          color: white;
+          border: none;
+          border-radius: 50px;
+          font-size: 0.9rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(0, 195, 255, 0.3);
+        }
+
+        .btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 25px rgba(0, 195, 255, 0.5);
+        }
+
+        .btn:active {
+          transform: translateY(-1px);
+        }
+
+        /* Stats */
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+          gap: 1rem;
+          width: 100%;
+          max-width: 500px;
+        }
+
+        .stat-card {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(20px);
+          padding: 1.2rem;
+          border-radius: 15px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          text-align: center;
+          transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+          transform: translateY(-5px);
+          background: rgba(255, 255, 255, 0.08);
+          box-shadow: 0 10px 30px rgba(0, 195, 255, 0.2);
+        }
+
+        .stat-icon {
+          font-size: 2rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+          font-size: 1.8rem;
+          font-weight: bold;
+          color: #00c3ff;
+          font-family: 'Courier New', monospace;
+          margin-bottom: 0.3rem;
+          text-shadow: 0 0 10px rgba(0, 195, 255, 0.5);
+        }
+
+        .stat-label {
+          font-size: 0.8rem;
+          color: rgba(255, 255, 255, 0.6);
+          font-weight: 600;
+        }
+
+        /* Tablets y pantallas medianas */
+        @media (max-width: 900px) {
+          .clock-wrapper {
+            width: 350px;
+            height: 350px;
+          }
+
+          .hour-hand {
+            height: 85px;
+          }
+
+          .minute-hand {
+            height: 120px;
+          }
+
+          .second-hand {
+            height: 140px;
+          }
+
+          .digital-time {
+            font-size: 2.5rem;
+          }
+
+          .greeting {
+            font-size: 1.3rem;
+          }
+
+          .date {
+            font-size: 1rem;
+          }
+        }
+
+        /* Tablets pequeños */
+        @media (max-width: 768px) {
+          body {
+            padding: 1.5rem;
+          }
+
+          .clock-wrapper {
+            width: 300px;
+            height: 300px;
+          }
+
+          .hour-hand {
+            height: 70px;
+          }
+
+          .minute-hand {
+            height: 100px;
+          }
+
+          .second-hand {
+            height: 120px;
+          }
+
+          .tick {
+            transform-origin: 50% 150px;
+          }
+
+          .digital-time {
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+          }
+
+          .number {
+            font-size: 1.2rem;
+          }
+
+          .digital-panel {
+            padding: 1.8rem 2.5rem;
+          }
+
+          .stats-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+
+        /* Móviles */
+        @media (max-width: 600px) {
+          body {
+            padding: 1rem;
+          }
+
+          .container {
+            gap: 1.5rem;
+          }
+
+          .clock-wrapper {
+            width: 280px;
+            height: 280px;
+          }
+
+          .hour-hand {
+            height: 65px;
+            width: 5px;
+            margin-left: -2.5px;
+          }
+
+          .minute-hand {
+            height: 95px;
+            width: 3px;
+            margin-left: -1.5px;
+          }
+
+          .second-hand {
+            height: 110px;
+          }
+
+          .tick {
+            transform-origin: 50% 140px;
+            height: 6px;
+          }
+
+          .tick.major {
+            height: 12px;
+          }
+
+          .center-dot {
+            width: 16px;
+            height: 16px;
+          }
+
+          .digital-time {
+            font-size: 2rem;
+            letter-spacing: 1px;
+          }
+
+          .greeting {
+            font-size: 1.2rem;
+          }
+
+          .date {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+          }
+
+          .number {
+            font-size: 1.1rem;
+          }
+
+          .digital-panel {
+            padding: 1.5rem 1.8rem;
+          }
+
+          .controls {
+            flex-direction: column;
+            width: 100%;
+          }
+
+          .btn {
+            width: 100%;
+            padding: 0.9rem 1.5rem;
+          }
+
+          .stats-grid {
+            gap: 0.8rem;
+          }
+
+          .stat-card {
+            padding: 1rem;
+          }
+
+          .stat-value {
+            font-size: 1.5rem;
+          }
+
+          .stat-icon {
+            font-size: 1.8rem;
+          }
+        }
+
+        /* Móviles pequeños */
+        @media (max-width: 400px) {
+          body {
+            padding: 0.8rem;
+          }
+
+          .clock-wrapper {
+            width: 240px;
+            height: 240px;
+          }
+
+          .hour-hand {
+            height: 55px;
+            width: 4px;
+            margin-left: -2px;
+          }
+
+          .minute-hand {
+            height: 80px;
+            width: 3px;
+            margin-left: -1.5px;
+          }
+
+          .second-hand {
+            height: 95px;
+          }
+
+          .tick {
+            transform-origin: 50% 120px;
+            height: 5px;
+            width: 1.5px;
+          }
+
+          .tick.major {
+            height: 10px;
+            width: 2.5px;
+          }
+
+          .number {
+            font-size: 1rem;
+          }
+
+          .center-dot {
+            width: 14px;
+            height: 14px;
+          }
+
+          .digital-time {
+            font-size: 1.6rem;
+          }
+
+          .greeting {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+          }
+
+          .date {
+            font-size: 0.85rem;
+          }
+
+          .digital-panel {
+            padding: 1.2rem 1.5rem;
+          }
+
+          .btn {
+            font-size: 0.85rem;
+            padding: 0.8rem 1.2rem;
+          }
+
+          .stat-value {
+            font-size: 1.3rem;
+          }
+
+          .stat-label {
+            font-size: 0.75rem;
+          }
+
+          .stat-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+          }
+        }
+
+        /* Pantallas muy pequeñas */
+        @media (max-width: 350px) {
+          .clock-wrapper {
+            width: 220px;
+            height: 220px;
+          }
+
+          .hour-hand {
+            height: 50px;
+          }
+
+          .minute-hand {
+            height: 72px;
+          }
+
+          .second-hand {
+            height: 88px;
+          }
+
+          .tick {
+            transform-origin: 50% 110px;
+          }
+
+          .digital-time {
+            font-size: 1.4rem;
+          }
+
+          .stats-grid {
+            grid-template-columns: 1fr;
+          }
+        }

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Dialog</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-container">
+        <header class="header">
+            <h1>🪟 Modal Dialog con JavaScript</h1>
+            <p>Ejemplo de ventanas emergentes dinámicas</p>
+        </header>
+
+        <main class="content">
+            <section class="intro">
+                <h2>¿Qué es un Modal?</h2>
+                <p>Un modal es una ventana emergente que aparece sobre el contenido principal y requiere la interacción del usuario antes de continuar.</p>
+            </section>
+
+            <section class="demo-buttons">
+                <h3>Ejemplos de Modales</h3>
+                
+                <button class="btn btn-primary" data-modal="modal1">
+                    📝 Abrir Formulario
+                </button>
+                
+                <button class="btn btn-success" data-modal="modal2">
+                    ✅ Confirmación
+                </button>
+                
+                <button class="btn btn-info" data-modal="modal3">
+                    ℹ️ Información
+                </button>
+                
+                <button class="btn btn-warning" data-modal="modal4">
+                    🖼️ Galería de Imágenes
+                </button>
+            </section>
+
+            <section class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Fácil de Usar</h3>
+                    <p>Interface intuitiva y sencilla</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Rápido</h3>
+                    <p>Carga instantánea sin recargar</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <h3>Seguro</h3>
+                    <p>Previene scroll del fondo</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">♿</span>
+                    <h3>Accesible</h3>
+                    <p>Cerrar con ESC</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal 1: Formulario -->
+    <div class="modal" id="modal1">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close">×</button>
+            <h2>Formulario de Contacto</h2>
+            <form class="modal-form">
+                <div class="form-group">
+                    <label>Nombre:</label>
+                    <input type="text" placeholder="Tu nombre">
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" placeholder="tu@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Mensaje:</label>
+                    <textarea rows="4" placeholder="Escribe tu mensaje..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 2: Confirmación -->
+    <div class="modal" id="modal2">
+        <div class="modal-overlay"></div>
+        <div class="modal-content modal-small">
+            <button class="modal-close">×</button>
+            <div class="modal-icon success">✓</div>
+            <h2>¿Confirmar Acción?</h2>
+            <p>Esta acción no se puede deshacer. ¿Estás seguro?</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary cancel-btn">Cancelar</button>
+                <button class="btn btn-success">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Información -->
+    <div class="modal" id="modal3">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close">×</button>
+            <div class="modal-icon info">ℹ️</div>
+            <h2>Información Importante</h2>
+            <p>Los modales son útiles para:</p>
+            <ul>
+                <li>Solicitar información al usuario</li>
+                <li>Mostrar mensajes importantes</li>
+                <li>Confirmaciones de acciones</li>
+                <li>Mostrar galerías de imágenes</li>
+                <li>Formularios emergentes</li>
+            </ul>
+            <p><strong>Características de este modal:</strong></p>
+            <ul>
+                <li>✅ Cerrar haciendo clic fuera</li>
+                <li>✅ Cerrar con tecla ESC</li>
+                <li>✅ Previene scroll del fondo</li>
+                <li>✅ Animaciones suaves</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal 4: Galería -->
+    <div class="modal" id="modal4">
+        <div class="modal-overlay"></div>
+        <div class="modal-content modal-large">
+            <button class="modal-close">×</button>
+            <h2>Galería de Imágenes</h2>
+            <div class="gallery">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="Montaña">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400" alt="Bosque">
+                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400" alt="Playa">
+                <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400" alt="Ciudad">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contador interactivo avanzado con múltiples incrementos y diseño moderno">
+    <title>Contador Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="titulo">Contador Pro</h1>
+        
+        <div class="contador-display" id="display">
+            <span id="contador" class="numero">0</span>
+        </div>
+
+        <div class="stats">
+            <p>Operaciones realizadas: <strong id="operaciones">0</strong></p>
+        </div>
+
+        <!-- Botones principales -->
+        <div class="botones-principales">
+            <button class="btn btn-decrementar" data-value="-1">
+                <span class="icono">−</span> -1
+            </button>
+            <button class="btn btn-resetear">
+                <span class="icono">↻</span> Reset
+            </button>
+            <button class="btn btn-incrementar" data-value="1">
+                <span class="icono">+</span> +1
+            </button>
+        </div>
+
+        <!-- Botones avanzados -->
+        <div class="botones-avanzados">
+            <button class="btn-small" data-value="-50">-50</button>
+            <button class="btn-small" data-value="-10">-10</button>
+            <button class="btn-small" data-value="-5">-5</button>
+            <button class="btn-small" data-value="5">+5</button>
+            <button class="btn-small" data-value="10">+10</button>
+            <button class="btn-small" data-value="50">+50</button>
+        </div>
+
+        <!-- Acciones extra -->
+        <div class="acciones-extra">
+            <button id="btnCopiar" class="btn-copiar">
+                Copiar valor actual
+            </button>
+        </div>
+
+        <div class="info">
+            <p id="mensaje">El contador está en <strong>cero</strong></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

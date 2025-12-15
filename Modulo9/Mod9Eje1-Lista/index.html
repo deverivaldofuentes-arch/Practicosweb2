@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulador de Lista</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>📝 Manipulador de Lista</h1>
+            <p class="subtitle">Añade, edita y elimina items dinámicamente</p>
+            
+            <div class="input-section">
+                <input 
+                    type="text" 
+                    id="itemInput" 
+                    placeholder="Escribe un nuevo item..."
+                    autocomplete="off"
+                >
+                <button id="addBtn" class="btn btn-add">Añadir</button>
+            </div>
+
+            <div class="stats">
+                <span>Total de items: <strong id="itemCount">0</strong></span>
+            </div>
+
+            <ul id="itemList" class="item-list">
+                <!-- Los items se añadirán aquí dinámicamente -->
+            </ul>
+
+            <div class="actions">
+                <button id="clearAllBtn" class="btn btn-danger">Limpiar Todo</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
