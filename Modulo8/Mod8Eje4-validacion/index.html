@@ -3,74 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validador de Formulario</title>
+    <title>✅ Validador de Formulario Avanzado</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
 </head>
 <body>
     <div class="container">
-        <div class="form-wrapper">
-            <h1>📝 Formulario de Registro</h1>
-            <p class="subtitle">Validación en tiempo real con JavaScript</p>
-            
-            <form id="registrationForm">
-                <div class="form-group">
-                    <label for="username">Nombre de Usuario *</label>
-                    <input type="text" id="username" name="username" placeholder="Mínimo 3 caracteres">
-                    <span class="error-message"></span>
-                    <span class="success-icon">✓</span>
+        <!-- Partículas animadas -->
+        <div class="particles" id="particles"></div>
+        
+        <!-- Tarjeta de registro -->
+        <div class="form-card">
+            <!-- Encabezado -->
+            <div class="form-header">
+                <div class="header-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h1>Crear Cuenta</h1>
+                <p class="subtitle">Registro seguro con validación en tiempo real</p>
+            </div>
+
+            <!-- Indicador de progreso -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+                <div class="progress-steps">
+                    <span class="step active"><i class="fas fa-user"></i></span>
+                    <span class="step"><i class="fas fa-lock"></i></span>
+                    <span class="step"><i class="fas fa-check"></i></span>
+                </div>
+            </div>
+
+            <!-- Formulario -->
+            <form id="registrationForm" novalidate>
+                <!-- Usuario -->
+                <div class="form-group" data-step="1">
+                    <label for="username">
+                        <i class="fas fa-user-circle"></i> Nombre de Usuario
+                    </label>
+                    <div class="input-with-icon">
+                        <input type="text" id="username" name="username" 
+                               placeholder="ej: usuario123" autocomplete="username"
+                               data-validate="username">
+                        <span class="input-icon">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <span class="valid-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                    </div>
+                    <div class="hint">Mínimo 3 caracteres, solo letras y números</div>
+                    <div class="error-message" data-error="username"></div>
                 </div>
 
-                <div class="form-group">
-                    <label for="email">Correo Electrónico *</label>
-                    <input type="email" id="email" name="email" placeholder="ejemplo@correo.com">
-                    <span class="error-message"></span>
-                    <span class="success-icon">✓</span>
+                <!-- Email -->
+                <div class="form-group" data-step="1">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Correo Electrónico
+                    </label>
+                    <div class="input-with-icon">
+                        <input type="email" id="email" name="email" 
+                               placeholder="ejemplo@correo.com" autocomplete="email"
+                               data-validate="email">
+                        <span class="input-icon">
+                            <i class="fas fa-at"></i>
+                        </span>
+                        <span class="valid-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                    </div>
+                    <div class="hint">Ingresa un correo válido para verificación</div>
+                    <div class="error-message" data-error="email"></div>
                 </div>
 
-                <div class="form-group">
-                    <label for="password">Contraseña *</label>
-                    <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres">
-                    <span class="error-message"></span>
-                    <span class="success-icon">✓</span>
-                    <div class="password-requirements">
-                        <p class="requirement" id="req-length">
-                            <span class="req-icon">○</span> Mínimo 8 caracteres
-                        </p>
-                        <p class="requirement" id="req-uppercase">
-                            <span class="req-icon">○</span> Una mayúscula
-                        </p>
-                        <p class="requirement" id="req-number">
-                            <span class="req-icon">○</span> Un número
-                        </p>
+                <!-- Contraseña -->
+                <div class="form-group" data-step="2">
+                    <label for="password">
+                        <i class="fas fa-key"></i> Contraseña
+                    </label>
+                    <div class="input-with-icon">
+                        <input type="password" id="password" name="password" 
+                               placeholder="••••••••" autocomplete="new-password"
+                               data-validate="password">
+                        <span class="input-icon">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        <span class="valid-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                        <button type="button" class="toggle-password" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Indicador de fortaleza -->
+                    <div class="password-strength">
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strengthFill"></div>
+                        </div>
+                        <div class="strength-text" id="strengthText">Débil</div>
+                    </div>
+
+                    <!-- Requisitos -->
+                    <div class="requirements-grid">
+                        <div class="requirement" id="req-length">
+                            <span class="req-icon"><i class="fas fa-circle"></i></span>
+                            <span class="req-text">8+ caracteres</span>
+                        </div>
+                        <div class="requirement" id="req-uppercase">
+                            <span class="req-icon"><i class="fas fa-circle"></i></span>
+                            <span class="req-text">Mayúscula</span>
+                        </div>
+                        <div class="requirement" id="req-number">
+                            <span class="req-icon"><i class="fas fa-circle"></i></span>
+                            <span class="req-text">Número</span>
+                        </div>
+                        <div class="requirement" id="req-special">
+                            <span class="req-icon"><i class="fas fa-circle"></i></span>
+                            <span class="req-text">Carácter especial</span>
+                        </div>
+                    </div>
+                    <div class="error-message" data-error="password"></div>
+                </div>
+
+                <!-- Confirmar Contraseña -->
+                <div class="form-group" data-step="2">
+                    <label for="confirmPassword">
+                        <i class="fas fa-key"></i> Confirmar Contraseña
+                    </label>
+                    <div class="input-with-icon">
+                        <input type="password" id="confirmPassword" name="confirmPassword" 
+                               placeholder="••••••••" autocomplete="new-password"
+                               data-validate="confirm">
+                        <span class="input-icon">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        <span class="valid-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                        <button type="button" class="toggle-password" id="toggleConfirmPassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="error-message" data-error="confirm"></div>
+                </div>
+
+                <!-- Edad -->
+                <div class="form-group" data-step="3">
+                    <label for="age">
+                        <i class="fas fa-birthday-cake"></i> Edad
+                    </label>
+                    <div class="input-with-icon">
+                        <input type="number" id="age" name="age" 
+                               placeholder="18" min="13" max="120"
+                               data-validate="age">
+                        <span class="input-icon">
+                            <i class="fas fa-user-clock"></i>
+                        </span>
+                        <span class="valid-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                    </div>
+                    <div class="hint">Debes tener al menos 18 años</div>
+                    <div class="error-message" data-error="age"></div>
+                </div>
+
+                <!-- Términos -->
+                <div class="form-group checkbox-group" data-step="3">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="terms" name="terms" data-validate="terms">
+                        <label for="terms" class="checkbox-label">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text">
+                                Acepto los <a href="#" class="terms-link">términos y condiciones</a> 
+                                y la <a href="#" class="terms-link">política de privacidad</a>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="error-message" data-error="terms"></div>
+                </div>
+
+                <!-- Botón de envío -->
+                <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                    <span class="btn-text">Crear Cuenta</span>
+                    <span class="btn-loader">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </span>
+                    <span class="btn-success">
+                        <i class="fas fa-check"></i> ¡Éxito!
+                    </span>
+                </button>
+
+                <!-- Contador de campos completados -->
+                <div class="completion-counter">
+                    <span id="completedFields">0</span> de <span>6</span> campos completados
+                </div>
+
+                <!-- Resumen del formulario -->
+                <div class="form-summary" id="formSummary">
+                    <div class="summary-header">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Registro Completado</h3>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-item">
+                            <span class="summary-label">Usuario:</span>
+                            <span class="summary-value" id="summaryUsername"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Email:</span>
+                            <span class="summary-value" id="summaryEmail"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Edad:</span>
+                            <span class="summary-value" id="summaryAge"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Fortaleza:</span>
+                            <span class="summary-value" id="summaryStrength"></span>
+                        </div>
+                    </div>
+                    <div class="summary-footer">
+                        <button type="button" class="btn-secondary" id="resetBtn">
+                            <i class="fas fa-redo"></i> Nuevo Registro
+                        </button>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="confirmPassword">Confirmar Contraseña *</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repite la contraseña">
-                    <span class="error-message"></span>
-                    <span class="success-icon">✓</span>
+                <!-- Notificación flotante -->
+                <div class="notification" id="notification">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="notification-text"></span>
                 </div>
-
-                <div class="form-group">
-                    <label for="age">Edad *</label>
-                    <input type="number" id="age" name="age" placeholder="Debes ser mayor de 18">
-                    <span class="error-message"></span>
-                    <span class="success-icon">✓</span>
-                </div>
-
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" id="terms" name="terms">
-                    <label for="terms">Acepto los términos y condiciones *</label>
-                    <span class="error-message"></span>
-                </div>
-
-                <button type="submit" class="submit-btn" id="submitBtn" disabled>
-                    Registrarse
-                </button>
-
-                <div class="form-summary" id="formSummary"></div>
             </form>
+
+            <!-- Pie de página -->
+            <div class="form-footer">
+                <p>¿Ya tienes cuenta? <a href="#" class="login-link">Inicia Sesión</a></p>
+                <div class="security-info">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Datos protegidos con encriptación SSL</span>
+                </div>
+            </div>
         </div>
     </div>
 
