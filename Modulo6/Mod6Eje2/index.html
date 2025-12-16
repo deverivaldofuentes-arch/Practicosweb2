@@ -5,71 +5,259 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Tailwind CSS</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        },
+                        secondary: {
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-in': 'slideIn 0.3s ease-out',
+                        'pulse-slow': 'pulse 3s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+        
+        .sidebar-item {
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .stats-card {
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .table-row {
+            transition: background-color 0.2s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-collapse {
+                display: none;
+            }
+            
+            .mobile-menu-active .mobile-collapse {
+                display: block;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-    <!-- Navbar -->
-    <nav class="bg-white shadow-lg">
+<body class="bg-gray-50">
+    <!-- Navbar Mejorado -->
+    <nav class="bg-gradient-to-r from-primary-600 to-secondary-600 text-white shadow-xl">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <span class="text-2xl font-bold text-indigo-600">DashPro</span>
-                </div>
-                <div class="flex items-center gap-4">
-                    <button class="p-2 rounded-lg hover:bg-gray-100">
+                <div class="flex items-center space-x-4">
+                    <!-- Botón menú móvil -->
+                    <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-white/20">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
-                    <img src="https://i.pravatar.cc/40" alt="User" class="w-10 h-10 rounded-full">
+                    
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-3">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-2xl font-bold">Dash<span class="text-primary-200">Pro</span></span>
+                    </div>
+                </div>
+                
+                <!-- Barra de búsqueda -->
+                <div class="hidden md:block w-96">
+                    <div class="relative">
+                        <input type="text" placeholder="Buscar..." class="w-full pl-10 pr-4 py-2 rounded-lg bg-white/20 backdrop-blur-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50">
+                        <svg class="absolute left-3 top-2.5 w-5 h-5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Acciones de usuario -->
+                <div class="flex items-center gap-4">
+                    <!-- Notificaciones -->
+                    <div class="relative">
+                        <button class="p-2 rounded-lg hover:bg-white/20 relative">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                            </svg>
+                            <span class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-xs rounded-full flex items-center justify-center">3</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Mensajes -->
+                    <div class="relative">
+                        <button class="p-2 rounded-lg hover:bg-white/20 relative">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                            </svg>
+                            <span class="absolute -top-1 -right-1 w-5 h-5 bg-blue-500 text-xs rounded-full flex items-center justify-center">5</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Perfil de usuario -->
+                    <div class="flex items-center gap-3">
+                        <div class="text-right hidden md:block">
+                            <p class="font-medium">Juan Pérez</p>
+                            <p class="text-sm text-primary-200">Administrador</p>
+                        </div>
+                        <div class="relative group">
+                            <img src="https://i.pravatar.cc/40" alt="User" class="w-10 h-10 rounded-full border-2 border-white/30 cursor-pointer hover:border-white/50 transition-all">
+                            <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 z-50 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200">
+                                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mi Perfil</a>
+                                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Configuración</a>
+                                <hr class="my-1">
+                                <a href="#" class="block px-4 py-2 text-red-600 hover:bg-red-50">Cerrar Sesión</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="flex">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-white min-h-screen shadow-lg">
-            <nav class="mt-8">
-                <a href="#" class="flex items-center px-6 py-3 text-gray-700 bg-indigo-100 border-r-4 border-indigo-600">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                    </svg>
-                    <span class="ml-3 font-medium">Dashboard</span>
-                </a>
-                <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                    </svg>
-                    <span class="ml-3">Usuarios</span>
-                </a>
-                <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                    </svg>
-                    <span class="ml-3">Analíticas</span>
-                </a>
-                <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    <span class="ml-3">Configuración</span>
-                </a>
+    <div class="flex" id="main-container">
+        <!-- Sidebar Mejorado -->
+        <aside id="sidebar" class="w-64 bg-white min-h-[calc(100vh-4rem)] shadow-lg transition-all duration-300 mobile-collapse">
+            <nav class="mt-6">
+                <div class="px-4 mb-6">
+                    <h3 class="text-xs uppercase text-gray-500 font-semibold tracking-wider mb-3">Principal</h3>
+                    <a href="#" class="flex items-center px-4 py-3 text-primary-600 bg-primary-50 border-r-4 border-primary-500 sidebar-item">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="ml-3 font-medium">Dashboard</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 sidebar-item">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <span class="ml-3">Usuarios</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 sidebar-item">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                        <span class="ml-3">Analíticas</span>
+                    </a>
+                </div>
+                
+                <div class="px-4 mb-6">
+                    <h3 class="text-xs uppercase text-gray-500 font-semibold tracking-wider mb-3">Comercio</h3>
+                    <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 sidebar-item">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                        <span class="ml-3">Productos</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 sidebar-item">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="ml-3">Pedidos</span>
+                        <span class="ml-auto bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded-full">12</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 sidebar-item">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
+                        </svg>
+                        <span class="ml-3">Finanzas</span>
+                    </a>
+                </div>
+                
+                <div class="px-4 mb-6">
+                    <h3 class="text-xs uppercase text-gray-500 font-semibold tracking-wider mb-3">Configuración</h3>
+                    <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 sidebar-item">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span class="ml-3">Ajustes</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 sidebar-item">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                        </svg>
+                        <span class="ml-3">Ayuda</span>
+                    </a>
+                </div>
             </nav>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-8">
-            <h1 class="text-3xl font-bold text-gray-800 mb-8">Dashboard</h1>
+        <main class="flex-1 p-6 animate-fade-in">
+            <!-- Header -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">Dashboard</h1>
+                    <p class="text-gray-600">Bienvenido de nuevo, Juan. Aquí está tu resumen.</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <button class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        Generar Reporte
+                    </button>
+                </div>
+            </div>
 
-            <!-- Stats Cards -->
+            <!-- Stats Cards Mejoradas -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white rounded-lg shadow p-6">
+                <div class="bg-white rounded-xl shadow p-6 stats-card border-l-4 border-blue-500">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500 text-sm">Total Usuarios</p>
                             <p class="text-3xl font-bold text-gray-800">2,543</p>
-                            <p class="text-green-500 text-sm mt-2">↑ 12.5%</p>
+                            <div class="flex items-center mt-2">
+                                <span class="text-green-500 text-sm font-medium flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                                    </svg>
+                                    12.5%
+                                </span>
+                                <span class="text-gray-500 text-sm ml-2">vs mes anterior</span>
+                            </div>
                         </div>
                         <div class="bg-blue-100 p-3 rounded-full">
                             <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,12 +267,20 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow p-6">
+                <div class="bg-white rounded-xl shadow p-6 stats-card border-l-4 border-green-500">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500 text-sm">Ingresos</p>
                             <p class="text-3xl font-bold text-gray-800">$45,678</p>
-                            <p class="text-green-500 text-sm mt-2">↑ 8.2%</p>
+                            <div class="flex items-center mt-2">
+                                <span class="text-green-500 text-sm font-medium flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                                    </svg>
+                                    8.2%
+                                </span>
+                                <span class="text-gray-500 text-sm ml-2">vs mes anterior</span>
+                            </div>
                         </div>
                         <div class="bg-green-100 p-3 rounded-full">
                             <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,12 +290,20 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow p-6">
+                <div class="bg-white rounded-xl shadow p-6 stats-card border-l-4 border-orange-500">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500 text-sm">Pedidos</p>
                             <p class="text-3xl font-bold text-gray-800">1,234</p>
-                            <p class="text-red-500 text-sm mt-2">↓ 3.1%</p>
+                            <div class="flex items-center mt-2">
+                                <span class="text-red-500 text-sm font-medium flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                                    </svg>
+                                    3.1%
+                                </span>
+                                <span class="text-gray-500 text-sm ml-2">vs mes anterior</span>
+                            </div>
                         </div>
                         <div class="bg-orange-100 p-3 rounded-full">
                             <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,12 +313,20 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow p-6">
+                <div class="bg-white rounded-xl shadow p-6 stats-card border-l-4 border-purple-500">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500 text-sm">Satisfacción</p>
                             <p class="text-3xl font-bold text-gray-800">4.8</p>
-                            <p class="text-green-500 text-sm mt-2">↑ 0.3</p>
+                            <div class="flex items-center mt-2">
+                                <span class="text-green-500 text-sm font-medium flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                                    </svg>
+                                    0.3
+                                </span>
+                                <span class="text-gray-500 text-sm ml-2">vs mes anterior</span>
+                            </div>
                         </div>
                         <div class="bg-purple-100 p-3 rounded-full">
                             <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,51 +337,240 @@
                 </div>
             </div>
 
-            <!-- Recent Orders Table -->
-            <div class="bg-white rounded-lg shadow overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h2 class="text-xl font-semibold text-gray-800">Pedidos Recientes</h2>
+            <!-- Gráficos y Tablas -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Gráfico de Ventas -->
+                <div class="bg-white rounded-xl shadow p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-semibold text-gray-800">Ventas Mensuales</h2>
+                        <select class="border border-gray-300 rounded-lg px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500">
+                            <option>Últimos 7 días</option>
+                            <option>Últimos 30 días</option>
+                            <option selected>Este año</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <!-- Simulación de gráfico con HTML/CSS -->
+                        <div class="flex items-end h-48 mt-8 space-x-2">
+                            <div class="flex-1 flex flex-col items-center">
+                                <div class="w-full bg-gradient-to-t from-blue-500 to-blue-300 rounded-t" style="height: 70%"></div>
+                                <span class="text-xs text-gray-500 mt-2">Ene</span>
+                            </div>
+                            <div class="flex-1 flex flex-col items-center">
+                                <div class="w-full bg-gradient-to-t from-blue-500 to-blue-300 rounded-t" style="height: 80%"></div>
+                                <span class="text-xs text-gray-500 mt-2">Feb</span>
+                            </div>
+                            <div class="flex-1 flex flex-col items-center">
+                                <div class="w-full bg-gradient-to-t from-blue-500 to-blue-300 rounded-t" style="height: 60%"></div>
+                                <span class="text-xs text-gray-500 mt-2">Mar</span>
+                            </div>
+                            <div class="flex-1 flex flex-col items-center">
+                                <div class="w-full bg-gradient-to-t from-blue-500 to-blue-300 rounded-t" style="height: 90%"></div>
+                                <span class="text-xs text-gray-500 mt-2">Abr</span>
+                            </div>
+                            <div class="flex-1 flex flex-col items-center">
+                                <div class="w-full bg-gradient-to-t from-blue-500 to-blue-300 rounded-t" style="height: 75%"></div>
+                                <span class="text-xs text-gray-500 mt-2">May</span>
+                            </div>
+                            <div class="flex-1 flex flex-col items-center">
+                                <div class="w-full bg-gradient-to-t from-blue-500 to-blue-300 rounded-t" style="height: 85%"></div>
+                                <span class="text-xs text-gray-500 mt-2">Jun</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <table class="w-full">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cliente</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Producto</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Monto</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-200">
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 text-sm text-gray-900">#1234</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">Juan Pérez</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">Laptop Pro</td>
-                            <td class="px-6 py-4 text-sm text-gray-500">2024-01-15</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">$1,299</td>
-                            <td class="px-6 py-4"><span class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">Completado</span></td>
-                        </tr>
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 text-sm text-gray-900">#1235</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">María García</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">Mouse Wireless</td>
-                            <td class="px-6 py-4 text-sm text-gray-500">2024-01-15</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">$49</td>
-                            <td class="px-6 py-4"><span class="px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-100 rounded-full">Pendiente</span></td>
-                        </tr>
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 text-sm text-gray-900">#1236</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">Carlos López</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">Teclado Mecánico</td>
-                            <td class="px-6 py-4 text-sm text-gray-500">2024-01-14</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">$129</td>
-                            <td class="px-6 py-4"><span class="px-2 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full">Procesando</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+
+                <!-- Productos más vendidos -->
+                <div class="bg-white rounded-xl shadow p-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-6">Productos más vendidos</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Laptop Pro</p>
+                                    <p class="text-sm text-gray-500">Electrónica</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold">$1,299</p>
+                                <p class="text-sm text-green-600">+45 unidades</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Mouse Wireless</p>
+                                    <p class="text-sm text-gray-500">Accesorios</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold">$49</p>
+                                <p class="text-sm text-green-600">+89 unidades</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Teclado Mecánico</p>
+                                    <p class="text-sm text-gray-500">Accesorios</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold">$129</p>
+                                <p class="text-sm text-green-600">+32 unidades</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla de Pedidos Recientes -->
+            <div class="bg-white rounded-xl shadow overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                    <h2 class="text-xl font-semibold text-gray-800">Pedidos Recientes</h2>
+                    <a href="#" class="text-primary-600 hover:text-primary-700 font-medium">Ver todos →</a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Producto</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Monto</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50 table-row">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#1234</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <div class="flex items-center">
+                                        <img src="https://i.pravatar.cc/30?img=1" alt="Juan Pérez" class="w-8 h-8 rounded-full mr-3">
+                                        <span>Juan Pérez</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Laptop Pro</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-01-15</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">$1,299</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-3 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">Completado</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button class="text-primary-600 hover:text-primary-900">Ver detalles</button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 table-row">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#1235</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <div class="flex items-center">
+                                        <img src="https://i.pravatar.cc/30?img=2" alt="María García" class="w-8 h-8 rounded-full mr-3">
+                                        <span>María García</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Mouse Wireless</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-01-15</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">$49</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-3 py-1 text-xs font-semibold text-yellow-800 bg-yellow-100 rounded-full">Pendiente</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button class="text-primary-600 hover:text-primary-900">Ver detalles</button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 table-row">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#1236</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <div class="flex items-center">
+                                        <img src="https://i.pravatar.cc/30?img=3" alt="Carlos López" class="w-8 h-8 rounded-full mr-3">
+                                        <span>Carlos López</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Teclado Mecánico</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-01-14</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">$129</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-3 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full">Procesando</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button class="text-primary-600 hover:text-primary-900">Ver detalles</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>
+
+    <script>
+        // Menú móvil
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('mobile-collapse');
+        });
+
+        // Cerrar menú al hacer clic fuera en móviles
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuButton = document.getElementById('mobile-menu-button');
+            
+            if (window.innerWidth < 768) {
+                if (!sidebar.contains(event.target) && !menuButton.contains(event.target)) {
+                    sidebar.classList.add('mobile-collapse');
+                }
+            }
+        });
+
+        // Tooltips para gráficos
+        const chartBars = document.querySelectorAll('.chart-container div > div > div');
+        chartBars.forEach(bar => {
+            bar.addEventListener('mouseenter', function() {
+                const value = this.style.height === '70%' ? '$12,450' :
+                              this.style.height === '80%' ? '$14,200' :
+                              this.style.height === '60%' ? '$9,800' :
+                              this.style.height === '90%' ? '$16,500' :
+                              this.style.height === '75%' ? '$13,750' :
+                              '$15,300';
+                
+                this.setAttribute('title', value);
+            });
+        });
+
+        // Simulación de datos en tiempo real
+        function updateStats() {
+            const stats = document.querySelectorAll('.stats-card .text-3xl');
+            if (stats.length > 0) {
+                // Simular cambio pequeño en los números
+                stats.forEach(stat => {
+                    const current = parseInt(stat.textContent.replace(/[^0-9]/g, ''));
+                    const change = Math.floor(Math.random() * 10) - 2;
+                    const newValue = Math.max(0, current + change);
+                    stat.textContent = stat.textContent.replace(/[0-9,]+/, newValue.toLocaleString());
+                });
+            }
+        }
+
+        // Actualizar cada 30 segundos
+        setInterval(updateStats, 30000);
+    </script>
 </body>
 </html>
