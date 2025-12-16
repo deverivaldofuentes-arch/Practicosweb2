@@ -1,588 +1,868 @@
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
-
-        body {
-          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-          background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 2rem;
-          overflow: hidden;
-        }
-
-        /* Estrellas de fondo */
-        .stars {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-        }
-
-        .star {
-          position: absolute;
-          width: 2px;
-          height: 2px;
-          background: white;
-          border-radius: 50%;
-          animation: twinkle 3s infinite;
-        }
-
-        @keyframes twinkle {
-
-          0%,
-          100% {
-            opacity: 0.3;
-          }
-
-          50% {
-            opacity: 1;
-          }
-        }
-
-        .container {
-          max-width: 800px;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 2rem;
-        }
-
-        /* Reloj circular */
-        .clock-wrapper {
-          position: relative;
-          width: 400px;
-          height: 400px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .clock-outer {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-          backdrop-filter: blur(20px);
-          box-shadow:
-            0 0 60px rgba(0, 195, 255, 0.3),
-            inset 0 0 40px rgba(255, 255, 255, 0.05);
-          border: 3px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .clock-face {
-          position: relative;
-          width: 90%;
-          height: 90%;
-          border-radius: 50%;
-          background: radial-gradient(circle, rgba(30, 30, 50, 0.95) 0%, rgba(20, 20, 40, 0.98) 100%);
-          box-shadow:
-            inset 0 0 50px rgba(0, 0, 0, 0.5),
-            0 0 20px rgba(0, 195, 255, 0.2);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        /* Números del reloj */
-        .number {
-          position: absolute;
-          font-size: 1.5rem;
-          font-weight: bold;
-          color: rgba(255, 255, 255, 0.9);
-          text-shadow: 0 0 10px rgba(0, 195, 255, 0.5);
-        }
-
-        .number-12 {
-          top: 8%;
-          left: 50%;
-          transform: translateX(-50%);
-        }
-
-        .number-3 {
-          right: 8%;
-          top: 50%;
-          transform: translateY(-50%);
-        }
-
-        .number-6 {
-          bottom: 8%;
-          left: 50%;
-          transform: translateX(-50%);
-        }
-
-        .number-9 {
-          left: 8%;
-          top: 50%;
-          transform: translateY(-50%);
-        }
-
-        /* Marcas de minutos */
-        .tick {
-          position: absolute;
-          width: 2px;
-          height: 8px;
-          background: rgba(255, 255, 255, 0.3);
-          left: 50%;
-          top: 5%;
-          transform-origin: 50% 180px;
-        }
-
-        .tick.major {
-          width: 3px;
-          height: 15px;
-          background: rgba(0, 195, 255, 0.6);
-        }
-
-        /* Centro del reloj */
-        .center-dot {
-          position: absolute;
-          width: 20px;
-          height: 20px;
-          background: radial-gradient(circle, #00c3ff 0%, #0066ff 100%);
-          border-radius: 50%;
-          z-index: 10;
-          box-shadow: 0 0 20px rgba(0, 195, 255, 0.8);
-        }
-
-        /* Manecillas */
-        .hand {
-          position: absolute;
-          bottom: 50%;
-          left: 50%;
-          transform-origin: bottom center;
-          border-radius: 10px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .hour-hand {
-          width: 6px;
-          height: 100px;
-          background: linear-gradient(to top, #00c3ff, #ffffff);
-          margin-left: -3px;
-          z-index: 3;
-          box-shadow: 0 0 15px rgba(0, 195, 255, 0.6);
-        }
-
-        .minute-hand {
-          width: 4px;
-          height: 140px;
-          background: linear-gradient(to top, #00d9ff, #ffffff);
-          margin-left: -2px;
-          z-index: 2;
-          box-shadow: 0 0 12px rgba(0, 217, 255, 0.6);
-        }
-
-        .second-hand {
-          width: 2px;
-          height: 160px;
-          background: linear-gradient(to top, #ff3366, #ff6699);
-          margin-left: -1px;
-          z-index: 1;
-          box-shadow: 0 0 10px rgba(255, 51, 102, 0.8);
-        }
-
-        /* Panel digital */
-        .digital-panel {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(20px);
-          border-radius: 20px;
-          padding: 2rem 3rem;
-          border: 2px solid rgba(255, 255, 255, 0.1);
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-          text-align: center;
-          width: 100%;
-          max-width: 500px;
-        }
-
-        .greeting {
-          font-size: 1.5rem;
-          color: #00c3ff;
-          font-weight: 600;
-          margin-bottom: 1rem;
-          text-shadow: 0 0 20px rgba(0, 195, 255, 0.5);
-        }
-
-        .digital-time {
-          font-size: 3rem;
-          font-weight: bold;
-          color: white;
-          font-family: 'Courier New', monospace;
-          letter-spacing: 3px;
-          text-shadow: 0 0 20px rgba(0, 195, 255, 0.5);
-          margin-bottom: 0.5rem;
-        }
-
-        .date {
-          font-size: 1.2rem;
-          color: rgba(255, 255, 255, 0.7);
-          margin-bottom: 1.5rem;
-        }
-
-        .controls {
-          display: flex;
-          gap: 1rem;
-          justify-content: center;
-          flex-wrap: wrap;
-        }
-
-        .btn {
-          padding: 0.8rem 1.5rem;
-          background: linear-gradient(135deg, #00c3ff 0%, #0066ff 100%);
-          color: white;
-          border: none;
-          border-radius: 50px;
-          font-size: 0.9rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 15px rgba(0, 195, 255, 0.3);
-        }
-
-        .btn:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 8px 25px rgba(0, 195, 255, 0.5);
-        }
-
-        .btn:active {
-          transform: translateY(-1px);
-        }
-
-        /* Stats */
-        .stats-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-          gap: 1rem;
-          width: 100%;
-          max-width: 500px;
-        }
-
-        .stat-card {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(20px);
-          padding: 1.2rem;
-          border-radius: 15px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          text-align: center;
-          transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-          transform: translateY(-5px);
-          background: rgba(255, 255, 255, 0.08);
-          box-shadow: 0 10px 30px rgba(0, 195, 255, 0.2);
-        }
-
-        .stat-icon {
-          font-size: 2rem;
-          margin-bottom: 0.5rem;
-        }
-
-        .stat-value {
-          font-size: 1.8rem;
-          font-weight: bold;
-          color: #00c3ff;
-          font-family: 'Courier New', monospace;
-          margin-bottom: 0.3rem;
-          text-shadow: 0 0 10px rgba(0, 195, 255, 0.5);
-        }
-
-        .stat-label {
-          font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.6);
-          font-weight: 600;
-        }
-
-        /* Tablets y pantallas medianas */
-        @media (max-width: 900px) {
-          .clock-wrapper {
-            width: 350px;
-            height: 350px;
-          }
-
-          .hour-hand {
-            height: 85px;
-          }
-
-          .minute-hand {
-            height: 120px;
-          }
-
-          .second-hand {
-            height: 140px;
-          }
-
-          .digital-time {
-            font-size: 2.5rem;
-          }
-
-          .greeting {
-            font-size: 1.3rem;
-          }
-
-          .date {
-            font-size: 1rem;
-          }
-        }
-
-        /* Tablets pequeños */
-        @media (max-width: 768px) {
-          body {
-            padding: 1.5rem;
-          }
-
-          .clock-wrapper {
-            width: 300px;
-            height: 300px;
-          }
-
-          .hour-hand {
-            height: 70px;
-          }
-
-          .minute-hand {
-            height: 100px;
-          }
-
-          .second-hand {
-            height: 120px;
-          }
-
-          .tick {
-            transform-origin: 50% 150px;
-          }
-
-          .digital-time {
-            font-size: 2.2rem;
-            letter-spacing: 2px;
-          }
-
-          .number {
-            font-size: 1.2rem;
-          }
-
-          .digital-panel {
-            padding: 1.8rem 2.5rem;
-          }
-
-          .stats-grid {
-            grid-template-columns: repeat(3, 1fr);
-          }
-        }
-
-        /* Móviles */
-        @media (max-width: 600px) {
-          body {
-            padding: 1rem;
-          }
-
-          .container {
-            gap: 1.5rem;
-          }
-
-          .clock-wrapper {
-            width: 280px;
-            height: 280px;
-          }
-
-          .hour-hand {
-            height: 65px;
-            width: 5px;
-            margin-left: -2.5px;
-          }
-
-          .minute-hand {
-            height: 95px;
-            width: 3px;
-            margin-left: -1.5px;
-          }
-
-          .second-hand {
-            height: 110px;
-          }
-
-          .tick {
-            transform-origin: 50% 140px;
-            height: 6px;
-          }
-
-          .tick.major {
-            height: 12px;
-          }
-
-          .center-dot {
-            width: 16px;
-            height: 16px;
-          }
-
-          .digital-time {
-            font-size: 2rem;
-            letter-spacing: 1px;
-          }
-
-          .greeting {
-            font-size: 1.2rem;
-          }
-
-          .date {
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-          }
-
-          .number {
-            font-size: 1.1rem;
-          }
-
-          .digital-panel {
-            padding: 1.5rem 1.8rem;
-          }
-
-          .controls {
-            flex-direction: column;
-            width: 100%;
-          }
-
-          .btn {
-            width: 100%;
-            padding: 0.9rem 1.5rem;
-          }
-
-          .stats-grid {
-            gap: 0.8rem;
-          }
-
-          .stat-card {
-            padding: 1rem;
-          }
-
-          .stat-value {
-            font-size: 1.5rem;
-          }
-
-          .stat-icon {
-            font-size: 1.8rem;
-          }
-        }
-
-        /* Móviles pequeños */
-        @media (max-width: 400px) {
-          body {
-            padding: 0.8rem;
-          }
-
-          .clock-wrapper {
-            width: 240px;
-            height: 240px;
-          }
-
-          .hour-hand {
-            height: 55px;
-            width: 4px;
-            margin-left: -2px;
-          }
-
-          .minute-hand {
-            height: 80px;
-            width: 3px;
-            margin-left: -1.5px;
-          }
-
-          .second-hand {
-            height: 95px;
-          }
-
-          .tick {
-            transform-origin: 50% 120px;
-            height: 5px;
-            width: 1.5px;
-          }
-
-          .tick.major {
-            height: 10px;
-            width: 2.5px;
-          }
-
-          .number {
-            font-size: 1rem;
-          }
-
-          .center-dot {
-            width: 14px;
-            height: 14px;
-          }
-
-          .digital-time {
-            font-size: 1.6rem;
-          }
-
-          .greeting {
-            font-size: 1.1rem;
-            margin-bottom: 0.8rem;
-          }
-
-          .date {
-            font-size: 0.85rem;
-          }
-
-          .digital-panel {
-            padding: 1.2rem 1.5rem;
-          }
-
-          .btn {
-            font-size: 0.85rem;
-            padding: 0.8rem 1.2rem;
-          }
-
-          .stat-value {
-            font-size: 1.3rem;
-          }
-
-          .stat-label {
-            font-size: 0.75rem;
-          }
-
-          .stat-icon {
-            font-size: 1.5rem;
-            margin-bottom: 0.3rem;
-          }
-        }
-
-        /* Pantallas muy pequeñas */
-        @media (max-width: 350px) {
-          .clock-wrapper {
-            width: 220px;
-            height: 220px;
-          }
-
-          .hour-hand {
-            height: 50px;
-          }
-
-          .minute-hand {
-            height: 72px;
-          }
-
-          .second-hand {
-            height: 88px;
-          }
-
-          .tick {
-            transform-origin: 50% 110px;
-          }
-
-          .digital-time {
-            font-size: 1.4rem;
-          }
-
-          .stats-grid {
-            grid-template-columns: 1fr;
-          }
-        }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #00c3ff;
+  --primary-dark: #0066ff;
+  --secondary: #ff3366;
+  --accent: #00ff88;
+  --dark-bg: #0a0e17;
+  --dark-card: rgba(20, 25, 40, 0.95);
+  --dark-border: rgba(255, 255, 255, 0.1);
+  --text-light: rgba(255, 255, 255, 0.9);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 40px rgba(0, 195, 255, 0.2);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  min-height: 100vh;
+  color: var(--text-light);
+  overflow-x: hidden;
+  padding: 2rem;
+}
+
+/* Estrellas de fondo */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Layout de dos columnas para desktop */
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+  min-height: calc(100vh - 200px);
+}
+
+/* Columna izquierda */
+.column-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Columna derecha */
+.column-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Secciones comunes */
+.clock-section,
+.digital-section,
+.stats-section {
+  background: var(--dark-card);
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
+  border: 2px solid var(--dark-border);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.clock-section:hover,
+.digital-section:hover,
+.stats-section:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-glow);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(0, 195, 255, 0.2);
+}
+
+.section-header i {
+  font-size: 1.8rem;
+  color: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-header h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--text-light), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Reloj analógico */
+.clock-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: 500px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clock-outer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 0 60px rgba(0, 195, 255, 0.3),
+    inset 0 0 40px rgba(255, 255, 255, 0.05);
+  border: 3px solid var(--dark-border);
+}
+
+.clock-face {
+  position: relative;
+  width: 92%;
+  height: 92%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(30, 30, 50, 0.95) 0%, rgba(20, 20, 40, 0.98) 100%);
+  box-shadow: 
+    inset 0 0 50px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(0, 195, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SOLUCIÓN DEFINITIVA - POSICIONAMIENTO MATEMÁTICO */
+.number {
+  position: absolute;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 0 10px rgba(0, 195, 255, 0.5);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+}
+
+/* Círculo de radio 45% del reloj */
+.number-12 { top: 5%; left: 50%; }
+.number-1 { top: calc(50% - 45% * 0.5); left: calc(50% + 45% * 0.866); } /* 30° */
+.number-2 { top: calc(50% - 45% * 0.866); left: calc(50% + 45% * 0.5); } /* 60° */
+.number-3 { top: 50%; left: calc(50% + 45%); } /* 90° */
+.number-4 { top: calc(50% + 45% * 0.866); left: calc(50% + 45% * 0.5); } /* 120° */
+.number-5 { top: calc(50% + 45% * 0.5); left: calc(50% + 45% * 0.866); } /* 150° */
+.number-6 { top: calc(50% + 45%); left: 50%; } /* 180° */
+.number-7 { top: calc(50% + 45% * 0.5); left: calc(50% - 45% * 0.866); } /* 210° */
+.number-8 { top: calc(50% + 45% * 0.866); left: calc(50% - 45% * 0.5); } /* 240° */
+.number-9 { top: 50%; left: calc(50% - 45%); } /* 270° */
+.number-10 { top: calc(50% - 45% * 0.866); left: calc(50% - 45% * 0.5); } /* 300° */
+.number-11 { top: calc(50% - 45% * 0.5); left: calc(50% - 45% * 0.866); } /* 330° */
+
+/* Marcas de minutos */
+.tick {
+  position: absolute;
+  width: 2px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.3);
+  left: 50%;
+  top: 5%;
+  transform-origin: 50% 220px;
+}
+
+.tick.major {
+  width: 3px;
+  height: 18px;
+  background: rgba(0, 195, 255, 0.6);
+}
+
+/* Centro del reloj */
+.center-dot {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(circle, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: 0 0 20px rgba(0, 195, 255, 0.8);
+}
+
+/* Manecillas */
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.05s cubic-bezier(0.4, 2.3, 0.8, 1);
+}
+
+.hour-hand {
+  width: 8px;
+  height: 120px;
+  background: linear-gradient(to top, var(--primary), #ffffff);
+  margin-left: -4px;
+  z-index: 3;
+  box-shadow: 0 0 15px rgba(0, 195, 255, 0.6);
+}
+
+.minute-hand {
+  width: 5px;
+  height: 170px;
+  background: linear-gradient(to top, #00d9ff, #ffffff);
+  margin-left: -2.5px;
+  z-index: 2;
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.6);
+}
+
+.second-hand {
+  width: 2px;
+  height: 200px;
+  background: linear-gradient(to top, var(--secondary), #ff6699);
+  margin-left: -1px;
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(255, 51, 102, 0.8);
+}
+
+/* Indicadores de tiempo */
+.time-indicators {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.indicator {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid var(--dark-border);
+}
+
+.indicator-label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.indicator-value {
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Panel digital */
+.digital-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.greeting {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.greeting i {
+  font-size: 1.8rem;
+  color: #ffd700;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.digital-time-container {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.digital-time {
+  font-size: 4.5rem;
+  font-weight: 800;
+  font-family: 'Courier New', monospace;
+  background: linear-gradient(135deg, var(--text-light), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+  text-shadow: 0 0 30px rgba(0, 195, 255, 0.5);
+}
+
+.time-period {
+  font-size: 1.5rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.digital-date {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
+}
+
+.date-icon {
+  font-size: 1.8rem;
+  color: var(--primary);
+}
+
+.date-text {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-light);
+}
+
+/* Controles */
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.control-btn {
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--dark-border);
+  border-radius: 12px;
+  color: var(--text-light);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.control-btn:hover {
+  background: rgba(0, 195, 255, 0.2);
+  border-color: var(--primary);
+  transform: translateY(-3px);
+}
+
+.control-btn i {
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+/* Estadísticas mejoradas */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 1.5rem;
+  border: 1px solid var(--dark-border);
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  transition: var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  background: rgba(0, 195, 255, 0.1);
+  border-color: var(--primary);
+}
+
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: white;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--primary);
+  font-family: 'Courier New', monospace;
+  margin-bottom: 0.3rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.8rem;
+}
+
+.stat-progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  min-width: 40px;
+}
+
+.stat-detail {
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Información adicional */
+.additional-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 1px solid var(--dark-border);
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.info-item i {
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+.info-content {
+  flex: 1;
+}
+
+.info-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.2rem;
+}
+
+.info-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+/* Footer */
+.app-footer {
+  background: var(--dark-card);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-top: 2rem;
+  border: 2px solid var(--dark-border);
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.footer-section p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.footer-section ul {
+  list-style: none;
+}
+
+.footer-section li {
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-section li:before {
+  content: '•';
+  color: var(--primary);
+}
+
+.footer-section kbd {
+  background: rgba(0, 195, 255, 0.2);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--primary);
+  font-family: 'Courier New', monospace;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--dark-border);
+  color: var(--text-muted);
+}
+
+.footer-bottom i {
+  color: var(--secondary);
+  margin: 0 0.3rem;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--dark-card);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 500px;
+  border: 2px solid var(--dark-border);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid var(--dark-border);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 2rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.modal-close:hover {
+  color: var(--secondary);
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.stopwatch-display {
+  font-size: 3.5rem;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.stopwatch-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.btn-start {
+  background: linear-gradient(135deg, #00c853, #64dd17);
+  color: white;
+}
+
+.btn-pause {
+  background: linear-gradient(135deg, #ff9800, #ff5722);
+  color: white;
+}
+
+.btn-reset {
+  background: linear-gradient(135deg, #f44336, #d32f2f);
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.stopwatch-laps {
+  max-height: 200px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+/* Notificación */
+.notification {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--dark-card);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--accent);
+  transform: translateX(150%);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1001;
+}
+
+.notification.show {
+  transform: translateX(0);
+}
+
+.notification i {
+  color: var(--accent);
+  font-size: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .main-content {
+    gap: 2rem;
+  }
+  
+  .clock-wrapper {
+    height: 450px;
+  }
+  
+  .digital-time {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .column-left,
+  .column-right {
+    width: 100%;
+  }
+  
+  .clock-wrapper {
+    max-width: 500px;
+    height: 500px;
+    margin: 0 auto;
+  }
+  
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+  
+  .clock-wrapper {
+    height: 400px;
+  }
+  
+  .hour-hand { height: 100px; }
+  .minute-hand { height: 140px; }
+  .second-hand { height: 170px; }
+  
+  .digital-time {
+    font-size: 3rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .additional-info {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .controls-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .clock-wrapper {
+    height: 350px;
+  }
+  
+  .hour-hand { height: 85px; }
+  .minute-hand { height: 120px; }
+  .second-hand { height: 145px; }
+  
+  .tick {
+    transform-origin: 50% 160px;
+  }
+  
+  .digital-time {
+    font-size: 2.5rem;
+  }
+  
+  .time-indicators {
+    grid-template-columns: 1fr;
+  }
+  
+  .controls-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stopwatch-controls {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .clock-wrapper {
+    height: 300px;
+  }
+  
+  .hour-hand { height: 70px; width: 6px; margin-left: -3px; }
+  .minute-hand { height: 100px; width: 4px; margin-left: -2px; }
+  .second-hand { height: 120px; }
+  
+  .tick {
+    transform-origin: 50% 140px;
+  }
+  
+  .number {
+    font-size: 1.4rem;
+  }
+  
+  .digital-time {
+    font-size: 2rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.3rem;
+  }
+}

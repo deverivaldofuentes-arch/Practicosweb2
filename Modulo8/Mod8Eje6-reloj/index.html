@@ -4,70 +4,281 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reloj Digital</title>
+  <title>Reloj Digital Avanzado</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
   <div class="stars" id="stars"></div>
 
   <div class="container">
-    <!-- Reloj Analógico -->
-    <div class="clock-wrapper">
-      <div class="clock-outer"></div>
-      <div class="clock-face">
-        <!-- Números principales -->
-        <div class="number number-12">12</div>
-        <div class="number number-3">3</div>
-        <div class="number number-6">6</div>
-        <div class="number number-9">9</div>
+    <!-- Contenido principal en dos columnas para desktop -->
+    <div class="main-content">
+      <!-- Columna izquierda: Reloj Analógico -->
+      <div class="column-left">
+        <div class="clock-section">
+          <div class="section-header">
+            <i class="fas fa-clock"></i>
+            <h2>Reloj Analógico</h2>
+          </div>
+          <div class="clock-wrapper">
+            <div class="clock-outer"></div>
+            <div class="clock-face">
+              <!-- Números principales -->
+              <div class="number number-12">XII</div>
+              <div class="number number-1">I</div>
+              <div class="number number-2">II</div>
+              <div class="number number-3">III</div>
+              <div class="number number-4">IV</div>
+              <div class="number number-5">V</div>
+              <div class="number number-6">VI</div>
+              <div class="number number-7">VII</div>
+              <div class="number number-8">VIII</div>
+              <div class="number number-9">IX</div>
+              <div class="number number-10">X</div>
+              <div class="number number-11">XI</div>
 
-        <!-- Marcas de minutos -->
-        <div id="ticks"></div>
+              <!-- Marcas de minutos -->
+              <div id="ticks"></div>
 
-        <!-- Manecillas -->
-        <div class="hand hour-hand" id="hourHand"></div>
-        <div class="hand minute-hand" id="minuteHand"></div>
-        <div class="hand second-hand" id="secondHand"></div>
+              <!-- Manecillas -->
+              <div class="hand hour-hand" id="hourHand"></div>
+              <div class="hand minute-hand" id="minuteHand"></div>
+              <div class="hand second-hand" id="secondHand"></div>
 
-        <!-- Centro -->
-        <div class="center-dot"></div>
+              <!-- Centro -->
+              <div class="center-dot"></div>
+            </div>
+          </div>
+          
+          <!-- Indicadores de tiempo adicionales -->
+          <div class="time-indicators">
+            <div class="indicator">
+              <span class="indicator-label">Hora Local</span>
+              <span class="indicator-value" id="localTime">00:00:00</span>
+            </div>
+            <div class="indicator">
+              <span class="indicator-label">Zona Horaria</span>
+              <span class="indicator-value" id="timezone">UTC-5</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna derecha: Panel Digital y Estadísticas -->
+      <div class="column-right">
+        <!-- Panel Digital -->
+        <div class="digital-section">
+          <div class="section-header">
+            <i class="fas fa-desktop"></i>
+            <h2>Reloj Digital</h2>
+          </div>
+          
+          <div class="digital-panel">
+            <div class="digital-header">
+              <div class="greeting" id="greeting">
+                <i class="fas fa-sun"></i> Buenos días
+              </div>
+              <div class="location">
+                <i class="fas fa-map-marker-alt"></i> Tu ubicación
+              </div>
+            </div>
+            
+            <div class="digital-time-container">
+              <div class="digital-time" id="digitalTime">00:00:00</div>
+              <div class="time-period" id="timePeriod">AM</div>
+            </div>
+            
+            <div class="digital-date">
+              <div class="date-icon">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div class="date-text" id="date">
+                Lunes, 1 de Enero de 2024
+              </div>
+            </div>
+
+            <!-- Controles mejorados -->
+            <div class="controls-grid">
+              <button class="control-btn" id="formatBtn">
+                <i class="fas fa-exchange-alt"></i>
+                <span id="formatText">12/24h</span>
+              </button>
+              <button class="control-btn" id="themeBtn">
+                <i class="fas fa-palette"></i>
+                <span>Tema</span>
+              </button>
+              <button class="control-btn" id="fullscreenBtn">
+                <i class="fas fa-expand"></i>
+                <span>Pantalla</span>
+              </button>
+              <button class="control-btn" id="stopwatchBtn">
+                <i class="fas fa-stopwatch"></i>
+                <span>Cronómetro</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Estadísticas mejoradas -->
+        <div class="stats-section">
+          <div class="section-header">
+            <i class="fas fa-chart-line"></i>
+            <h2>Estadísticas del Tiempo</h2>
+          </div>
+          
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-calendar-day"></i>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value" id="dayOfYear">1</div>
+                <div class="stat-label">Día del año</div>
+                <div class="stat-progress">
+                  <div class="progress-bar" id="yearProgress">
+                    <div class="progress-fill"></div>
+                  </div>
+                  <div class="progress-text" id="yearProgressText">0%</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-calendar-week"></i>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value" id="weekNumber">1</div>
+                <div class="stat-label">Semana del año</div>
+                <div class="stat-progress">
+                  <div class="progress-bar" id="weekProgress">
+                    <div class="progress-fill"></div>
+                  </div>
+                  <div class="progress-text" id="weekProgressText">0%</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-hourglass-half"></i>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value" id="secondsToday">0</div>
+                <div class="stat-label">Segundos hoy</div>
+                <div class="stat-progress">
+                  <div class="progress-bar" id="dayProgress">
+                    <div class="progress-fill"></div>
+                  </div>
+                  <div class="progress-text" id="dayProgressText">0%</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-moon"></i>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value" id="moonPhase">🌑</div>
+                <div class="stat-label">Fase lunar</div>
+                <div class="stat-detail" id="moonPhaseText">Nueva</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Información adicional -->
+          <div class="additional-info">
+            <div class="info-item">
+              <i class="fas fa-sun"></i>
+              <div class="info-content">
+                <div class="info-label">Salida del sol</div>
+                <div class="info-value" id="sunrise">06:30 AM</div>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-moon"></i>
+              <div class="info-content">
+                <div class="info-label">Puesta del sol</div>
+                <div class="info-value" id="sunset">06:30 PM</div>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-temperature-high"></i>
+              <div class="info-content">
+                <div class="info-label">Estación</div>
+                <div class="info-value" id="season">Primavera</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Panel Digital -->
-    <div class="digital-panel">
-      <div class="greeting" id="greeting">Buenos días</div>
-      <div class="digital-time" id="digitalTime">00:00:00</div>
-      <div class="date" id="date">Lunes, 1 de Enero de 2024</div>
+    <!-- Footer con información adicional -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3><i class="fas fa-info-circle"></i> Acerca de</h3>
+          <p>Reloj digital avanzado con diseño moderno y funcionalidades adicionales</p>
+        </div>
+        <div class="footer-section">
+          <h3><i class="fas fa-cogs"></i> Funcionalidades</h3>
+          <ul>
+            <li>Reloj analógico y digital</li>
+            <li>Estadísticas de tiempo</li>
+            <li>Múltiples temas</li>
+            <li>Modo pantalla completa</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3><i class="fas fa-keyboard"></i> Atajos</h3>
+          <ul>
+            <li><kbd>F</kbd> - Pantalla completa</li>
+            <li><kbd>T</kbd> - Cambiar tema</li>
+            <li><kbd>H</kbd> - Cambiar formato</li>
+            <li><kbd>S</kbd> - Cronómetro</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Reloj Digital Avanzado | Hecho con <i class="fas fa-heart"></i></p>
+      </div>
+    </footer>
+  </div>
 
-      <div class="controls">
-        <button class="btn" id="formatBtn">
-          <span id="formatText">Cambiar a 24h</span>
-        </button>
-        <button class="btn" id="themeBtn">
-          🎨 Cambiar Tema
-        </button>
+  <!-- Modal para cronómetro -->
+  <div class="modal" id="stopwatchModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-stopwatch"></i> Cronómetro</h3>
+        <button class="modal-close" id="closeModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="stopwatch-display" id="stopwatchTime">00:00:00.000</div>
+        <div class="stopwatch-controls">
+          <button class="btn btn-start" id="startStopwatch">
+            <i class="fas fa-play"></i> Iniciar
+          </button>
+          <button class="btn btn-pause" id="pauseStopwatch">
+            <i class="fas fa-pause"></i> Pausar
+          </button>
+          <button class="btn btn-reset" id="resetStopwatch">
+            <i class="fas fa-redo"></i> Reiniciar
+          </button>
+        </div>
+        <div class="stopwatch-laps" id="stopwatchLaps"></div>
       </div>
     </div>
+  </div>
 
-    <!-- Estadísticas -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-icon">📅</div>
-        <div class="stat-value" id="dayOfYear">1</div>
-        <div class="stat-label">Día del año</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">📆</div>
-        <div class="stat-value" id="weekNumber">1</div>
-        <div class="stat-label">Semana</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">⏱️</div>
-        <div class="stat-value" id="secondsToday">0</div>
-        <div class="stat-label">Segundos hoy</div>
-      </div>
+  <!-- Notificación -->
+  <div class="notification" id="notification">
+    <div class="notification-content">
+      <i class="fas fa-check-circle"></i>
+      <span id="notificationText">Modo 24h activado</span>
     </div>
   </div>
 
