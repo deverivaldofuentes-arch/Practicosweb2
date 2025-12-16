@@ -3,45 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora</title>
+    <title>Calculadora Moderna</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="calculator">
-        <div class="display">
-            <div class="previous-operand"></div>
-            <div class="current-operand">0</div>
+    <div class="container">
+        <!-- Calculadora Principal -->
+        <div class="calculator">
+            <div class="calculator-header">
+                <h1><i class="fas fa-calculator"></i> Calculadora Pro</h1>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i> Modo Oscuro
+                </button>
+            </div>
+            
+            <div class="display">
+                <div class="previous-operand"></div>
+                <div class="current-operand">0</div>
+            </div>
+            
+            <div class="buttons">
+                <button class="btn btn-clear span-2">AC</button>
+                <button class="btn btn-delete">DEL</button>
+                <button class="btn btn-operator">÷</button>
+                
+                <button class="btn btn-number">7</button>
+                <button class="btn btn-number">8</button>
+                <button class="btn btn-number">9</button>
+                <button class="btn btn-operator">×</button>
+                
+                <button class="btn btn-number">4</button>
+                <button class="btn btn-number">5</button>
+                <button class="btn btn-number">6</button>
+                <button class="btn btn-operator">-</button>
+                
+                <button class="btn btn-number">1</button>
+                <button class="btn btn-number">2</button>
+                <button class="btn btn-number">3</button>
+                <button class="btn btn-operator">+</button>
+                
+                <button class="btn btn-number span-2">0</button>
+                <button class="btn btn-number">.</button>
+                <button class="btn btn-equals">=</button>
+            </div>
+            
+            <div class="keyboard-hint">
+                <i class="fas fa-keyboard"></i> Usa el teclado para cálculos rápidos
+            </div>
         </div>
-        <div class="buttons">
-            <button class="btn btn-clear span-2">AC</button>
-            <button class="btn btn-delete">DEL</button>
-            <button class="btn btn-operator">÷</button>
+        
+        <!-- Panel de Historial -->
+        <div class="history-panel">
+            <div class="history-header">
+                <h3><i class="fas fa-history"></i> Historial</h3>
+                <span class="history-count" id="historyCount">0 cálculos</span>
+            </div>
             
-            <button class="btn btn-number">7</button>
-            <button class="btn btn-number">8</button>
-            <button class="btn btn-number">9</button>
-            <button class="btn btn-operator">×</button>
+            <div class="history-list" id="historyList">
+                <!-- Los cálculos se insertarán aquí dinámicamente -->
+            </div>
             
-            <button class="btn btn-number">4</button>
-            <button class="btn btn-number">5</button>
-            <button class="btn btn-number">6</button>
-            <button class="btn btn-operator">-</button>
-            
-            <button class="btn btn-number">1</button>
-            <button class="btn btn-number">2</button>
-            <button class="btn btn-number">3</button>
-            <button class="btn btn-operator">+</button>
-            
-            <button class="btn btn-number span-2">0</button>
-            <button class="btn btn-number">.</button>
-            <button class="btn btn-equals">=</button>
-        </div>
-        <div class="history">
-            <h3>Historial</h3>
-            <div class="history-list"></div>
-            <button class="btn-clear-history">Limpiar Historial</button>
+            <button class="btn-clear-history" id="clearHistory">
+                <i class="fas fa-trash-alt"></i> Limpiar Historial
+            </button>
         </div>
     </div>
+    
     <script src="script.js"></script>
 </body>
 </html>

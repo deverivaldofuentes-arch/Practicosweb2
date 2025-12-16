@@ -3,72 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cambio de Tema - Dark/Light Mode</title>
+    <title>Theme Switcher | Modo Claro/Oscuro</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Partículas de fondo -->
+    <div class="particles" id="particles"></div>
+    
     <div class="container">
         <header>
-            <h1>🌓 Cambio de Tema</h1>
-            <button id="themeToggle" class="theme-toggle">
+            <div class="header-content">
+                <h1>Theme Switcher Pro</h1>
+                <p class="tagline">Experiencia visual personalizada en cada clic</p>
+            </div>
+            <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema">
                 <span class="icon">🌙</span>
             </button>
         </header>
 
         <main>
-            <section class="card">
-                <h2>Modo Oscuro / Claro</h2>
-                <p>Este es un ejemplo de cómo implementar un cambio de tema entre modo claro y oscuro usando JavaScript y CSS.</p>
-                
-                <div class="features">
-                    <div class="feature-item">
-                        <span class="emoji">💾</span>
-                        <h3>Persistencia</h3>
-                        <p>Tu preferencia se guarda en localStorage</p>
+            <div class="main-content">
+                <!-- Sección Principal -->
+                <section class="card hero-card">
+                    <h2><i class="fas fa-palette"></i> Modo Claro & Oscuro</h2>
+                    <p class="intro">Una implementación elegante y moderna del cambio de tema entre modo claro y oscuro. Utilizando las mejores prácticas de JavaScript y CSS Variables para una experiencia de usuario excepcional.</p>
+                    
+                    <div class="features">
+                        <div class="feature-item">
+                            <span class="emoji">💾</span>
+                            <h3>Persistencia Inteligente</h3>
+                            <p>Tu preferencia se guarda automáticamente en localStorage, recordando tu elección en futuras visitas.</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="emoji">🎨</span>
+                            <h3>Diseño Adaptativo</h3>
+                            <p>Transiciones suaves y animaciones fluidas que mejoran la experiencia visual en ambos modos.</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="emoji">⚡</span>
+                            <h3>Rendimiento Óptimo</h3>
+                            <p>Implementación ligera que no afecta el rendimiento de la página ni la experiencia del usuario.</p>
+                        </div>
                     </div>
-                    <div class="feature-item">
-                        <span class="emoji">🎨</span>
-                        <h3>Transiciones</h3>
-                        <p>Cambios suaves entre temas</p>
-                    </div>
-                    <div class="feature-item">
-                        <span class="emoji">⚡</span>
-                        <h3>Rápido</h3>
-                        <p>Cambio instantáneo con un clic</p>
-                    </div>
-                </div>
-            </section>
+                </section>
 
-            <section class="card">
-                <h2>Código de Ejemplo</h2>
-                <pre><code>// JavaScript para cambiar tema
+                <!-- Sección de Código -->
+                <section class="card">
+                    <h2><i class="fas fa-code"></i> Implementación Técnica</h2>
+                    <p>Este es el código JavaScript que hace posible la magia del cambio de tema:</p>
+                    
+                    <div class="code-container">
+                        <pre><code class="language-javascript">// Configuración inicial del tema
+const initTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Aplicar tema guardado o preferencia del sistema
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark.matches)) {
+        document.body.classList.add('dark-mode');
+        updateThemeIcon('sun');
+    } else {
+        document.body.classList.remove('dark-mode');
+        updateThemeIcon('moon');
+    }
+};
+
+// Cambiar tema con animación
 const toggleTheme = () => {
-    document.body.classList.toggle('dark-mode');
-    localStorage.setItem('theme', 
-        document.body.classList.contains('dark-mode') 
-        ? 'dark' : 'light'
-    );
-};</code></pre>
-            </section>
+    const isDark = document.body.classList.toggle('dark-mode');
+    const newTheme = isDark ? 'dark' : 'light';
+    
+    // Guardar preferencia
+    localStorage.setItem('theme', newTheme);
+    
+    // Actualizar icono con animación
+    updateThemeIcon(isDark ? 'sun' : 'moon');
+    
+    // Disparar evento personalizado
+    document.dispatchEvent(new CustomEvent('themeChange', {
+        detail: { theme: newTheme }
+    }));
+};
 
-            <section class="stats">
-                <div class="stat-card">
-                    <h3>100%</h3>
-                    <p>JavaScript Puro</p>
+// Animación del icono
+const updateThemeIcon = (icon) => {
+    const iconElement = document.querySelector('.theme-toggle .icon');
+    iconElement.textContent = icon === 'sun' ? '☀️' : '🌙';
+    iconElement.style.transform = 'scale(1.3)';
+    
+    setTimeout(() => {
+        iconElement.style.transform = 'scale(1)';
+    }, 150);
+};
+
+// Inicializar al cargar la página
+document.addEventListener('DOMContentLoaded', initTheme);</code></pre>
+                    </div>
+                    
+                    <div class="tech-stack">
+                        <h3><i class="fas fa-cogs"></i> Stack Tecnológico</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag">JavaScript ES6+</span>
+                            <span class="tech-tag">CSS Variables</span>
+                            <span class="tech-tag">LocalStorage API</span>
+                            <span class="tech-tag">CSS Transitions</span>
+                            <span class="tech-tag">Media Queries</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar de Estadísticas -->
+            <aside class="stats-sidebar">
+                <h2><i class="fas fa-chart-bar"></i> Métricas</h2>
+                <div class="stats">
+                    <div class="stat-card">
+                        <h3>100%</h3>
+                        <p>JavaScript Vanilla</p>
+                        <p class="stat-desc">Sin dependencias externas</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>&lt; 2KB</h3>
+                        <p>Script Size</p>
+                        <p class="stat-desc">Implementación ultraligera</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>CSS</h3>
+                        <p>Variables Nativas</p>
+                        <p class="stat-desc">Máximo rendimiento</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>✨</h3>
+                        <p>User Experience</p>
+                        <p class="stat-desc">Transiciones fluidas</p>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <h3>CSS</h3>
-                    <p>Variables</p>
+                
+                <div class="shortcuts">
+                    <h3><i class="fas fa-keyboard"></i> Atajos de Teclado</h3>
+                    <ul class="shortcut-list">
+                        <li><kbd>Ctrl</kbd> + <kbd>D</kbd> - Cambiar tema</li>
+                        <li><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>L</kbd> - Tema claro</li>
+                        <li><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> - Tema oscuro</li>
+                    </ul>
                 </div>
-                <div class="stat-card">
-                    <h3>🚀</h3>
-                    <p>Fácil de Implementar</p>
+                
+                <div class="system-info">
+                    <h3><i class="fas fa-info-circle"></i> Información del Sistema</h3>
+                    <p class="system-theme">Tema actual: <span id="currentTheme">Cargando...</span></p>
+                    <p class="system-pref">Preferencia del sistema: <span id="systemPreference">Cargando...</span></p>
                 </div>
-            </section>
+            </aside>
         </main>
 
         <footer>
-            <p>Presiona el botón en el header para cambiar el tema</p>
+            <p>¡Haz clic en el botón para cambiar entre modo claro y oscuro!</p>
+            <p class="footer-note">Este diseño es responsivo y se adapta a cualquier dispositivo</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link"><i class="fab fa-github"></i> Código Fuente</a>
+                <a href="#" class="footer-link"><i class="fas fa-star"></i> Demo Interactiva</a>
+                <a href="#" class="footer-link"><i class="fas fa-book"></i> Documentación</a>
+            </div>
         </footer>
     </div>
 

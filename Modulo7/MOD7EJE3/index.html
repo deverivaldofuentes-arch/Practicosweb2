@@ -1,194 +1,223 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería Masonry Real</title>
+    <title>Galería Masonry Moderna</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <header class="gallery-header">
+        <h1>Galería Moderna</h1>
+        <p>Una colección visual inspiradora organizada con diseño masonry. Explora diferentes categorías y descubre belleza en cada detalle.</p>
+        
+        <div class="gallery-filters">
+            <button class="filter-btn active" data-filter="all">Todo</button>
+            <button class="filter-btn" data-filter="nature">Naturaleza</button>
+            <button class="filter-btn" data-filter="urban">Urbano</button>
+            <button class="filter-btn" data-filter="art">Arte</button>
+            <button class="filter-btn" data-filter="travel">Viajes</button>
+        </div>
+    </header>
 
     <main class="gallery-grid">
         
-        <article class="card card-tall">
-            <figure>
-                <img src="https://picsum.photos/id/10/400/600" alt="Bosque">
-            </figure>
+        <article class="card card-tall" data-category="nature">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/10/400/600" alt="Bosque" loading="lazy">
+                <span class="category-badge">Naturaleza</span>
+            </div>
             <div class="card-content">
-                <h3>Naturaleza</h3>
-                <p>Vista del bosque.</p>
+                <h3>Bosque Encantado</h3>
+                <p>Un camino serpenteante a través de un bosque denso y misterioso, donde la luz del sol se filtra entre las hojas.</p>
             </div>
         </article>
 
-        <article class="card">
-            <figure>
-                <img src="https://picsum.photos/id/15/400/400" alt="Cascada">
-            </figure>
+        <article class="card" data-category="nature">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/15/400/400" alt="Cascada" loading="lazy">
+                <span class="category-badge">Naturaleza</span>
+            </div>
             <div class="card-content">
-                <h3>Aventura</h3>
-                <p>Explorando cascadas.</p>
+                <h3>Cascada Serena</h3>
+                <p>Agua cristalina cayendo sobre rocas milenarias, creando un espectáculo natural de sonido y movimiento.</p>
             </div>
         </article>
 
-        <article class="card card-wide">
-            <figure>
-                <img src="https://picsum.photos/id/28/600/300" alt="Paisaje">
-            </figure>
+        <article class="card card-wide card-featured" data-category="urban">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/28/600/300" alt="Paisaje urbano" loading="lazy">
+                <span class="category-badge">Urbano</span>
+            </div>
             <div class="card-content">
-                <h3>Horizonte</h3>
-                <p>Un paisaje amplio para probar el grid.</p>
+                <h3>Metrópolis Nocturna</h3>
+                <p>El ritmo vibrante de la ciudad que nunca duerme, iluminada por millones de luces artificiales.</p>
             </div>
         </article>
 
-        <article class="card card-big">
-            <figure>
-                <img src="https://picsum.photos/id/56/800/500" alt="Ciudad">
-            </figure>
+        <article class="card card-big" data-category="urban">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/56/800/500" alt="Ciudad" loading="lazy">
+                <span class="category-badge">Urbano</span>
+            </div>
             <div class="card-content">
-                <h3>Urbanismo</h3>
-                <p>La ciudad nunca duerme.</p>
+                <h3>Arquitectura Contemporánea</h3>
+                <p>Rascacielos que desafían la gravedad, mostrando la ingeniería humana en su máxima expresión.</p>
             </div>
         </article>
 
-        <article class="card">
-            <figure>
-                <img src="https://picsum.photos/id/40/400/450" alt="Gato">
-            </figure>
+        <article class="card" data-category="art">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/40/400/450" alt="Gato" loading="lazy">
+                <span class="category-badge">Arte</span>
+            </div>
             <div class="card-content">
-                <h3>Mascotas</h3>
-                <p>Un gato curioso.</p>
+                <h3>Elegancia Felina</h3>
+                <p>La mirada penetrante de un gato, capturando la esencia de la independencia y gracia animal.</p>
             </div>
         </article>
 
-        <article class="card card-tall">
-            <figure>
-                <img src="https://picsum.photos/id/88/400/650" alt="Arquitectura">
-            </figure>
+        <article class="card card-tall" data-category="urban">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/88/400/650" alt="Arquitectura" loading="lazy">
+                <span class="category-badge">Urbano</span>
+            </div>
             <div class="card-content">
-                <h3>Diseño</h3>
-                <p>Estructuras complejas.</p>
+                <h3>Geometría Urbana</h3>
+                <p>Líneas, ángulos y formas que crean un ballet arquitectónico en el paisaje urbano.</p>
             </div>
         </article>
 
-        <!-- Nuevas tarjetas agregadas -->
-        <article class="card card-wide">
-            <figure>
-                <img src="https://picsum.photos/id/101/600/350" alt="Montañas">
-            </figure>
+        <article class="card card-wide" data-category="nature">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/101/600/350" alt="Montañas" loading="lazy">
+                <span class="category-badge">Naturaleza</span>
+            </div>
             <div class="card-content">
-                <h3>Cumbres</h3>
-                <p>Las montañas más altas.</p>
+                <h3>Cumbres Majestuosas</h3>
+                <p>Las montañas se elevan hacia el cielo, testigos silenciosos del paso del tiempo.</p>
             </div>
         </article>
 
-        <article class="card">
-            <figure>
-                <img src="https://picsum.photos/id/102/400/400" alt="Lago">
-            </figure>
+        <article class="card" data-category="nature">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/102/400/400" alt="Lago" loading="lazy">
+                <span class="category-badge">Naturaleza</span>
+            </div>
             <div class="card-content">
-                <h3>Reflejos</h3>
-                <p>Agua cristalina en el lago.</p>
+                <h3>Espejo Natural</h3>
+                <p>Un lago tan tranquilo que refleja perfectamente el mundo que lo rodea, duplicando su belleza.</p>
             </div>
         </article>
 
-        <article class="card card-tall">
-            <figure>
-                <img src="https://picsum.photos/id/103/400/550" alt="Desierto">
-            </figure>
+        <article class="card card-tall" data-category="travel">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/103/400/550" alt="Desierto" loading="lazy">
+                <span class="category-badge">Viajes</span>
+            </div>
             <div class="card-content">
-                <h3>Arena</h3>
-                <p>El desierto infinito.</p>
+                <h3>Horizontes Infinitos</h3>
+                <p>El desierto se extiende hasta donde alcanza la vista, un recordatorio de la inmensidad de nuestro planeta.</p>
             </div>
         </article>
 
-        <article class="card">
-            <figure>
-                <img src="https://picsum.photos/id/104/400/380" alt="Flores">
-            </figure>
+        <article class="card" data-category="nature">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/104/400/380" alt="Flores" loading="lazy">
+                <span class="category-badge">Naturaleza</span>
+            </div>
             <div class="card-content">
-                <h3>Jardín</h3>
-                <p>Colores primaverales.</p>
+                <h3>Jardín Colorido</h3>
+                <p>Una explosión de colores donde cada flor compite por la atención del sol y los visitantes.</p>
             </div>
         </article>
 
-        <article class="card card-big">
-            <figure>
-                <img src="https://picsum.photos/id/105/800/450" alt="Aurora">
-            </figure>
+        <article class="card card-big" data-category="nature">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/105/800/450" alt="Aurora" loading="lazy">
+                <span class="category-badge">Naturaleza</span>
+            </div>
             <div class="card-content">
-                <h3>Luces</h3>
-                <p>Aurora boreal en la noche.</p>
+                <h3>Danza Celestial</h3>
+                <p>La aurora boreal pinta el cielo nocturno con colores que desafían la imaginación.</p>
             </div>
         </article>
 
-        <article class="card card-tall">
-            <figure>
-                <img src="https://picsum.photos/id/106/400/580" alt="Café">
-            </figure>
+        <article class="card card-tall" data-category="art">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/106/400/580" alt="Café" loading="lazy">
+                <span class="category-badge">Arte</span>
+            </div>
             <div class="card-content">
-                <h3>Calma</h3>
-                <p>Un momento de tranquilidad.</p>
+                <h3>Ritual del Café</h3>
+                <p>Un momento de pausa en la rutina diaria, donde el aroma y el sabor crean una experiencia sensorial.</p>
             </div>
         </article>
 
-        <article class="card">
-            <figure>
-                <img src="https://picsum.photos/id/107/400/420" alt="Libros">
-            </figure>
+        <article class="card" data-category="art">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/107/400/420" alt="Libros" loading="lazy">
+                <span class="category-badge">Arte</span>
+            </div>
             <div class="card-content">
-                <h3>Conocimiento</h3>
-                <p>Biblioteca antigua.</p>
+                <h3>Sabiduría Antigua</h3>
+                <p>Estanterías llenas de historias, conocimientos y sueños escritos a lo largo de los siglos.</p>
             </div>
         </article>
 
-        <article class="card card-wide">
-            <figure>
-                <img src="https://picsum.photos/id/108/600/320" alt="Play">
-            </figure>
+        <article class="card card-wide" data-category="travel">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/108/600/320" alt="Play" loading="lazy">
+                <span class="category-badge">Viajes</span>
+            </div>
             <div class="card-content">
-                <h3>Diversión</h3>
-                <p>Parque de atracciones.</p>
+                <h3>Aventura Familiar</h3>
+                <p>Risas y diversión en un parque de atracciones, donde cada giro y vuelta crea recuerdos duraderos.</p>
             </div>
         </article>
 
-        <article class="card">
-            <figure>
-                <img src="https://picsum.photos/id/109/400/410" alt="Tecnología">
-            </figure>
+        <article class="card" data-category="art">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/109/400/410" alt="Tecnología" loading="lazy">
+                <span class="category-badge">Arte</span>
+            </div>
             <div class="card-content">
-                <h3>Innovación</h3>
-                <p>Tecnología de vanguardia.</p>
+                <h3>Innovación Digital</h3>
+                <p>Circuitos y códigos que dan vida a nuevas realidades, expandiendo los límites de lo posible.</p>
             </div>
         </article>
 
-        <article class="card card-tall">
-            <figure>
-                <img src="https://picsum.photos/id/110/400/590" alt="Arte">
-            </figure>
+        <article class="card card-tall" data-category="art">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/110/400/590" alt="Arte" loading="lazy">
+                <span class="category-badge">Arte</span>
+            </div>
             <div class="card-content">
-                <h3>Creatividad</h3>
-                <p>Expresión artística.</p>
+                <h3>Expresión Abstracta</h3>
+                <p>Colores y formas que hablan directamente al alma, sin necesidad de palabras ni representaciones literales.</p>
             </div>
         </article>
 
-        <article class="card">
-            <figure>
-                <img src="https://picsum.photos/id/111/400/430" alt="Deportes">
-            </figure>
+        <article class="card" data-category="travel">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/111/400/430" alt="Deportes" loading="lazy">
+                <span class="category-badge">Viajes</span>
+            </div>
             <div class="card-content">
-                <h3>Actividad</h3>
-                <p>Deporte al aire libre.</p>
+                <h3>Energía Deportiva</h3>
+                <p>El cuerpo en movimiento, desafiando límites y celebrando la capacidad física humana.</p>
             </div>
         </article>
 
-        <article class="card card-wide">
-            <figure>
-                <img src="https://picsum.photos/id/112/600/340" alt="Viaje">
-            </figure>
+        <article class="card card-wide" data-category="travel">
+            <div class="figure-wrapper">
+                <img src="https://picsum.photos/id/112/600/340" alt="Viaje" loading="lazy">
+                <span class="category-badge">Viajes</span>
+            </div>
             <div class="card-content">
-                <h3>Aventura</h3>
-                <p>Caminos por explorar.</p>
+                <h3>Caminos por Descubrir</h3>
+                <p>Cada camino conduce a una nueva aventura, una nueva historia y una nueva perspectiva del mundo.</p>
             </div>
         </article>
     </main>
@@ -196,4 +225,3 @@
     <script src="app.js"></script>
 </body>
 </html>
-
