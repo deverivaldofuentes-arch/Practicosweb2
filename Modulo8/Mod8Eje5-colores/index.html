@@ -3,56 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Colores</title>
+    <title>🎨 Generador de Colores Avanzado</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <div class="color-display">
-            <h1 class="title">🎨 Generador de Colores</h1>
-            <p class="subtitle">Haz clic en el botón para generar un color aleatorio</p>
-            
-            <div class="color-code" id="colorCode">#667eea</div>
-            
-            <div class="button-group">
-                <button class="btn btn-generate" id="generateBtn">
-                    Generar Color
-                </button>
-                <button class="btn btn-copy" id="copyBtn">
-                    📋 Copiar Código
-                </button>
-            </div>
-            
-            <div class="color-info">
-                <div class="info-item">
-                    <span class="label">RGB:</span>
-                    <span id="rgbValue">rgb(102, 126, 234)</span>
+        <!-- Encabezado -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-palette"></i>
+                    <h1>Color Generator</h1>
                 </div>
-                <div class="info-item">
-                    <span class="label">HSL:</span>
-                    <span id="hslValue">hsl(228, 76%, 66%)</span>
+                <div class="theme-toggle">
+                    <button id="themeToggle" class="theme-btn">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Panel izquierdo: Generador de colores -->
+            <div class="color-generator">
+                <div class="color-display-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-sliders-h"></i> Color Actual
+                    </h2>
+                    
+                    <!-- Previsualización del color -->
+                    <div class="color-preview" id="colorPreview">
+                        <div class="color-visual" id="colorVisual"></div>
+                        <div class="color-meta">
+                            <div class="color-code-container">
+                                <span class="code-label">HEX</span>
+                                <div class="color-code" id="colorCode">#667eea</div>
+                            </div>
+                            <button class="copy-btn" id="copyBtn" title="Copiar al portapapeles">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Controles -->
+                    <div class="controls">
+                        <button class="btn btn-primary" id="generateBtn">
+                            <i class="fas fa-random"></i> Generar Nuevo Color
+                        </button>
+                        
+                        <div class="shortcut-hint">
+                            <i class="fas fa-keyboard"></i> Atajo: Espacio
+                        </div>
+                    </div>
+
+                    <!-- Información del color -->
+                    <div class="color-info-grid">
+                        <div class="info-card">
+                            <div class="info-header">
+                                <i class="fas fa-ruler-combined"></i>
+                                <h3>RGB</h3>
+                            </div>
+                            <div class="info-value" id="rgbValue">rgb(102, 126, 234)</div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-header">
+                                <i class="fas fa-tint"></i>
+                                <h3>HSL</h3>
+                            </div>
+                            <div class="info-value" id="hslValue">hsl(228, 76%, 66%)</div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-header">
+                                <i class="fas fa-layer-group"></i>
+                                <h3>CMYK</h3>
+                            </div>
+                            <div class="info-value" id="cmykValue">cmyk(56, 46, 0, 8)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selector manual -->
+                <div class="color-picker-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-eye-dropper"></i> Selector Manual
+                    </h3>
+                    <div class="picker-container">
+                        <input type="color" id="colorPicker" value="#667eea">
+                        <div class="picker-controls">
+                            <input type="text" id="hexInput" placeholder="#667eea" maxlength="7">
+                            <button class="btn btn-secondary" id="applyColor">
+                                Aplicar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel derecho: Historial y favoritos -->
+            <div class="color-history">
+                <!-- Historial de colores -->
+                <div class="history-section">
+                    <div class="section-header">
+                        <h2>
+                            <i class="fas fa-history"></i> Historial
+                            <span class="badge" id="historyCount">1</span>
+                        </h2>
+                        <button class="btn-icon" id="clearHistory" title="Limpiar historial">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="history-grid" id="historyGrid">
+                        <!-- Los colores se agregarán aquí dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Favoritos -->
+                <div class="favorites-section">
+                    <div class="section-header">
+                        <h2>
+                            <i class="fas fa-star"></i> Favoritos
+                            <span class="badge" id="favoritesCount">0</span>
+                        </h2>
+                    </div>
+                    
+                    <div class="favorites-grid" id="favoritesGrid">
+                        <!-- Colores favoritos se agregarán aquí -->
+                        <div class="empty-state">
+                            <i class="fas fa-star"></i>
+                            <p>Agrega colores a favoritos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Información del color -->
+                <div class="color-details">
+                    <h3 class="section-title">
+                        <i class="fas fa-info-circle"></i> Información
+                    </h3>
+                    <div class="details-content">
+                        <div class="detail-item">
+                            <span class="detail-label">Brillo:</span>
+                            <span class="detail-value" id="brightnessValue">Medio</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Saturación:</span>
+                            <span class="detail-value" id="saturationValue">Alta</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Contraste:</span>
+                            <span class="detail-value" id="contrastValue">4.5:1</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="history-section">
-            <h2>Últimos Colores</h2>
-            <div class="history-grid" id="historyGrid">
-                <!-- Los colores se agregarán aquí dinámicamente -->
+        <!-- Footer con instrucciones -->
+        <footer class="app-footer">
+            <div class="instructions">
+                <h3>
+                    <i class="fas fa-lightbulb"></i> Cómo usar
+                </h3>
+                <div class="instruction-grid">
+                    <div class="instruction">
+                        <i class="fas fa-random"></i>
+                        <span><strong>Generar:</strong> Botón o barra espaciadora</span>
+                    </div>
+                    <div class="instruction">
+                        <i class="fas fa-copy"></i>
+                        <span><strong>Copiar:</strong> Click en el código HEX</span>
+                    </div>
+                    <div class="instruction">
+                        <i class="fas fa-star"></i>
+                        <span><strong>Favoritos:</strong> Click largo en color</span>
+                    </div>
+                    <div class="instruction">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <span><strong>Selector:</strong> Usa el input color</span>
+                    </div>
+                </div>
             </div>
-            <button class="btn btn-clear" id="clearHistory">
-                Limpiar Historial
-            </button>
-        </div>
-
-        <div class="instructions">
-            <h3>💡 Tip:</h3>
-            <p>También puedes presionar la <strong>barra espaciadora</strong> para generar un nuevo color</p>
-        </div>
+        </footer>
     </div>
 
-    <div class="toast" id="toast">
-        ✓ Código copiado al portapapeles
+    <!-- Notificaciones -->
+    <div class="notification-container">
+        <div class="toast" id="toast">
+            <div class="toast-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="toast-content">
+                <div class="toast-title" id="toastTitle">¡Copiado!</div>
+                <div class="toast-message" id="toastMessage">Código copiado al portapapeles</div>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
