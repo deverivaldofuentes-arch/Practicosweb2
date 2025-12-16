@@ -2,41 +2,68 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Solución: Modal Centrado</title>
+    <meta name="description" content="Ejemplo de modal centrado con diseño futurista y completamente responsive">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Grid de fondo animado -->
+    <div class="grid-background"></div>
+    
     <div class="container">
-        <h1>Ejercicio: Modal Centrado</h1>
-        <p>Haz clic en el botón para abrir el modal</p>
-        <button class="btn-open">Abrir Modal</button>
+        <header class="header">
+            <h1>Ejercicio: Modal Centrado</h1>
+            <p class="subtitle">Haz clic en el botón para abrir el modal</p>
+            <button class="btn-open" aria-label="Abrir modal de demostración">Abrir Modal</button>
+        </header>
         
-        <div class="info">
-            <h3>Características del Modal:</h3>
-            <ul>
-                <li>Centrado con position: fixed</li>
-                <li>Overlay semitransparente</li>
-                <li>Cierre con botón X</li>
-                <li>Cierre al hacer clic fuera</li>
-                <li>Transiciones suaves</li>
-            </ul>
-        </div>
+        <section class="info" aria-label="Características del modal">
+            <div class="info-card">
+                <h3>Centrado con position: fixed</h3>
+                <p>Posicionamiento preciso usando técnicas modernas de CSS para centrado perfecto en cualquier dispositivo.</p>
+            </div>
+            <div class="info-card">
+                <h3>Overlay semitransparente</h3>
+                <p>Fondo difuminado con efecto glassmorphism que destaca el contenido del modal.</p>
+            </div>
+            <div class="info-card">
+                <h3>Cierre con botón X</h3>
+                <p>Botón de cierre intuitivo con animación al interactuar, ubicado en la esquina superior derecha.</p>
+            </div>
+            <div class="info-card">
+                <h3>Cierre al hacer clic fuera</h3>
+                <p>Funcionalidad UX mejorada que permite cerrar el modal haciendo clic fuera del contenido.</p>
+            </div>
+            <div class="info-card">
+                <h3>Transiciones suaves</h3>
+                <p>Animaciones fluidas con timing functions personalizadas para una experiencia visual agradable.</p>
+            </div>
+            <div class="info-card">
+                <h3>Completamente Responsive</h3>
+                <p>Diseño adaptativo que funciona perfectamente en dispositivos móviles, tablets y escritorio.</p>
+            </div>
+        </section>
     </div>
 
     <!-- Modal overlay -->
-    <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
         <div class="modal">
             <button class="btn-close" aria-label="Cerrar modal">&times;</button>
             <div class="modal-icon">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
                     <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
             </div>
-            <h2>¡Bienvenido al Modal!</h2>
-            <p>Este es un modal centrado usando <code>position: fixed</code>.</p>
-            <p>El modal está perfectamente centrado tanto horizontal como verticalmente usando flexbox en el overlay.</p>
+            <h2 id="modalTitle">¡Bienvenido al Modal!</h2>
+            <div id="modalDesc">
+                <p>Este es un modal centrado usando <code>position: fixed</code>.</p>
+                <p>El modal está perfectamente centrado tanto horizontal como verticalmente usando flexbox en el overlay.</p>
+                <p>El diseño es completamente responsive y se adapta a todos los tamaños de pantalla.</p>
+            </div>
             <div class="modal-features">
                 <div class="feature">
                     <span class="feature-icon">✓</span>
@@ -49,6 +76,10 @@
                 <div class="feature">
                     <span class="feature-icon">✓</span>
                     <span>Animaciones suaves</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">✓</span>
+                    <span>Accesibilidad mejorada</span>
                 </div>
             </div>
             <button class="btn-modal-action">Entendido</button>
