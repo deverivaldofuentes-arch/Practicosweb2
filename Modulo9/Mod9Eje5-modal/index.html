@@ -3,142 +3,766 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modal Dialog</title>
+    <title>Modal System Pro | Ventanas Emergentes Avanzadas</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
 </head>
 <body>
+    <!-- Dark Mode Toggle -->
+    <div class="theme-toggle">
+        <button class="theme-btn" id="themeToggle" aria-label="Cambiar modo oscuro/claro">
+            <i class="fas fa-moon"></i>
+            <span class="theme-text">Modo Oscuro</span>
+        </button>
+    </div>
+
     <div class="page-container">
+        <!-- Header Mejorado -->
         <header class="header">
-            <h1>🪟 Modal Dialog con JavaScript</h1>
-            <p>Ejemplo de ventanas emergentes dinámicas</p>
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-layer-group"></i>
+                    <div>
+                        <h1>Modal System Pro</h1>
+                        <p class="tagline">Ventanas emergentes inteligentes para web moderna</p>
+                    </div>
+                </div>
+                <div class="header-stats">
+                    <div class="stat">
+                        <span class="stat-number">6</span>
+                        <span class="stat-label">Tipos de Modales</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Características</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Responsive</span>
+                    </div>
+                </div>
+            </div>
         </header>
 
         <main class="content">
+            <!-- Introducción Mejorada -->
             <section class="intro">
-                <h2>¿Qué es un Modal?</h2>
-                <p>Un modal es una ventana emergente que aparece sobre el contenido principal y requiere la interacción del usuario antes de continuar.</p>
+                <div class="intro-header">
+                    <h2><i class="fas fa-star"></i> Sistema de Modales Avanzado</h2>
+                    <p class="intro-subtitle">Implementa ventanas emergentes profesionales con diseño moderno y funcionalidades completas</p>
+                </div>
+                
+                <div class="intro-grid">
+                    <div class="intro-card">
+                        <div class="intro-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Rendimiento Óptimo</h3>
+                        <p>Modales que se cargan al instante sin afectar el rendimiento de tu página.</p>
+                    </div>
+                    <div class="intro-card">
+                        <div class="intro-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Responsive Total</h3>
+                        <p>Se adapta perfectamente a cualquier dispositivo, desde móviles hasta escritorio.</p>
+                    </div>
+                    <div class="intro-card">
+                        <div class="intro-icon">
+                            <i class="fas fa-universal-access"></i>
+                        </div>
+                        <h3>Accesibilidad</h3>
+                        <p>Cumple con estándares WCAG y totalmente navegable con teclado.</p>
+                    </div>
+                </div>
             </section>
 
-            <section class="demo-buttons">
-                <h3>Ejemplos de Modales</h3>
+            <!-- Botones de Demostración Mejorados -->
+            <section class="demo-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-play-circle"></i> Demostración en Vivo</h3>
+                    <p>Haz clic en cualquier botón para ver los diferentes tipos de modales en acción</p>
+                </div>
                 
-                <button class="btn btn-primary" data-modal="modal1">
-                    📝 Abrir Formulario
-                </button>
+                <div class="demo-grid">
+                    <button class="demo-btn primary" data-modal="modal1">
+                        <div class="demo-btn-icon">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="demo-btn-content">
+                            <h4>Formulario</h4>
+                            <p>Formulario de contacto emergente</p>
+                        </div>
+                        <div class="demo-btn-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </button>
+                    
+                    <button class="demo-btn success" data-modal="modal2">
+                        <div class="demo-btn-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="demo-btn-content">
+                            <h4>Confirmación</h4>
+                            <p>Diálogo de confirmación de acción</p>
+                        </div>
+                        <div class="demo-btn-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </button>
+                    
+                    <button class="demo-btn info" data-modal="modal3">
+                        <div class="demo-btn-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="demo-btn-content">
+                            <h4>Información</h4>
+                            <p>Modal informativo con detalles</p>
+                        </div>
+                        <div class="demo-btn-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </button>
+                    
+                    <button class="demo-btn warning" data-modal="modal4">
+                        <div class="demo-btn-icon">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <div class="demo-btn-content">
+                            <h4>Galería</h4>
+                            <p>Galería de imágenes emergente</p>
+                        </div>
+                        <div class="demo-btn-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </button>
+                    
+                    <button class="demo-btn danger" data-modal="modal5">
+                        <div class="demo-btn-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="demo-btn-content">
+                            <h4>Alerta</h4>
+                            <p>Modal de alerta importante</p>
+                        </div>
+                        <div class="demo-btn-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </button>
+                    
+                    <button class="demo-btn secondary" data-modal="modal6">
+                        <div class="demo-btn-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="demo-btn-content">
+                            <h4>Configuración</h4>
+                            <p>Panel de configuración emergente</p>
+                        </div>
+                        <div class="demo-btn-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </button>
+                </div>
                 
-                <button class="btn btn-success" data-modal="modal2">
-                    ✅ Confirmación
-                </button>
-                
-                <button class="btn btn-info" data-modal="modal3">
-                    ℹ️ Información
-                </button>
-                
-                <button class="btn btn-warning" data-modal="modal4">
-                    🖼️ Galería de Imágenes
-                </button>
+                <div class="demo-hint">
+                    <i class="fas fa-lightbulb"></i>
+                    <p>Consejo: También puedes abrir modales con teclas rápidas: <kbd>F</kbd> para Formulario, <kbd>C</kbd> para Confirmación, <kbd>I</kbd> para Información</p>
+                </div>
             </section>
 
-            <section class="features-grid">
-                <div class="feature-card">
-                    <span class="feature-icon">🎯</span>
-                    <h3>Fácil de Usar</h3>
-                    <p>Interface intuitiva y sencilla</p>
+            <!-- Características Mejoradas -->
+            <section class="features-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-sliders-h"></i> Características Avanzadas</h3>
+                    <p>Descubre todas las funcionalidades que hacen este sistema especial</p>
                 </div>
-                <div class="feature-card">
-                    <span class="feature-icon">⚡</span>
-                    <h3>Rápido</h3>
-                    <p>Carga instantánea sin recargar</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-keyboard"></i>
+                        </div>
+                        <h4>Navegación por Teclado</h4>
+                        <p>Accesibilidad completa con teclado. Usa ESC para cerrar, Tab para navegar.</p>
+                        <span class="feature-tag">Accesible</span>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h4>Diseño Moderno</h4>
+                        <p>Interfaz limpia con animaciones suaves y efectos visuales atractivos.</p>
+                        <span class="feature-tag">UI/UX</span>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <h4>Animaciones Fluidas</h4>
+                        <p>Transiciones suaves con efectos de entrada y salida personalizables.</p>
+                        <span class="feature-tag">Smooth</span>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                        <h4>Responsive Inteligente</h4>
+                        <p>Se adapta automáticamente al tamaño de pantalla y orientación.</p>
+                        <span class="feature-tag">Mobile First</span>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-eye-slash"></i>
+                        </div>
+                        <h4>Overlay Dinámico</h4>
+                        <p>Fondo semitransparente con efecto blur que enfoca la atención en el modal.</p>
+                        <span class="feature-tag">Focus</span>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h4>Historial de Modales</h4>
+                        <p>Sistema de pila que permite navegar entre modales abiertos anteriormente.</p>
+                        <span class="feature-tag">Stack</span>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <span class="feature-icon">🔒</span>
-                    <h3>Seguro</h3>
-                    <p>Previene scroll del fondo</p>
+            </section>
+            
+            <!-- Instrucciones de Uso -->
+            <section class="instructions">
+                <div class="section-header">
+                    <h3><i class="fas fa-graduation-cap"></i> ¿Cómo Usarlo?</h3>
+                    <p>Integra este sistema en tu proyecto en pocos minutos</p>
                 </div>
-                <div class="feature-card">
-                    <span class="feature-icon">♿</span>
-                    <h3>Accesible</h3>
-                    <p>Cerrar con ESC</p>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Incluye los Archivos</h4>
+                            <p>Añade los archivos CSS y JS a tu proyecto</p>
+                            <code>&lt;link rel="stylesheet" href="modal-system.css"&gt;</code>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Añade el HTML</h4>
+                            <p>Estructura básica del modal en tu HTML</p>
+                            <code>&lt;div class="modal" id="miModal"&gt;...&lt;/div&gt;</code>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Activa el Modal</h4>
+                            <p>Añade el atributo data-modal a cualquier botón</p>
+                            <code>&lt;button data-modal="miModal"&gt;Abrir&lt;/button&gt;</code>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
+        
+        <!-- Footer Mejorado -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Modal System Pro</span>
+                </div>
+                <div class="footer-info">
+                    <p>Sistema de modales avanzado desarrollado con HTML5, CSS3 y JavaScript puro.</p>
+                    <div class="footer-links">
+                        <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="#"><i class="fas fa-book"></i> Documentación</a>
+                        <a href="#"><i class="fas fa-code"></i> Ejemplos</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Modal System Pro. Diseñado con <i class="fas fa-heart" style="color: #ff4757;"></i> para desarrolladores.</p>
+            </div>
+        </footer>
     </div>
 
-    <!-- Modal 1: Formulario -->
-    <div class="modal" id="modal1">
+    <!-- Modal 1: Formulario Mejorado -->
+    <div class="modal" id="modal1" role="dialog" aria-labelledby="modal1-title" aria-modal="true">
         <div class="modal-overlay"></div>
         <div class="modal-content">
-            <button class="modal-close">×</button>
-            <h2>Formulario de Contacto</h2>
-            <form class="modal-form">
-                <div class="form-group">
-                    <label>Nombre:</label>
-                    <input type="text" placeholder="Tu nombre">
+            <button class="modal-close" aria-label="Cerrar modal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-edit"></i>
                 </div>
-                <div class="form-group">
-                    <label>Email:</label>
-                    <input type="email" placeholder="tu@email.com">
+                <div>
+                    <h2 id="modal1-title">Formulario de Contacto</h2>
+                    <p class="modal-subtitle">Completa el formulario y nos pondremos en contacto contigo</p>
                 </div>
-                <div class="form-group">
-                    <label>Mensaje:</label>
-                    <textarea rows="4" placeholder="Escribe tu mensaje..."></textarea>
+            </div>
+            
+            <form class="modal-form" id="contactForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">
+                            <i class="fas fa-user"></i>
+                            Nombre Completo
+                        </label>
+                        <input type="text" id="name" placeholder="Tu nombre" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i>
+                            Correo Electrónico
+                        </label>
+                        <input type="email" id="email" placeholder="tu@email.com" required>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                
+                <div class="form-group">
+                    <label for="subject">
+                        <i class="fas fa-tag"></i>
+                        Asunto
+                    </label>
+                    <input type="text" id="subject" placeholder="¿En qué podemos ayudarte?" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">
+                        <i class="fas fa-comment-alt"></i>
+                        Mensaje
+                    </label>
+                    <textarea id="message" rows="4" placeholder="Describe tu consulta o proyecto..." required></textarea>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="newsletter">
+                    <label for="newsletter">Suscribirme al newsletter con novedades</label>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary cancel-btn">
+                        <i class="fas fa-times"></i>
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Enviar Mensaje
+                    </button>
+                </div>
             </form>
         </div>
     </div>
 
-    <!-- Modal 2: Confirmación -->
-    <div class="modal" id="modal2">
+    <!-- Modal 2: Confirmación Mejorada -->
+    <div class="modal" id="modal2" role="dialog" aria-labelledby="modal2-title" aria-modal="true">
         <div class="modal-overlay"></div>
         <div class="modal-content modal-small">
-            <button class="modal-close">×</button>
-            <div class="modal-icon success">✓</div>
-            <h2>¿Confirmar Acción?</h2>
-            <p>Esta acción no se puede deshacer. ¿Estás seguro?</p>
-            <div class="modal-actions">
-                <button class="btn btn-secondary cancel-btn">Cancelar</button>
-                <button class="btn btn-success">Confirmar</button>
+            <button class="modal-close" aria-label="Cerrar modal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-body centered">
+                <div class="modal-icon-large success">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                
+                <h2 id="modal2-title">¿Confirmar Acción?</h2>
+                <p class="modal-text">Esta acción eliminará permanentemente los datos seleccionados. Esta acción no se puede deshacer.</p>
+                
+                <div class="modal-details">
+                    <div class="detail-item">
+                        <i class="fas fa-trash"></i>
+                        <span>Se eliminarán 5 elementos</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-history"></i>
+                        <span>No hay copia de seguridad disponible</span>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline cancel-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        Volver
+                    </button>
+                    <button type="button" class="btn btn-danger confirm-action">
+                        <i class="fas fa-trash"></i>
+                        Eliminar Permanentemente
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal 3: Información -->
-    <div class="modal" id="modal3">
+    <!-- Modal 3: Información Mejorada -->
+    <div class="modal" id="modal3" role="dialog" aria-labelledby="modal3-title" aria-modal="true">
         <div class="modal-overlay"></div>
         <div class="modal-content">
-            <button class="modal-close">×</button>
-            <div class="modal-icon info">ℹ️</div>
-            <h2>Información Importante</h2>
-            <p>Los modales son útiles para:</p>
-            <ul>
-                <li>Solicitar información al usuario</li>
-                <li>Mostrar mensajes importantes</li>
-                <li>Confirmaciones de acciones</li>
-                <li>Mostrar galerías de imágenes</li>
-                <li>Formularios emergentes</li>
-            </ul>
-            <p><strong>Características de este modal:</strong></p>
-            <ul>
-                <li>✅ Cerrar haciendo clic fuera</li>
-                <li>✅ Cerrar con tecla ESC</li>
-                <li>✅ Previene scroll del fondo</li>
-                <li>✅ Animaciones suaves</li>
-            </ul>
+            <button class="modal-close" aria-label="Cerrar modal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div>
+                    <h2 id="modal3-title">Información del Sistema</h2>
+                    <p class="modal-subtitle">Características y funcionalidades avanzadas</p>
+                </div>
+            </div>
+            
+            <div class="modal-body">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h4>Rendimiento Óptimo</h4>
+                        <p>Modales que se cargan instantáneamente sin afectar el rendimiento de tu aplicación.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Seguridad</h4>
+                        <p>Previene clics fuera del modal y cierra automáticamente con la tecla ESC.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                        </div>
+                        <h4>Responsive</h4>
+                        <p>Se adapta perfectamente a todos los tamaños de pantalla y dispositivos.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h4>Personalizable</h4>
+                        <p>Fácil de personalizar con variables CSS y opciones de configuración.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-list">
+                    <h4><i class="fas fa-check-circle"></i> Características Principales</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Navegación completa por teclado</li>
+                        <li><i class="fas fa-check"></i> Animaciones suaves y fluidas</li>
+                        <li><i class="fas fa-check"></i> Compatible con todos los navegadores</li>
+                        <li><i class="fas fa-check"></i> Fácil integración en proyectos existentes</li>
+                        <li><i class="fas fa-check"></i> Soporte para múltiples modales simultáneos</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Modal 4: Galería -->
-    <div class="modal" id="modal4">
+    <!-- Modal 4: Galería Mejorada -->
+    <div class="modal" id="modal4" role="dialog" aria-labelledby="modal4-title" aria-modal="true">
         <div class="modal-overlay"></div>
         <div class="modal-content modal-large">
-            <button class="modal-close">×</button>
-            <h2>Galería de Imágenes</h2>
-            <div class="gallery">
-                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="Montaña">
-                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400" alt="Bosque">
-                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400" alt="Playa">
-                <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400" alt="Ciudad">
+            <button class="modal-close" aria-label="Cerrar modal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-images"></i>
+                </div>
+                <div>
+                    <h2 id="modal4-title">Galería de Imágenes</h2>
+                    <p class="modal-subtitle">Haz clic en cualquier imagen para verla en tamaño completo</p>
+                </div>
+            </div>
+            
+            <div class="gallery-controls">
+                <div class="gallery-filter">
+                    <button class="filter-btn active">Todas</button>
+                    <button class="filter-btn">Naturaleza</button>
+                    <button class="filter-btn">Ciudad</button>
+                    <button class="filter-btn">Arquitectura</button>
+                </div>
+                <div class="gallery-info">
+                    <span id="imageCounter">Mostrando 4 imágenes</span>
+                </div>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600" 
+                         alt="Montañas nevadas al atardecer" 
+                         data-full="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4>Montañas Nevadas</h4>
+                            <p>Paisaje alpino al atardecer</p>
+                        </div>
+                        <button class="gallery-view">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600" 
+                         alt="Bosque verde con rayos de sol" 
+                         data-full="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4>Bosque Encantado</h4>
+                            <p>Rayos de sol entre los árboles</p>
+                        </div>
+                        <button class="gallery-view">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600" 
+                         alt="Playa tropical con aguas cristalinas" 
+                         data-full="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=1200">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4>Playa Tropical</h4>
+                            <p>Aguas cristalinas y arena blanca</p>
+                        </div>
+                        <button class="gallery-view">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600" 
+                         alt="Rascacielos de ciudad moderna" 
+                         data-full="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1200">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4>Ciudad Moderna</h4>
+                            <p>Arquitectura contemporánea</p>
+                        </div>
+                        <button class="gallery-view">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gallery-navigation">
+                <button class="nav-btn prev-btn">
+                    <i class="fas fa-chevron-left"></i>
+                    Anterior
+                </button>
+                <div class="gallery-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <button class="nav-btn next-btn">
+                    Siguiente
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5: Alerta -->
+    <div class="modal" id="modal5" role="alertdialog" aria-labelledby="modal5-title" aria-modal="true">
+        <div class="modal-overlay"></div>
+        <div class="modal-content modal-alert">
+            <button class="modal-close" aria-label="Cerrar alerta">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-body centered">
+                <div class="modal-icon-large danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                
+                <h2 id="modal5-title">¡Alerta Importante!</h2>
+                <p class="modal-text">Se ha detectado una actividad inusual en tu cuenta. Por favor, verifica tu información de seguridad.</p>
+                
+                <div class="alert-details">
+                    <div class="alert-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <strong>Hora del evento:</strong>
+                            <span>Hace 5 minutos</span>
+                        </div>
+                    </div>
+                    <div class="alert-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Ubicación:</strong>
+                            <span>Nueva ubicación detectada</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-actions stacked">
+                    <button type="button" class="btn btn-primary">
+                        <i class="fas fa-shield-alt"></i>
+                        Verificar Ahora
+                    </button>
+                    <button type="button" class="btn btn-outline cancel-btn">
+                        <i class="fas fa-times"></i>
+                        Ignorar por Ahora
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 6: Configuración -->
+    <div class="modal" id="modal6" role="dialog" aria-labelledby="modal6-title" aria-modal="true">
+        <div class="modal-overlay"></div>
+        <div class="modal-content modal-large">
+            <button class="modal-close" aria-label="Cerrar configuración">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div>
+                    <h2 id="modal6-title">Configuración del Sistema</h2>
+                    <p class="modal-subtitle">Personaliza el comportamiento de los modales</p>
+                </div>
+            </div>
+            
+            <div class="settings-tabs">
+                <button class="settings-tab active" data-tab="general">
+                    <i class="fas fa-sliders-h"></i>
+                    General
+                </button>
+                <button class="settings-tab" data-tab="appearance">
+                    <i class="fas fa-palette"></i>
+                    Apariencia
+                </button>
+                <button class="settings-tab" data-tab="accessibility">
+                    <i class="fas fa-universal-access"></i>
+                    Accesibilidad
+                </button>
+            </div>
+            
+            <div class="settings-content">
+                <div class="settings-pane active" id="general">
+                    <div class="setting-group">
+                        <h4><i class="fas fa-mouse-pointer"></i> Comportamiento</h4>
+                        <div class="setting-option">
+                            <label>
+                                <input type="checkbox" checked>
+                                <span>Cerrar al hacer clic fuera del modal</span>
+                            </label>
+                        </div>
+                        <div class="setting-option">
+                            <label>
+                                <input type="checkbox" checked>
+                                <span>Mostrar animaciones de entrada/salida</span>
+                            </label>
+                        </div>
+                        <div class="setting-option">
+                            <label>
+                                <input type="checkbox">
+                                <span>Permitir múltiples modales abiertos</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h4><i class="fas fa-keyboard"></i> Atajos de Teclado</h4>
+                        <div class="shortcuts-list">
+                            <div class="shortcut">
+                                <kbd>ESC</kbd>
+                                <span>Cerrar modal activo</span>
+                            </div>
+                            <div class="shortcut">
+                                <kbd>TAB</kbd>
+                                <span>Navegar entre elementos</span>
+                            </div>
+                            <div class="shortcut">
+                                <kbd>SHIFT + TAB</kbd>
+                                <span>Navegar en reversa</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-pane" id="appearance">
+                    <div class="setting-group">
+                        <h4><i class="fas fa-paint-brush"></i> Tema Visual</h4>
+                        <div class="theme-selector">
+                            <button class="theme-option active" data-theme="light">
+                                <div class="theme-preview light"></div>
+                                <span>Claro</span>
+                            </button>
+                            <button class="theme-option" data-theme="dark">
+                                <div class="theme-preview dark"></div>
+                                <span>Oscuro</span>
+                            </button>
+                            <button class="theme-option" data-theme="auto">
+                                <div class="theme-preview auto"></div>
+                                <span>Automático</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-pane" id="accessibility">
+                    <div class="setting-group">
+                        <h4><i class="fas fa-eye"></i> Accesibilidad</h4>
+                        <div class="setting-option">
+                            <label>
+                                <input type="checkbox" checked>
+                                <span>Enfocar automáticamente al abrir modal</span>
+                            </label>
+                        </div>
+                        <div class="setting-option">
+                            <label>
+                                <input type="checkbox" checked>
+                                <span>Trap de foco dentro del modal</span>
+                            </label>
+                        </div>
+                        <div class="setting-option">
+                            <label>
+                                <input type="checkbox">
+                                <span>Reducir animaciones</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="settings-actions">
+                <button class="btn btn-secondary cancel-btn">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button class="btn btn-primary save-settings">
+                    <i class="fas fa-save"></i>
+                    Guardar Cambios
+                </button>
             </div>
         </div>
     </div>
