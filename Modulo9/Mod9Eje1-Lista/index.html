@@ -3,35 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manipulador de Lista</title>
+    <title> Lista Futurista Pro</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
 </head>
 <body>
     <div class="container">
         <div class="card">
-            <h1>📝 Manipulador de Lista</h1>
-            <p class="subtitle">Añade, edita y elimina items dinámicamente</p>
-            
+            <!-- Encabezado futurista -->
+            <div class="card-header">
+                <div class="header-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="header-content">
+                    <h1>Lista Futurista Pro</h1>
+                    <p class="subtitle">Organiza tus tareas con tecnología avanzada</p>
+                </div>
+            </div>
+
+            <!-- Input para añadir -->
             <div class="input-section">
-                <input 
-                    type="text" 
-                    id="itemInput" 
-                    placeholder="Escribe un nuevo item..."
-                    autocomplete="off"
-                >
-                <button id="addBtn" class="btn btn-add">Añadir</button>
+                <div class="input-wrapper">
+                    <i class="fas fa-plus input-icon"></i>
+                    <input 
+                        type="text" 
+                        id="itemInput" 
+                        placeholder="Ingresa tu tarea aquí..."
+                        autocomplete="off"
+                        maxlength="100"
+                        autofocus
+                    >
+                    <button id="addBtn" class="btn btn-add">
+                        <i class="fas fa-plus-circle"></i> Añadir
+                    </button>
+                </div>
+                <div class="input-hint">
+                    Presiona <kbd>Enter</kbd> para añadir rápidamente
+                </div>
             </div>
 
-            <div class="stats">
-                <span>Total de items: <strong id="itemCount">0</strong></span>
+            <!-- Estadísticas futuristas -->
+            <div class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="itemCount">0</div>
+                            <div class="stat-label">Total Tareas</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="lastAdded">0</div>
+                            <div class="stat-label">Últimas 24h</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="streak">0</div>
+                            <div class="stat-label">Días Activo</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <ul id="itemList" class="item-list">
-                <!-- Los items se añadirán aquí dinámicamente -->
-            </ul>
+            <!-- Filtros futuristas -->
+            <div class="filter-section">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-globe"></i> Todos
+                    </button>
+                    <button class="filter-btn" data-filter="active">
+                        <i class="fas fa-circle-notch"></i> Activos
+                    </button>
+                    <button class="filter-btn" data-filter="completed">
+                        <i class="fas fa-check-double"></i> Completados
+                    </button>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar tareas...">
+                </div>
+            </div>
 
-            <div class="actions">
-                <button id="clearAllBtn" class="btn btn-danger">Limpiar Todo</button>
+            <!-- Lista de items futurista -->
+            <div class="list-container">
+                <ul id="itemList" class="item-list">
+                    <!-- Los items se añadirán aquí dinámicamente -->
+                </ul>
+                
+                <!-- Estado vacío futurista -->
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">
+                        <i class="fas fa-stars"></i>
+                    </div>
+                    <h3>¡Lista Vacía!</h3>
+                    <p>Comienza añadiendo tu primera tarea para activar el sistema</p>
+                    <button class="btn btn-example" id="addExampleBtn">
+                        <i class="fas fa-robot"></i> Cargar Ejemplos
+                    </button>
+                </div>
+            </div>
+
+            <!-- Acciones masivas futuristas -->
+            <div class="bulk-actions">
+                <div class="select-all">
+                    <input type="checkbox" id="selectAll">
+                    <label for="selectAll">Seleccionar Todos</label>
+                </div>
+                <div class="bulk-buttons">
+                    <button class="btn btn-bulk" id="completeSelected">
+                        <i class="fas fa-check-circle"></i> Completar
+                    </button>
+                    <button class="btn btn-bulk btn-danger" id="deleteSelected">
+                        <i class="fas fa-trash-alt"></i> Eliminar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Acciones generales futuristas -->
+            <div class="actions-section">
+                <button id="clearAllBtn" class="btn btn-clear">
+                    <i class="fas fa-eraser"></i> Limpiar Todo
+                </button>
+                <button id="exportBtn" class="btn btn-export">
+                    <i class="fas fa-file-export"></i> Exportar
+                </button>
+                <button id="importBtn" class="btn btn-import">
+                    <i class="fas fa-file-import"></i> Importar
+                </button>
+            </div>
+
+            <!-- Notificación futurista -->
+            <div class="notification" id="notification">
+                <i class="fas fa-bell"></i>
+                <span id="notificationText">¡Sistema Listo!</span>
+            </div>
+        </div>
+
+        <!-- Modal de confirmación futurista -->
+        <div class="modal" id="confirmModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Confirmar Acción</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalMessage">¿Estás seguro de realizar esta acción?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-cancel">Cancelar</button>
+                    <button class="btn btn-confirm">Confirmar</button>
+                </div>
             </div>
         </div>
     </div>

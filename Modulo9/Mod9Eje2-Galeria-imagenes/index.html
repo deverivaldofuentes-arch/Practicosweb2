@@ -3,59 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería Interactiva - DOM</title>
+    <title>Galería Interactiva Futurista</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Estrellas de fondo -->
+    <div class="stars" id="stars"></div>
+
     <div class="container">
+        <!-- Header -->
         <header class="header">
-            <h1>📸 Mi Galería</h1>
-            <p>Galería interactiva con manipulación del DOM</p>
+            <h1><i class="fas fa-camera"></i> Galería Futurista</h1>
+            <p>Galería interactiva con diseño moderno y funcionalidades avanzadas</p>
         </header>
 
-        <!-- Controles -->
+        <!-- Panel de controles -->
         <div class="controls">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="🔍 Buscar imágenes...">
+                <input type="text" id="searchInput" placeholder="Buscar imágenes...">
             </div>
 
             <div class="filters">
-                <button class="filter-btn active" data-filter="all">Todas</button>
-                <button class="filter-btn" data-filter="naturaleza">Naturaleza</button>
-                <button class="filter-btn" data-filter="ciudad">Ciudad</button>
-                <button class="filter-btn" data-filter="tecnologia">Tecnología</button>
-                <button class="filter-btn" data-filter="personas">Personas</button>
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-layer-group"></i> Todas
+                </button>
+                <button class="filter-btn" data-filter="naturaleza">
+                    <i class="fas fa-mountain"></i> Naturaleza
+                </button>
+                <button class="filter-btn" data-filter="ciudad">
+                    <i class="fas fa-city"></i> Ciudad
+                </button>
+                <button class="filter-btn" data-filter="tecnologia">
+                    <i class="fas fa-microchip"></i> Tecnología
+                </button>
+                <button class="filter-btn" data-filter="personas">
+                    <i class="fas fa-users"></i> Personas
+                </button>
             </div>
 
             <div class="view-toggle">
                 <button class="view-btn active" data-view="grid">
-                    <span>⊞</span> Grid
+                    <i class="fas fa-th-large"></i> Grid
                 </button>
                 <button class="view-btn" data-view="list">
-                    <span>☰</span> Lista
+                    <i class="fas fa-list"></i> Lista
                 </button>
             </div>
         </div>
 
-        <!-- Stats -->
+        <!-- Estadísticas -->
         <div class="stats">
-            <span>Mostrando <strong id="imageCount">0</strong> imágenes</span>
+            <span>Mostrando <strong id="imageCount">0</strong> imágenes de <strong>8</strong> disponibles</span>
         </div>
 
         <!-- Galería -->
         <div class="gallery" id="gallery"></div>
 
-        <!-- Lightbox -->
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-info-circle"></i> Acerca de</h3>
+                    <p>Galería interactiva con diseño futurista y funcionalidades avanzadas</p>
+                </div>
+                <div class="footer-section">
+                    <h3><i class="fas fa-cogs"></i> Funciones</h3>
+                    <ul>
+                        <li>Vista Grid/Lista</li>
+                        <li>Filtros por categoría</li>
+                        <li>Búsqueda en tiempo real</li>
+                        <li>Lightbox mejorado</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3><i class="fas fa-keyboard"></i> Atajos</h3>
+                    <ul>
+                        <li><kbd>← →</kbd> - Navegar en lightbox</li>
+                        <li><kbd>ESC</kbd> - Cerrar lightbox</li>
+                        <li><kbd>/</kbd> - Buscar</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Galería Futurista | Hecho con <i class="fas fa-heart"></i></p>
+            </div>
+        </footer>
+
+        <!-- Lightbox Modal -->
         <div class="lightbox" id="lightbox">
-            <button class="lightbox-close">&times;</button>
-            <button class="lightbox-prev">‹</button>
-            <button class="lightbox-next">›</button>
+            <button class="lightbox-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="lightbox-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
             <div class="lightbox-content">
                 <img src="" alt="" id="lightboxImg">
                 <div class="lightbox-info">
                     <h3 id="lightboxTitle"></h3>
-                    <p id="lightboxCategory"></p>
+                    <p><span class="gallery-category" id="lightboxCategory"></span></p>
+                    <p id="lightboxDescription"></p>
                 </div>
+            </div>
+        </div>
+
+        <!-- Notificación -->
+        <div class="notification" id="notification">
+            <div class="notification-content">
+                <i class="fas fa-check-circle"></i>
+                <span id="notificationText">Filtro aplicado</span>
             </div>
         </div>
     </div>

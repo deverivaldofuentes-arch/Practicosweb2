@@ -3,123 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabs Dinámicos</title>
+    <title>Tabs Dinámicos Mejorados</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <div class="tabs-container">
-            <h1>📑 Sistema de Pestañas</h1>
-            <p class="subtitle">Navegación por tabs con JavaScript</p>
+        <!-- Header con menú hamburguesa -->
+        <header class="main-header">
+            <h1><i class="fas fa-folder-open"></i> Sistema de Pestañas Avanzado</h1>
+            <p class="subtitle">Navegación intuitiva con diseño moderno</p>
             
-            <!-- Tab Buttons -->
-            <div class="tab-buttons" role="tablist">
-                <button class="tab-btn active" data-tab="tab1" role="tab" aria-selected="true">
-                    <span class="icon">🏠</span>
-                    Inicio
-                </button>
-                <button class="tab-btn" data-tab="tab2" role="tab" aria-selected="false">
-                    <span class="icon">💼</span>
-                    Servicios
-                </button>
-                <button class="tab-btn" data-tab="tab3" role="tab" aria-selected="false">
-                    <span class="icon">📊</span>
-                    Estadísticas
-                </button>
-                <button class="tab-btn" data-tab="tab4" role="tab" aria-selected="false">
-                    <span class="icon">📧</span>
-                    Contacto
-                </button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú de navegación">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </header>
+
+        <div class="tabs-container">
+            <!-- Tab Buttons - Ahora dentro de un contenedor colapsable -->
+            <div class="tab-buttons-container" id="tabButtonsContainer">
+                <div class="tab-buttons" role="tablist">
+                    <button class="tab-btn active" data-tab="tab1" role="tab" aria-selected="true">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="tab-label">Inicio</span>
+                    </button>
+                    <button class="tab-btn" data-tab="tab2" role="tab" aria-selected="false">
+                        <span class="icon"><i class="fas fa-briefcase"></i></span>
+                        <span class="tab-label">Servicios</span>
+                    </button>
+                    <button class="tab-btn" data-tab="tab3" role="tab" aria-selected="false">
+                        <span class="icon"><i class="fas fa-chart-bar"></i></span>
+                        <span class="tab-label">Estadísticas</span>
+                    </button>
+                    <button class="tab-btn" data-tab="tab4" role="tab" aria-selected="false">
+                        <span class="icon"><i class="fas fa-envelope"></i></span>
+                        <span class="tab-label">Contacto</span>
+                    </button>
+                    <button class="tab-btn" data-tab="tab5" role="tab" aria-selected="false">
+                        <span class="icon"><i class="fas fa-cogs"></i></span>
+                        <span class="tab-label">Configuración</span>
+                    </button>
+                </div>
             </div>
 
             <!-- Tab Content -->
             <div class="tab-contents">
                 <!-- Tab 1: Inicio -->
                 <div class="tab-content active" id="tab1" role="tabpanel">
-                    <h2>Bienvenido al Sistema de Tabs</h2>
-                    <p>Este es un ejemplo de navegación por pestañas implementado con JavaScript puro.</p>
+                    <div class="tab-header">
+                        <h2><i class="fas fa-home"></i> Bienvenido al Sistema de Tabs Mejorado</h2>
+                        <p class="tab-description">Un sistema de navegación por pestañas con diseño moderno y completamente responsivo.</p>
+                    </div>
+                    
                     <div class="features">
                         <div class="feature">
-                            <span class="feature-icon">⚡</span>
-                            <h3>Rápido</h3>
-                            <p>Cambio instantáneo sin recargar</p>
+                            <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                            <h3>Rápido y Fluido</h3>
+                            <p>Transiciones suaves y cambio instantáneo entre pestañas sin recargar la página.</p>
                         </div>
                         <div class="feature">
-                            <span class="feature-icon">🎨</span>
-                            <h3>Moderno</h3>
-                            <p>Diseño limpio y profesional</p>
+                            <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                            <h3>Completamente Responsivo</h3>
+                            <p>Se adapta a cualquier dispositivo con menú hamburguesa en pantallas pequeñas.</p>
                         </div>
                         <div class="feature">
-                            <span class="feature-icon">♿</span>
-                            <h3>Accesible</h3>
-                            <p>Navegación con teclado</p>
+                            <div class="feature-icon"><i class="fas fa-palette"></i></div>
+                            <h3>Diseño Moderno</h3>
+                            <p>Interfaz limpia con colores modernos y efectos visuales atractivos.</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon"><i class="fas fa-universal-access"></i></div>
+                            <h3>Accesibilidad Total</h3>
+                            <p>Navegación con teclado, lectores de pantalla y semántica HTML adecuada.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Tab 2: Servicios -->
                 <div class="tab-content" id="tab2" role="tabpanel">
-                    <h2>Nuestros Servicios</h2>
-                    <p>Ofrecemos una amplia gama de servicios profesionales.</p>
-                    <ul class="service-list">
-                        <li>✅ Desarrollo Web Completo</li>
-                        <li>✅ Diseño UI/UX Profesional</li>
-                        <li>✅ Optimización SEO</li>
-                        <li>✅ Aplicaciones Móviles</li>
-                        <li>✅ Consultoría Técnica</li>
-                        <li>✅ Mantenimiento y Soporte</li>
-                    </ul>
-                    <button class="cta-btn">Solicitar Cotización</button>
+                    <div class="tab-header">
+                        <h2><i class="fas fa-briefcase"></i> Nuestros Servicios</h2>
+                        <p class="tab-description">Ofrecemos soluciones digitales integrales para tu negocio.</p>
+                    </div>
+                    
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon"><i class="fas fa-code"></i></div>
+                            <h3>Desarrollo Web</h3>
+                            <p>Sitios web modernos, rápidos y optimizados para SEO.</p>
+                            <span class="service-tag">Full Stack</span>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+                            <h3>Diseño UI/UX</h3>
+                            <p>Interfaces intuitivas y experiencias de usuario excepcionales.</p>
+                            <span class="service-tag">User-Centered</span>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon"><i class="fas fa-shopping-cart"></i></div>
+                            <h3>E-commerce</h3>
+                            <p>Tiendas online completas con sistemas de pago integrados.</p>
+                            <span class="service-tag">Seguro</span>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+                            <h3>Marketing Digital</h3>
+                            <p>Estrategias de crecimiento y optimización de conversiones.</p>
+                            <span class="service-tag">ROI Alto</span>
+                        </div>
+                    </div>
+                    
+                    <button class="cta-btn"><i class="fas fa-paper-plane"></i> Solicitar Cotización</button>
                 </div>
 
                 <!-- Tab 3: Estadísticas -->
                 <div class="tab-content" id="tab3" role="tabpanel">
-                    <h2>Estadísticas del Proyecto</h2>
-                    <p>Datos importantes sobre el rendimiento.</p>
+                    <div class="tab-header">
+                        <h2><i class="fas fa-chart-bar"></i> Estadísticas del Proyecto</h2>
+                        <p class="tab-description">Métricas clave que demuestran nuestro impacto y rendimiento.</p>
+                    </div>
+                    
                     <div class="stats-grid">
                         <div class="stat-card">
-                            <div class="stat-number">1,234</div>
+                            <div class="stat-icon"><i class="fas fa-users"></i></div>
+                            <div class="stat-number" data-count="1234">0</div>
                             <div class="stat-label">Usuarios Activos</div>
+                            <div class="stat-trend up"><i class="fas fa-arrow-up"></i> 12% este mes</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">98%</div>
+                            <div class="stat-icon"><i class="fas fa-smile"></i></div>
+                            <div class="stat-number" data-count="98">0%</div>
                             <div class="stat-label">Satisfacción</div>
+                            <div class="stat-trend up"><i class="fas fa-arrow-up"></i> 3% este mes</div>
                         </div>
                         <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-clock"></i></div>
                             <div class="stat-number">24/7</div>
                             <div class="stat-label">Disponibilidad</div>
+                            <div class="stat-trend stable"><i class="fas fa-minus"></i> 99.9% uptime</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">150+</div>
+                            <div class="stat-icon"><i class="fas fa-project-diagram"></i></div>
+                            <div class="stat-number" data-count="150">0+</div>
                             <div class="stat-label">Proyectos</div>
+                            <div class="stat-trend up"><i class="fas fa-arrow-up"></i> 8 este mes</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3><i class="fas fa-chart-line"></i> Crecimiento Anual</h3>
+                        <div class="chart">
+                            <div class="chart-bar" style="height: 80%;" data-value="80%"></div>
+                            <div class="chart-bar" style="height: 65%;" data-value="65%"></div>
+                            <div class="chart-bar" style="height: 90%;" data-value="90%"></div>
+                            <div class="chart-bar" style="height: 75%;" data-value="75%"></div>
+                            <div class="chart-bar" style="height: 95%;" data-value="95%"></div>
+                        </div>
+                        <div class="chart-labels">
+                            <span>2019</span>
+                            <span>2020</span>
+                            <span>2021</span>
+                            <span>2022</span>
+                            <span>2023</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Tab 4: Contacto -->
                 <div class="tab-content" id="tab4" role="tabpanel">
-                    <h2>Contáctanos</h2>
-                    <p>Estamos aquí para ayudarte. Envíanos un mensaje.</p>
-                    <form class="contact-form">
-                        <div class="form-group">
-                            <label for="name">Nombre:</label>
-                            <input type="text" id="name" placeholder="Tu nombre">
+                    <div class="tab-header">
+                        <h2><i class="fas fa-envelope"></i> Contáctanos</h2>
+                        <p class="tab-description">¿Tienes un proyecto en mente? Estamos aquí para ayudarte.</p>
+                    </div>
+                    
+                    <div class="contact-container">
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name"><i class="fas fa-user"></i> Nombre:</label>
+                                    <input type="text" id="name" placeholder="Tu nombre completo" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email"><i class="fas fa-envelope"></i> Email:</label>
+                                    <input type="email" id="email" placeholder="tu@email.com" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject"><i class="fas fa-tag"></i> Asunto:</label>
+                                <input type="text" id="subject" placeholder="Asunto de tu mensaje" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message"><i class="fas fa-comment-alt"></i> Mensaje:</label>
+                                <textarea id="message" rows="5" placeholder="Describe tu proyecto o consulta..." required></textarea>
+                            </div>
+                            
+                            <div class="form-footer">
+                                <button type="submit" class="cta-btn"><i class="fas fa-paper-plane"></i> Enviar Mensaje</button>
+                                <div class="form-hint">
+                                    <i class="fas fa-info-circle"></i> Te responderemos en menos de 24 horas
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <div class="contact-info">
+                            <h3><i class="fas fa-info-circle"></i> Información de Contacto</h3>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                <div>
+                                    <h4>Dirección</h4>
+                                    <p>Calle Principal 123, Ciudad</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div>
+                                    <h4>Teléfono</h4>
+                                    <p>+1 (555) 123-4567</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                                <div>
+                                    <h4>Email</h4>
+                                    <p>info@sitio.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                                <div>
+                                    <h4>Horario</h4>
+                                    <p>Lun-Vie: 9am - 6pm</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" placeholder="tu@email.com">
+                    </div>
+                </div>
+
+                <!-- Tab 5: Configuración (nueva pestaña) -->
+                <div class="tab-content" id="tab5" role="tabpanel">
+                    <div class="tab-header">
+                        <h2><i class="fas fa-cogs"></i> Configuración</h2>
+                        <p class="tab-description">Personaliza tu experiencia con el sistema de pestañas.</p>
+                    </div>
+                    
+                    <div class="settings-container">
+                        <div class="setting-group">
+                            <h3><i class="fas fa-palette"></i> Apariencia</h3>
+                            <div class="setting-option">
+                                <label for="themeSelect">Tema de color:</label>
+                                <select id="themeSelect">
+                                    <option value="default">Predeterminado</option>
+                                    <option value="dark">Modo Oscuro</option>
+                                    <option value="light">Modo Claro</option>
+                                    <option value="blue">Azul</option>
+                                </select>
+                            </div>
+                            <div class="setting-option">
+                                <label>
+                                    <input type="checkbox" id="animationsToggle" checked>
+                                    <span>Habilitar animaciones</span>
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="message">Mensaje:</label>
-                            <textarea id="message" rows="4" placeholder="Escribe tu mensaje..."></textarea>
+                        
+                        <div class="setting-group">
+                            <h3><i class="fas fa-keyboard"></i> Atajos de Teclado</h3>
+                            <div class="shortcut-list">
+                                <div class="shortcut-item">
+                                    <span class="shortcut-key">← →</span>
+                                    <span class="shortcut-description">Navegar entre pestañas</span>
+                                </div>
+                                <div class="shortcut-item">
+                                    <span class="shortcut-key">1-5</span>
+                                    <span class="shortcut-description">Ir a pestaña específica</span>
+                                </div>
+                                <div class="shortcut-item">
+                                    <span class="shortcut-key">M</span>
+                                    <span class="shortcut-description">Mostrar/ocultar menú</span>
+                                </div>
+                                <div class="shortcut-item">
+                                    <span class="shortcut-key">ESC</span>
+                                    <span class="shortcut-description">Cerrar menú</span>
+                                </div>
+                            </div>
                         </div>
-                        <button type="submit" class="cta-btn">Enviar Mensaje</button>
-                    </form>
+                        
+                        <div class="setting-group">
+                            <h3><i class="fas fa-save"></i> Guardar Preferencias</h3>
+                            <p>Tu pestaña activa se guarda automáticamente. También puedes:</p>
+                            <div class="setting-buttons">
+                                <button class="secondary-btn" id="resetSettings">
+                                    <i class="fas fa-undo"></i> Restablecer configuración
+                                </button>
+                                <button class="secondary-btn" id="exportSettings">
+                                    <i class="fas fa-download"></i> Exportar configuración
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="keyboard-hint">
-                💡 Tip: Usa las flechas ← → para navegar entre tabs
+                <i class="fas fa-lightbulb"></i> 💡 Consejo: Usa las flechas <kbd>←</kbd> <kbd>→</kbd> para navegar entre pestañas o presiona <kbd>M</kbd> para mostrar/ocultar el menú
+            </div>
+            
+            <div class="footer">
+                <p>Sistema de Tabs Dinámicos v2.0 • Diseñado con <i class="fas fa-heart" style="color: #ff4757;"></i> para una mejor experiencia de usuario</p>
             </div>
         </div>
     </div>

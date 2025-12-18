@@ -3,37 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDo List - Manipulación del DOM</title>
+    <meta name="description" content="ToDo List Pro - Gestión futurista de tareas con diseño responsive y funcionalidades avanzadas">
+    <title>ToDo List Pro - Gestión Futurista de Tareas</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>📝 Mi Lista de Tareas</h1>
-            <p>Organiza tu día de manera efectiva</p>
-        </header>
+    <!-- Fondo de partículas -->
+    <div class="particles"></div>
+    
+    <!-- Controles de tema -->
+    <div class="theme-controls">
+        <button class="theme-btn" id="themeToggle" title="Cambiar tema">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="theme-btn" id="helpToggle" title="Ayuda y atajos">
+            <i class="fas fa-question-circle"></i>
+        </button>
+    </div>
 
-        <div class="todo-app">
-            <div class="input-section">
-                <input type="text" id="todoInput" placeholder="¿Qué necesitas hacer?" />
-                <button id="addBtn">Agregar</button>
+    <!-- Modal de ayuda -->
+    <div class="modal-overlay" id="helpModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-question-circle"></i> Ayuda & Atajos</h3>
+                <button class="modal-close">&times;</button>
             </div>
-
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">Todas <span class="count" id="allCount">0</span></button>
-                <button class="filter-btn" data-filter="active">Activas <span class="count" id="activeCount">0</span></button>
-                <button class="filter-btn" data-filter="completed">Completadas <span class="count" id="completedCount">0</span></button>
-            </div>
-
-            <ul id="todoList" class="todo-list"></ul>
-
-            <div class="actions">
-                <button id="clearCompleted">Limpiar Completadas</button>
-                <span id="itemsLeft">0 tareas pendientes</span>
+            <div class="modal-body">
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <kbd>Ctrl/Cmd + Enter</kbd>
+                        <span>Agregar tarea</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Doble click</kbd>
+                        <span>Editar tarea</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Ctrl/Cmd + D</kbd>
+                        <span>Limpiar campo</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Ctrl/Cmd + L</kbd>
+                        <span>Limpiar completadas</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Escape</kbd>
+                        <span>Restablecer filtros</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Drag & Drop</kbd>
+                        <span>Reordenar tareas</span>
+                    </div>
+                </div>
+                <div class="help-tips">
+                    <h4><i class="fas fa-lightbulb"></i> Consejos:</h4>
+                    <ul>
+                        <li>Las tareas se guardan automáticamente</li>
+                        <li>Puedes arrastrar tareas para reordenarlas</li>
+                        <li>Doble click en una tarea para editarla</li>
+                        <li>Usa filtros para organizar tu vista</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-
+    
+    <div class="container">
+        <!-- Header futurista -->
+        <header>
+            <div class="header-content">
+                <h1><i class="fas fa-tasks"></i> ToDo List Pro</h1>
+                <p class="subtitle">Organiza tus tareas con estilo futurista. Gestiona, prioriza y completa tus objetivos de manera eficiente.</p>
+                <div class="header-stats">
+                    <span class="stat-badge">
+                        <i class="fas fa-bolt"></i>
+                        <span id="todayCount">0</span> hoy
+                    </span>
+                    <span class="stat-badge">
+                        <i class="fas fa-star"></i>
+                        <span id="priorityCount">0</span> prioritarias
+                    </span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Aplicación principal -->
+        <main class="todo-app">
+            <!-- Sección de entrada mejorada -->
+            <div class="input-section">
+                <div class="input-wrapper">
+                    <input type="text" 
+                           id="todoInput" 
+                           placeholder="¿Qué necesitas hacer hoy?" 
+                           autofocus 
+                           autocomplete="off"
+                           maxlength="200">
+                    <div class="input-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="char-counter">
+                        <span id="charCount">0</span>/200
+                    </div>
+                </div>
+                <button id="addBtn" class="btn-primary">
+                    <i class="fas fa-plus-circle"></i>
+                    <span class="btn-text">Agregar Tarea</span>
+                </button>
+            </div>
+            
+            <!-- Prioridad y categoría -->
+            <div class="options-section">
+                <div class="priority-selector">
+                    <label for="prioritySelect"><i class="fas fa-flag"></i> Prioridad:</label>
+                    <select id="prioritySelect" class="priority-select">
+                        <option value="low">Baja</option>
+                        <option value="medium" selected>Media</option>
+                        <option value="high">Alta</option>
+                    </select>
+                </div>
+                <div class="category-selector">
+                    <label for="categorySelect"><i class="fas fa-tag"></i> Categoría:</label>
+                    <select id="categorySelect" class="category-select">
+                        <option value="personal">Personal</option>
+                        <option value="work" selected>Trabajo</option>
+                        <option value="study">Estudio</option>
+                        <option value="health">Salud</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Filtros mejorados -->
+            <div class="filters-section">
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-list"></i>
+                        <span class="filter-text">Todas</span>
+                        <span class="count" id="allCount">0</span>
+                    </button>
+                    <button class="filter-btn" data-filter="active">
+                        <i class="fas fa-clock"></i>
+                        <span class="filter-text">Activas</span>
+                        <span class="count" id="activeCount">0</span>
+                    </button>
+                    <button class="filter-btn" data-filter="completed">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="filter-text">Completadas</span>
+                        <span class="count" id="completedCount">0</span>
+                    </button>
+                    <button class="filter-btn" data-filter="today">
+                        <i class="fas fa-calendar-day"></i>
+                        <span class="filter-text">Hoy</span>
+                        <span class="count" id="todayFilterCount">0</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Lista de tareas -->
+            <div class="todo-list-container">
+                <ul id="todoList" class="todo-list"></ul>
+            </div>
+            
+            <!-- Acciones mejoradas -->
+            <div class="actions-section">
+                <div class="action-group">
+                    <button id="clearCompleted" class="btn-secondary">
+                        <i class="fas fa-broom"></i>
+                        <span class="btn-text">Limpiar Completadas</span>
+                    </button>
+                    <button id="exportBtn" class="btn-tertiary" title="Exportar tareas">
+                        <i class="fas fa-download"></i>
+                        <span class="btn-text">Exportar</span>
+                    </button>
+                    <input type="file" id="importInput" accept=".json" style="display: none;">
+                    <button id="importBtn" class="btn-tertiary" title="Importar tareas">
+                        <i class="fas fa-upload"></i>
+                        <span class="btn-text">Importar</span>
+                    </button>
+                </div>
+                <div class="items-left">
+                    <span id="itemsLeft">
+                        <i class="fas fa-inbox"></i>
+                        <span id="itemsCount">0</span> tareas pendientes
+                    </span>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Estadísticas mejoradas -->
+        <section class="stats-section" id="statsContainer">
+            <h3><i class="fas fa-chart-line"></i> Estadísticas</h3>
+            <div class="stats-grid">
+                <!-- Las estadísticas se generan dinámicamente -->
+            </div>
+        </section>
+        
+        <!-- Footer informativo mejorado -->
+        <footer class="app-info">
+            <div class="info-content">
+                <h3><i class="fas fa-info-circle"></i> Información</h3>
+                <p>ToDo List Pro • v2.1 • Diseño futurista responsive</p>
+                <div class="footer-links">
+                    <button class="footer-link" id="viewSource">
+                        <i class="fab fa-github"></i> Ver Código
+                    </button>
+                    <button class="footer-link" id="resetData">
+                        <i class="fas fa-trash-restore"></i> Reiniciar Datos
+                    </button>
+                </div>
+                <p class="copyright">© 2024 ToDo List Pro. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Sistema de notificaciones -->
+    <div class="notification-container" id="notificationContainer"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>
