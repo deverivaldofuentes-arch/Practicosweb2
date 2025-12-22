@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorador de APIs HTML5</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-rocket"></i> Explorador de APIs HTML5</h1>
+            <p>Demostraciones interactivas de APIs modernas</p>
+            <div class="tech-tags">
+                <span class="tag">JavaScript</span>
+                <span class="tag">HTML5</span>
+                <span class="tag">Web APIs</span>
+            </div>
+        </header>
+
+        <div class="apis-grid">
+            <!-- Geolocation API -->
+            <div class="api-card">
+                <div class="api-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h2>Geolocation API</h2>
+                </div>
+                <p class="api-description">Obtiene tu ubicación actual con precisión</p>
+                <button id="getLocation" class="btn-primary">
+                    <i class="fas fa-location-arrow"></i> Obtener Mi Ubicación
+                </button>
+                <div id="locationResult" class="result"></div>
+            </div>
+
+            <!-- LocalStorage API -->
+            <div class="api-card">
+                <div class="api-header">
+                    <i class="fas fa-database"></i>
+                    <h2>LocalStorage API</h2>
+                </div>
+                <p class="api-description">Almacena datos localmente en el navegador</p>
+                <input type="text" id="storageInput" placeholder="Escribe algo para guardar...">
+                <div class="button-group">
+                    <button id="saveStorage" class="btn-success">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                    <button id="loadStorage" class="btn-info">
+                        <i class="fas fa-download"></i> Cargar
+                    </button>
+                    <button id="clearStorage" class="btn-danger">
+                        <i class="fas fa-trash"></i> Limpiar
+                    </button>
+                </div>
+                <div id="storageResult" class="result"></div>
+            </div>
+
+            <!-- Fetch API -->
+            <div class="api-card">
+                <div class="api-header">
+                    <i class="fas fa-globe"></i>
+                    <h2>Fetch API</h2>
+                </div>
+                <p class="api-description">Realiza peticiones HTTP asíncronas</p>
+                <button id="fetchData" class="btn-primary">
+                    <i class="fas fa-sync-alt"></i> Cargar Datos de Usuario
+                </button>
+                <div id="fetchResult" class="result"></div>
+            </div>
+
+            <!-- Canvas API -->
+            <div class="api-card canvas-card">
+                <div class="api-header">
+                    <i class="fas fa-paint-brush"></i>
+                    <h2>Canvas API</h2>
+                </div>
+                <p class="api-description">Dibuja gráficos vectoriales en tiempo real</p>
+                <canvas id="myCanvas" width="600" height="300"></canvas>
+                <div class="button-group">
+                    <button id="drawRect" class="btn-warning">
+                        <i class="fas fa-square"></i> Rectángulo
+                    </button>
+                    <button id="drawCircle" class="btn-warning">
+                        <i class="fas fa-circle"></i> Círculo
+                    </button>
+                    <button id="clearCanvas" class="btn-danger">
+                        <i class="fas fa-broom"></i> Limpiar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Drag and Drop API -->
+            <div class="api-card">
+                <div class="api-header">
+                    <i class="fas fa-arrows-alt"></i>
+                    <h2>Drag & Drop API</h2>
+                </div>
+                <p class="api-description">Arrastra y suelta elementos entre zonas</p>
+                <div class="drop-zones">
+                    <div class="zone" id="zone1">
+                        <h3>Zona Origen</h3>
+                        <div class="draggable" draggable="true" data-id="1">
+                            <i class="fas fa-file"></i> Documento 1
+                        </div>
+                        <div class="draggable" draggable="true" data-id="2">
+                            <i class="fas fa-image"></i> Imagen 2
+                        </div>
+                        <div class="draggable" draggable="true" data-id="3">
+                            <i class="fas fa-music"></i> Audio 3
+                        </div>
+                    </div>
+                    <div class="zone" id="zone2">
+                        <h3>Zona Destino</h3>
+                        <p class="drop-hint">Arrastra los elementos aquí</p>
+                    </div>
+                </div>
+                <div id="dragResult" class="result"></div>
+            </div>
+
+            <!-- Notification API -->
+            <div class="api-card">
+                <div class="api-header">
+                    <i class="fas fa-bell"></i>
+                    <h2>Notification API</h2>
+                </div>
+                <p class="api-description">Muestra notificaciones del sistema</p>
+                <div class="button-group">
+                    <button id="requestNotification" class="btn-primary">
+                        <i class="fas fa-key"></i> Solicitar Permiso
+                    </button>
+                    <button id="showNotification" class="btn-success" disabled>
+                        <i class="fas fa-bell"></i> Mostrar Notificación
+                    </button>
+                </div>
+                <div id="notificationResult" class="result"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Explorador de APIs HTML5 &copy; 2024 | Demo educativa</p>
+            <p class="hint">Todas las operaciones se ejecutan localmente en tu navegador</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

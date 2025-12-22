@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenador Drag and Drop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Ordenador Drag and Drop</h1>
+        <p class="subtitle">Arrastra los elementos para reorganizarlos</p>
+        
+        <div class="controls">
+            <button class="btn" id="resetBtn">↻ Resetear Orden</button>
+            <button class="btn" id="addBtn">+ Agregar Tarea</button>
+        </div>
+
+        <div class="columns">
+            <div class="column">
+                <h2>📋 Por Hacer</h2>
+                <div class="dropzone" id="todo" data-zone="todo">
+                    <div class="item" draggable="true" data-id="1">
+                        <span class="drag-handle">☰</span>
+                        <span>Aprender HTML</span>
+                    </div>
+                    <div class="item" draggable="true" data-id="2">
+                        <span class="drag-handle">☰</span>
+                        <span>Estudiar CSS</span>
+                    </div>
+                    <div class="item" draggable="true" data-id="3">
+                        <span class="drag-handle">☰</span>
+                        <span>Practicar JavaScript</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <h2>⚙️ En Progreso</h2>
+                <div class="dropzone" id="progress" data-zone="progress">
+                    <div class="item" draggable="true" data-id="4">
+                        <span class="drag-handle">☰</span>
+                        <span>Hacer proyecto</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <h2>✅ Completado</h2>
+                <div class="dropzone" id="done" data-zone="done">
+                    <div class="item" draggable="true" data-id="5">
+                        <span class="drag-handle">☰</span>
+                        <span>Completar ejercicios</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

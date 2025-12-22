@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paint Pro Ultra - Filtros y Archivos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="sidebar">
+        <h2>Paint Studio</h2>
+        
+        <div class="control-group">
+            <label class="section-title">Archivo</label>
+            <input type="file" id="imageLoader" accept="image/*" hidden>
+            <button onclick="document.getElementById('imageLoader').click()">📂 Abrir Foto</button>
+            <button id="downloadBtn" class="btn-primary">💾 Guardar PNG</button>
+        </div>
+
+        <div class="control-group">
+            <label class="section-title">Herramientas</label>
+            <div class="tool-grid">
+                <button class="tool active" data-tool="brush">🖌️</button>
+                <button class="tool" data-tool="rectangle">⏹️</button>
+                <button class="tool" data-tool="circle">⭕</button>
+                <button class="tool" data-tool="eraser">🧽</button>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="section-title">Filtros Pro</label>
+            <button id="filterGray">Escala Grises</button>
+            <button id="filterInvert">Invertir</button>
+            <button id="filterSepia">Sepia</button>
+        </div>
+
+        <div class="control-group">
+            <label>Color</label>
+            <input type="color" id="colorPicker" value="#1a73e8">
+            <label>Grosor: <span id="wLabel">5</span>px</label>
+            <input type="range" id="lineWidth" min="1" max="100" value="5">
+        </div>
+    </nav>
+
+    <main class="editor-area">
+        <canvas id="canvas"></canvas>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IMC</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calculator-card">
+            <h1>⚖️ Calculadora de IMC</h1>
+            <p class="subtitle">Calcula tu Índice de Masa Corporal</p>
+            
+            <form id="imcForm">
+                <div class="form-group">
+                    <label for="peso">Peso (kg)</label>
+                    <input 
+                        type="number" 
+                        id="peso" 
+                        name="peso"
+                        placeholder="Ej: 70"
+                        min="1"
+                        max="300"
+                        step="0.1"
+                        required
+                    >
+                    <span class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="altura">Altura (cm)</label>
+                    <input 
+                        type="number" 
+                        id="altura" 
+                        name="altura"
+                        placeholder="Ej: 170"
+                        min="50"
+                        max="250"
+                        step="0.1"
+                        required
+                    >
+                    <span class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="edad">Edad (años)</label>
+                    <input 
+                        type="number" 
+                        id="edad" 
+                        name="edad"
+                        placeholder="Ej: 25"
+                        min="1"
+                        max="120"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Sexo</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="sexo" value="masculino" checked>
+                            Masculino
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="sexo" value="femenino">
+                            Femenino
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-calculate">Calcular IMC</button>
+            </form>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h2>Tu Resultado</h2>
+                
+                <div class="imc-display">
+                    <div class="imc-value" id="imcValue">0.0</div>
+                    <div class="imc-category" id="imcCategory">-</div>
+                </div>
+
+                <div class="imc-bar">
+                    <div class="imc-indicator" id="imcIndicator"></div>
+                    <div class="bar-segment bajo-peso">Bajo peso</div>
+                    <div class="bar-segment normal">Normal</div>
+                    <div class="bar-segment sobrepeso">Sobrepeso</div>
+                    <div class="bar-segment obesidad">Obesidad</div>
+                </div>
+
+                <div class="imc-ranges">
+                    <h3>Rangos de IMC:</h3>
+                    <ul>
+                        <li><span class="dot bajo-peso"></span> Bajo peso: Menor a 18.5</li>
+                        <li><span class="dot normal"></span> Normal: 18.5 - 24.9</li>
+                        <li><span class="dot sobrepeso"></span> Sobrepeso: 25 - 29.9</li>
+                        <li><span class="dot obesidad"></span> Obesidad: 30 o mayor</li>
+                    </ul>
+                </div>
+
+                <div class="recommendations" id="recommendations">
+                    <h3>Recomendaciones:</h3>
+                    <p id="recommendationText"></p>
+                </div>
+            </div>
+
+            <div class="history-section">
+                <h2>Historial</h2>
+                <div id="historyList">
+                    <p class="empty-history">No hay cálculos previos</p>
+                </div>
+                <button class="btn-clear-history" id="clearHistoryBtn" style="display: none;">
+                    Limpiar Historial
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

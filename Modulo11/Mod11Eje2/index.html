@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima - Pronóstico del Tiempo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌤️</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Header con información adicional -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-cloud-sun"></i> ClimaPlus</h1>
+                <p class="subtitle">Pronóstico del tiempo en tiempo real</p>
+                <div class="header-info">
+                    <div class="info-item">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Actualizado cada 15 min</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-globe-americas"></i>
+                        <span>+20,000 ciudades</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-bolt"></i>
+                        <span>Tiempo real</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Indicador de conexión -->
+            <div class="connection-status" id="connectionStatus">
+                <i class="fas fa-wifi"></i>
+                <span>Conectado</span>
+            </div>
+        </header>
+
+        <!-- Aplicación principal -->
+        <div class="weather-app">
+            <!-- Barra de búsqueda mejorada -->
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" 
+                           id="citySearch" 
+                           placeholder="Buscar ciudad (ej: Madrid, New York, Tokyo)..."
+                           autocomplete="off"
+                           aria-label="Buscar ciudad">
+                    <div class="search-suggestions" id="searchSuggestions"></div>
+                </div>
+                
+                <div class="search-buttons">
+                    <button id="searchBtn" class="btn-primary">
+                        <i class="fas fa-search"></i> Buscar
+                    </button>
+                    
+                    <div class="action-buttons">
+                        <button id="locationBtn" class="btn-secondary" title="Usar mi ubicación actual" aria-label="Usar ubicación actual">
+                            <i class="fas fa-location-crosshairs"></i>
+                        </button>
+                        
+                        <div class="unit-toggle">
+                            <button id="unitToggle" class="btn-toggle active" data-unit="celsius" aria-label="Cambiar a grados Celsius">
+                                °C
+                            </button>
+                            <button id="unitToggleF" class="btn-toggle" data-unit="fahrenheit" aria-label="Cambiar a grados Fahrenheit">
+                                °F
+                            </button>
+                        </div>
+                        
+                        <button id="refreshBtn" class="btn-secondary" title="Actualizar" aria-label="Actualizar datos">
+                            <i class="fas fa-redo"></i>
+                        </button>
+
+                        <button id="settingsBtn" class="btn-secondary" title="Configuración" aria-label="Abrir configuración">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel principal del clima -->
+            <div class="weather-main-container">
+                <!-- Clima actual -->
+                <div class="current-weather-card" id="currentWeather">
+                    <div class="loading-container">
+                        <div class="loading-spinner"></div>
+                        <p>Buscando clima...</p>
+                    </div>
+                </div>
+                
+                <!-- Panel de información adicional -->
+                <div class="additional-info" id="additionalInfo"></div>
+            </div>
+
+            <!-- Pronóstico extendido (5 días) -->
+            <div class="forecast-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-calendar-alt"></i> Pronóstico de 5 días</h2>
+                    <div class="section-controls">
+                        <button class="btn-small" id="scrollLeft" aria-label="Desplazar izquierda">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn-small" id="scrollRight" aria-label="Desplazar derecha">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="forecast-container">
+                    <div class="forecast-scroll" id="forecastGrid"></div>
+                </div>
+            </div>
+
+            <!-- Ciudades favoritas con funcionalidad mejorada -->
+            <div class="favorites-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-star"></i> Mis Ciudades Favoritas</h2>
+                    <button class="btn-small" id="clearFavorites" title="Limpiar todas" aria-label="Limpiar favoritos">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <div class="favorites-container">
+                    <div class="favorites-grid" id="favoritesList">
+                        <div class="empty-favorites">
+                            <i class="fas fa-star fa-2x"></i>
+                            <p>No hay ciudades favoritas aún</p>
+                            <p class="hint">Busca una ciudad y haz clic en la estrella para agregarla</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel de estadísticas -->
+            <div class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-thermometer-half"></i>
+                        <div class="stat-info">
+                            <h3>Temperatura</h3>
+                            <p class="stat-value" id="avgTemp">--°C</p>
+                            <p class="stat-label">Promedio 24h</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-wind"></i>
+                        <div class="stat-info">
+                            <h3>Viento</h3>
+                            <p class="stat-value" id="windSpeed">-- km/h</p>
+                            <p class="stat-label">Velocidad actual</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-tint"></i>
+                        <div class="stat-info">
+                            <h3>Humedad</h3>
+                            <p class="stat-value" id="humidityLevel">--%</p>
+                            <p class="stat-label">Nivel actual</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-sun"></i>
+                        <div class="stat-info">
+                            <h3>UV Index</h3>
+                            <p class="stat-value" id="uvIndex">--</p>
+                            <p class="stat-label">Intensidad solar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información del lugar actual -->
+            <div class="location-info" id="locationInfo"></div>
+        </div>
+
+        <!-- Footer informativo -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-info-circle"></i> Información</h4>
+                    <p>Datos meteorológicos proporcionados por WeatherAPI.com</p>
+                    <p>Actualizado automáticamente cada 15 minutos</p>
+                </div>
+                <div class="footer-section">
+                    <h4><i class="fas fa-code"></i> Tecnología</h4>
+                    <p>Desarrollado con HTML5, CSS3 y JavaScript Vanilla</p>
+                    <p>API RESTful • LocalStorage • Geolocation API</p>
+                </div>
+                <div class="footer-section">
+                    <h4><i class="fas fa-shield-alt"></i> Privacidad</h4>
+                    <p>No almacenamos datos personales</p>
+                    <p>Tus favoritos se guardan localmente en tu navegador</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 ClimaPlus • Aplicación Meteorológica • 
+                   <span id="currentDateTime"></span>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal de configuración -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-cog"></i> Configuración</h3>
+                <button class="modal-close" id="closeSettings" aria-label="Cerrar configuración">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-item">
+                    <label for="autoRefresh">
+                        <i class="fas fa-sync"></i> Actualización automática
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="autoRefresh" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label for="notifications">
+                        <i class="fas fa-bell"></i> Notificaciones
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="notifications">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label for="darkMode">
+                        <i class="fas fa-moon"></i> Modo oscuro
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="darkMode">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label><i class="fas fa-ruler"></i> Unidades</label>
+                    <div class="unit-selector">
+                        <button class="unit-option active" data-unit="metric">Métrico (°C, km/h)</button>
+                        <button class="unit-option" data-unit="imperial">Imperial (°F, mph)</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="saveSettings">Guardar</button>
+                <button class="btn-primary" id="closeModal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        // Mostrar fecha y hora actual en el footer
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            document.getElementById('currentDateTime').textContent = 
+                now.toLocaleDateString('es-ES', options);
+        }
+        
+        // Actualizar cada minuto
+        updateDateTime();
+        setInterval(updateDateTime, 60000);
+        
+        // Verificar conexión
+        function updateConnectionStatus() {
+            const statusElement = document.getElementById('connectionStatus');
+            if (navigator.onLine) {
+                statusElement.innerHTML = '<i class="fas fa-wifi"></i><span>Conectado</span>';
+                statusElement.className = 'connection-status connected';
+            } else {
+                statusElement.innerHTML = '<i class="fas fa-wifi-slash"></i><span>Sin conexión</span>';
+                statusElement.className = 'connection-status disconnected';
+            }
+        }
+        
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+        updateConnectionStatus();
+        
+        // Abrir modal de configuración
+        document.getElementById('settingsBtn').addEventListener('click', () => {
+            document.getElementById('settingsModal').style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('settingsModal').classList.add('active');
+            }, 10);
+        });
+    </script>
+</body>
+</html>

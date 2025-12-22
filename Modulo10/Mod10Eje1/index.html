@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro Mejorado</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-wrapper">
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h1>Crear Cuenta</h1>
+                <p class="subtitle">Únete a nuestra comunidad</p>
+            </div>
+            
+            <form id="registrationForm" novalidate>
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i> Nombre de Usuario
+                    </label>
+                    <input type="text" id="username" name="username" required minlength="3" placeholder="Ej: usuario123">
+                    <span class="error-message"></span>
+                    <span class="success-icon"><i class="fas fa-check-circle"></i></span>
+                    <span class="info-icon" title="Debe tener al menos 3 caracteres"><i class="fas fa-info-circle"></i></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Correo Electrónico
+                    </label>
+                    <input type="email" id="email" name="email" required placeholder="ejemplo@correo.com">
+                    <span class="error-message"></span>
+                    <span class="success-icon"><i class="fas fa-check-circle"></i></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Contraseña
+                    </label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" required minlength="8" placeholder="Mínimo 8 caracteres">
+                        <button type="button" class="toggle-password" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <span class="error-message"></span>
+                    <span class="success-icon"><i class="fas fa-check-circle"></i></span>
+                    <div class="password-strength">
+                        <div class="strength-bar"></div>
+                        <span class="strength-text">Seguridad de la contraseña</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">
+                        <i class="fas fa-lock"></i> Confirmar Contraseña
+                    </label>
+                    <div class="password-wrapper">
+                        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Repite tu contraseña">
+                        <button type="button" class="toggle-password" id="toggleConfirmPassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <span class="error-message"></span>
+                    <span class="success-icon"><i class="fas fa-check-circle"></i></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">
+                        <i class="fas fa-phone"></i> Teléfono (opcional)
+                    </label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="10 dígitos (opcional)">
+                    <span class="error-message"></span>
+                    <span class="success-icon"><i class="fas fa-check-circle"></i></span>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms" class="checkbox-label">
+                            <span class="custom-checkbox"></span>
+                            Acepto los <a href="#" class="terms-link">términos y condiciones</a>
+                        </label>
+                    </div>
+                    <span class="error-message"></span>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-user-plus"></i> Crear Cuenta
+                </button>
+            </form>
+
+            <div class="divider">
+                <span>O regístrate con</span>
+            </div>
+
+            <div class="social-login">
+                <button type="button" class="social-btn google">
+                    <i class="fab fa-google"></i> Google
+                </button>
+                <button type="button" class="social-btn facebook">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </button>
+            </div>
+
+            <p class="login-link">¿Ya tienes cuenta? <a href="#" class="login-link-a">Iniciar sesión</a></p>
+        </div>
+        
+        <div class="notification" id="notification">
+            <span class="notification-text"></span>
+            <button class="notification-close"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

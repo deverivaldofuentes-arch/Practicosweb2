@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Multi-paso</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="wizard-container">
+            <h1>Registro por Pasos</h1>
+            
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Datos Personales</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Dirección</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Preferencias</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Confirmación</div>
+                </div>
+            </div>
+
+            <form id="wizardForm" novalidate>
+                <!-- Paso 1: Datos Personales -->
+                <div class="form-step active" data-step="1">
+                    <h2>Datos Personales</h2>
+                    
+                    <div class="form-group">
+                        <label for="firstName">Nombre *</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Apellido *</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Teléfono *</label>
+                        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+                        <span class="error-message"></span>
+                    </div>
+                </div>
+
+                <!-- Paso 2: Dirección -->
+                <div class="form-step" data-step="2">
+                    <h2>Dirección</h2>
+                    
+                    <div class="form-group">
+                        <label for="street">Calle *</label>
+                        <input type="text" id="street" name="street" required>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">Ciudad *</label>
+                            <input type="text" id="city" name="city" required>
+                            <span class="error-message"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="zipCode">Código Postal *</label>
+                            <input type="text" id="zipCode" name="zipCode" pattern="[0-9]{5}" required>
+                            <span class="error-message"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="country">País *</label>
+                        <select id="country" name="country" required>
+                            <option value="">Selecciona un país</option>
+                            <option value="mx">México</option>
+                            <option value="es">España</option>
+                            <option value="ar">Argentina</option>
+                            <option value="co">Colombia</option>
+                        </select>
+                        <span class="error-message"></span>
+                    </div>
+                </div>
+
+                <!-- Paso 3: Preferencias -->
+                <div class="form-step" data-step="3">
+                    <h2>Preferencias</h2>
+                    
+                    <div class="form-group">
+                        <label>Intereses (Selecciona al menos uno) *</label>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" name="interests" value="tecnologia">
+                                Tecnología
+                            </label>
+                            <label>
+                                <input type="checkbox" name="interests" value="deportes">
+                                Deportes
+                            </label>
+                            <label>
+                                <input type="checkbox" name="interests" value="musica">
+                                Música
+                            </label>
+                            <label>
+                                <input type="checkbox" name="interests" value="viajes">
+                                Viajes
+                            </label>
+                        </div>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newsletter">
+                            <input type="checkbox" id="newsletter" name="newsletter">
+                            Deseo recibir el newsletter
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comments">Comentarios adicionales</label>
+                        <textarea id="comments" name="comments" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <!-- Paso 4: Confirmación -->
+                <div class="form-step" data-step="4">
+                    <h2>Confirmación</h2>
+                    <p class="confirmation-text">Por favor revisa tus datos antes de enviar:</p>
+                    
+                    <div class="summary-section">
+                        <h3>Datos Personales</h3>
+                        <div id="summaryPersonal"></div>
+                    </div>
+
+                    <div class="summary-section">
+                        <h3>Dirección</h3>
+                        <div id="summaryAddress"></div>
+                    </div>
+
+                    <div class="summary-section">
+                        <h3>Preferencias</h3>
+                        <div id="summaryPreferences"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="terms" name="terms" required>
+                            Acepto los términos y condiciones *
+                        </label>
+                        <span class="error-message"></span>
+                    </div>
+                </div>
+
+                <!-- Botones de navegación -->
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">
+                        ← Anterior
+                    </button>
+                    <button type="button" class="btn btn-primary" id="nextBtn">
+                        Siguiente →
+                    </button>
+                    <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;">
+                        Enviar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de éxito -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <h2>✓ ¡Registro Exitoso!</h2>
+            <p>Tus datos han sido enviados correctamente.</p>
+            <button class="btn btn-primary" onclick="location.reload()">Cerrar</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

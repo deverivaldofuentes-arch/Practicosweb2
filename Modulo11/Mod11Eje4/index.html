@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería con File API</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📸 Galería de Imágenes</h1>
+        <p class="subtitle">Carga y visualiza múltiples imágenes</p>
+        
+        <div class="upload-area" id="uploadArea">
+            <input type="file" id="fileInput" accept="image/*" multiple hidden>
+            <div class="upload-content">
+                <div class="upload-icon">📁</div>
+                <p>Arrastra imágenes aquí o</p>
+                <button class="btn-upload" id="browseBtn">Seleccionar Archivos</button>
+                <p class="upload-hint">Formatos: JPG, PNG, GIF, WebP</p>
+            </div>
+        </div>
+
+        <div class="stats" id="stats" style="display: none;">
+            <span>Total: <strong id="totalImages">0</strong> imágenes</span>
+            <span>Tamaño: <strong id="totalSize">0 KB</strong></span>
+            <button class="btn-clear" id="clearAllBtn">Limpiar Todo</button>
+        </div>
+
+        <div class="gallery" id="gallery"></div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">×</button>
+            <img id="modalImage" src="" alt="">
+            <div class="modal-info" id="modalInfo"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
