@@ -3,117 +3,351 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de IMC</title>
+    <title>IMC - Calculadora de Índice de Masa Corporal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <div class="calculator-card">
-            <h1>⚖️ Calculadora de IMC</h1>
-            <p class="subtitle">Calcula tu Índice de Masa Corporal</p>
-            
-            <form id="imcForm">
-                <div class="form-group">
-                    <label for="peso">Peso (kg)</label>
-                    <input 
-                        type="number" 
-                        id="peso" 
-                        name="peso"
-                        placeholder="Ej: 70"
-                        min="1"
-                        max="300"
-                        step="0.1"
-                        required
-                    >
-                    <span class="error-message"></span>
-                </div>
-
-                <div class="form-group">
-                    <label for="altura">Altura (cm)</label>
-                    <input 
-                        type="number" 
-                        id="altura" 
-                        name="altura"
-                        placeholder="Ej: 170"
-                        min="50"
-                        max="250"
-                        step="0.1"
-                        required
-                    >
-                    <span class="error-message"></span>
-                </div>
-
-                <div class="form-group">
-                    <label for="edad">Edad (años)</label>
-                    <input 
-                        type="number" 
-                        id="edad" 
-                        name="edad"
-                        placeholder="Ej: 25"
-                        min="1"
-                        max="120"
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label>Sexo</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="sexo" value="masculino" checked>
-                            Masculino
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="sexo" value="femenino">
-                            Femenino
-                        </label>
+        <div class="calculator-wrapper">
+            <header class="app-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-weight-scale"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Calculadora Masa Corporal</h1>
+                        <span class="subtitle">Calculadora de Índice de Masa Corporal</span>
                     </div>
                 </div>
-
-                <button type="submit" class="btn-calculate">Calcular IMC</button>
-            </form>
-
-            <div class="result-section" id="resultSection" style="display: none;">
-                <h2>Tu Resultado</h2>
-                
-                <div class="imc-display">
-                    <div class="imc-value" id="imcValue">0.0</div>
-                    <div class="imc-category" id="imcCategory">-</div>
+                <div class="header-controls">
+                    <div class="info-tooltip">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip-content">
+                            <p>El IMC es una medida de la grasa corporal basada en la altura y el peso.</p>
+                            <p>Esta herramienta es solo para fines informativos.</p>
+                        </div>
+                    </div>
+                    <button id="themeToggle" class="btn-icon" title="Cambiar tema">
+                        <i class="fas fa-moon"></i>
+                    </button>
                 </div>
+            </header>
 
-                <div class="imc-bar">
-                    <div class="imc-indicator" id="imcIndicator"></div>
-                    <div class="bar-segment bajo-peso">Bajo peso</div>
-                    <div class="bar-segment normal">Normal</div>
-                    <div class="bar-segment sobrepeso">Sobrepeso</div>
-                    <div class="bar-segment obesidad">Obesidad</div>
-                </div>
+            <main class="main-content">
+                <div class="calculator-grid">
+                    <!-- Formulario de entrada -->
+                    <div class="input-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-calculator"></i> Datos Personales</h2>
+                            <p class="section-description">Ingresa tus datos para calcular tu IMC</p>
+                        </div>
 
-                <div class="imc-ranges">
-                    <h3>Rangos de IMC:</h3>
-                    <ul>
-                        <li><span class="dot bajo-peso"></span> Bajo peso: Menor a 18.5</li>
-                        <li><span class="dot normal"></span> Normal: 18.5 - 24.9</li>
-                        <li><span class="dot sobrepeso"></span> Sobrepeso: 25 - 29.9</li>
-                        <li><span class="dot obesidad"></span> Obesidad: 30 o mayor</li>
-                    </ul>
-                </div>
+                        <form id="imcForm" class="form-card">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="peso" class="form-label">
+                                        <i class="fas fa-weight"></i>
+                                        Peso
+                                    </label>
+                                    <div class="input-with-unit">
+                                        <input 
+                                            type="number" 
+                                            id="peso" 
+                                            name="peso"
+                                            placeholder="Ej: 70"
+                                            min="1"
+                                            max="300"
+                                            step="0.1"
+                                            required
+                                        >
+                                        <span class="input-unit">kg</span>
+                                    </div>
+                                    <div class="input-range">
+                                        <div class="range-labels">
+                                            <span>40kg</span>
+                                            <span id="pesoValue">70kg</span>
+                                            <span>150kg</span>
+                                        </div>
+                                        <input 
+                                            type="range" 
+                                            id="pesoRange" 
+                                            min="40" 
+                                            max="150" 
+                                            value="70"
+                                        >
+                                    </div>
+                                    <span class="error-message" id="pesoError"></span>
+                                </div>
 
-                <div class="recommendations" id="recommendations">
-                    <h3>Recomendaciones:</h3>
-                    <p id="recommendationText"></p>
+                                <div class="form-group">
+                                    <label for="altura" class="form-label">
+                                        <i class="fas fa-ruler-vertical"></i>
+                                        Altura
+                                    </label>
+                                    <div class="input-with-unit">
+                                        <input 
+                                            type="number" 
+                                            id="altura" 
+                                            name="altura"
+                                            placeholder="Ej: 170"
+                                            min="50"
+                                            max="250"
+                                            step="0.1"
+                                            required
+                                        >
+                                        <span class="input-unit">cm</span>
+                                    </div>
+                                    <div class="input-range">
+                                        <div class="range-labels">
+                                            <span>100cm</span>
+                                            <span id="alturaValue">170cm</span>
+                                            <span>220cm</span>
+                                        </div>
+                                        <input 
+                                            type="range" 
+                                            id="alturaRange" 
+                                            min="100" 
+                                            max="220" 
+                                            value="170"
+                                        >
+                                    </div>
+                                    <span class="error-message" id="alturaError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="edad" class="form-label">
+                                        <i class="fas fa-birthday-cake"></i>
+                                        Edad
+                                    </label>
+                                    <div class="input-with-unit">
+                                        <input 
+                                            type="number" 
+                                            id="edad" 
+                                            name="edad"
+                                            placeholder="Ej: 25"
+                                            min="1"
+                                            max="120"
+                                            required
+                                        >
+                                        <span class="input-unit">años</span>
+                                    </div>
+                                    <span class="error-message" id="edadError"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-venus-mars"></i>
+                                        Sexo
+                                    </label>
+                                    <div class="gender-selector">
+                                        <label class="gender-option" for="masculino">
+                                            <input type="radio" id="masculino" name="sexo" value="masculino" checked>
+                                            <div class="gender-card">
+                                                <i class="fas fa-mars"></i>
+                                                <span>Masculino</span>
+                                            </div>
+                                        </label>
+                                        <label class="gender-option" for="femenino">
+                                            <input type="radio" id="femenino" name="sexo" value="femenino">
+                                            <div class="gender-card">
+                                                <i class="fas fa-venus"></i>
+                                                <span>Femenino</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-calculate">
+                                    <i class="fas fa-calculator"></i>
+                                    Calcular IMC
+                                </button>
+                                <button type="button" class="btn-reset" id="resetBtn">
+                                    <i class="fas fa-redo"></i>
+                                    Reiniciar
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="info-card">
+                            <h3><i class="fas fa-lightbulb"></i> ¿Qué es el IMC?</h3>
+                            <p>El Índice de Masa Corporal (IMC) es una medida que relaciona tu peso con tu altura. Es una herramienta útil para evaluar si tu peso está dentro de un rango saludable.</p>
+                        </div>
+                    </div>
+
+                    <!-- Resultados -->
+                    <div class="result-section" id="resultSection">
+                        <div class="section-header">
+                            <h2><i class="fas fa-chart-line"></i> Resultados</h2>
+                            <p class="section-description">Tu análisis de salud personalizado</p>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="imc-display">
+                                <div class="imc-value-container">
+                                    <div class="imc-value" id="imcValue">00.0</div>
+                                    <div class="imc-unit">IMC</div>
+                                </div>
+                                <div class="imc-category" id="imcCategory">
+                                    <span class="category-badge" id="categoryBadge">-</span>
+                                    <span class="category-text" id="categoryText">Ingresa tus datos</span>
+                                </div>
+                            </div>
+
+                            <div class="imc-scale">
+                                <div class="scale-header">
+                                    <span>Escala de IMC</span>
+                                    <div class="current-marker" id="currentMarker">
+                                        <div class="marker-triangle"></div>
+                                        <div class="marker-label">Tú</div>
+                                    </div>
+                                </div>
+                                <div class="scale-bar">
+                                    <div class="scale-segment" data-range="bajo-peso" style="width: 25%">
+                                        <span class="segment-label">Bajo peso</span>
+                                        <span class="segment-range">< 18.5</span>
+                                    </div>
+                                    <div class="scale-segment" data-range="normal" style="width: 25%">
+                                        <span class="segment-label">Normal</span>
+                                        <span class="segment-range">18.5 - 24.9</span>
+                                    </div>
+                                    <div class="scale-segment" data-range="sobrepeso" style="width: 25%">
+                                        <span class="segment-label">Sobrepeso</span>
+                                        <span class="segment-range">25 - 29.9</span>
+                                    </div>
+                                    <div class="scale-segment" data-range="obesidad" style="width: 25%">
+                                        <span class="segment-label">Obesidad</span>
+                                        <span class="segment-range">≥ 30</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="health-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-heart-pulse"></i>
+                                    <div>
+                                        <span class="detail-label">Estado de salud</span>
+                                        <span class="detail-value" id="healthStatus">-</span>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-ruler-combined"></i>
+                                    <div>
+                                        <span class="detail-label">Peso ideal</span>
+                                        <span class="detail-value" id="idealWeight">-</span>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-fire"></i>
+                                    <div>
+                                        <span class="detail-label">Calorías diarias</span>
+                                        <span class="detail-value" id="dailyCalories">-</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="recommendations-card">
+                                <h3><i class="fas fa-comment-medical"></i> Recomendaciones</h3>
+                                <p id="recommendationText">Ingresa tus datos para obtener recomendaciones personalizadas.</p>
+                                <div class="recommendation-actions">
+                                    <button class="btn-action" id="dietBtn">
+                                        <i class="fas fa-utensils"></i>
+                                        Plan alimenticio
+                                    </button>
+                                    <button class="btn-action" id="exerciseBtn">
+                                        <i class="fas fa-dumbbell"></i>
+                                        Rutina de ejercicio
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Historial -->
+                    <div class="history-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-history"></i> Historial</h2>
+                            <div class="header-actions">
+                                <button class="btn-icon" id="exportBtn" title="Exportar historial">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn-icon" id="clearHistoryBtn" title="Limpiar historial">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="history-card">
+                            <div class="history-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Total cálculos</span>
+                                    <span class="stat-value" id="totalCalculations">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Promedio IMC</span>
+                                    <span class="stat-value" id="averageIMC">0.0</span>
+                                </div>
+                            </div>
+
+                            <div class="history-list" id="historyList">
+                                <div class="empty-history">
+                                    <i class="fas fa-history"></i>
+                                    <p>No hay cálculos previos</p>
+                                    <small>Realiza tu primer cálculo para ver el historial</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </main>
+
+            <footer class="app-footer">
+                <p>© 2024 IMC Pro - Calculadora Avanzada de Salud</p>
+                <p class="footer-note">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Esta herramienta es informativa. Consulta con un profesional de la salud.
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Modal de plan alimenticio -->
+    <div class="modal" id="dietModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-utensils"></i> Plan Alimenticio Sugerido</h3>
+                <button class="modal-close" id="closeDietModal">×</button>
             </div>
-
-            <div class="history-section">
-                <h2>Historial</h2>
-                <div id="historyList">
-                    <p class="empty-history">No hay cálculos previos</p>
-                </div>
-                <button class="btn-clear-history" id="clearHistoryBtn" style="display: none;">
-                    Limpiar Historial
-                </button>
+            <div class="modal-body" id="dietContent">
+                <!-- Contenido dinámico -->
             </div>
+        </div>
+    </div>
+
+    <!-- Modal de ejercicio -->
+    <div class="modal" id="exerciseModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-dumbbell"></i> Rutina de Ejercicio</h3>
+                <button class="modal-close" id="closeExerciseModal">×</button>
+            </div>
+            <div class="modal-body" id="exerciseContent">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificación -->
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="notificationText">¡Cálculo completado!</span>
         </div>
     </div>
 

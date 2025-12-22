@@ -3,192 +3,395 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario Multi-paso</title>
+    <title>Formulario Multi-paso Avanzado</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <div class="wizard-container">
-            <h1>Registro por Pasos</h1>
+            <header class="wizard-header">
+                <h1><i class="fas fa-wizard-hat"></i> Registro por Pasos</h1>
+                <p class="wizard-subtitle">Completa el formulario paso a paso para finalizar tu registro</p>
+            </header>
             
-            <!-- Progress Bar -->
+            <!-- Progress Bar Mejorada -->
             <div class="progress-bar">
-                <div class="progress-step active">
-                    <div class="step-number">1</div>
-                    <div class="step-label">Datos Personales</div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
                 </div>
-                <div class="progress-step">
-                    <div class="step-number">2</div>
-                    <div class="step-label">Dirección</div>
-                </div>
-                <div class="progress-step">
-                    <div class="step-number">3</div>
-                    <div class="step-label">Preferencias</div>
-                </div>
-                <div class="progress-step">
-                    <div class="step-number">4</div>
-                    <div class="step-label">Confirmación</div>
+                <div class="progress-steps">
+                    <div class="progress-step active" data-step="1">
+                        <div class="step-number">
+                            <span>1</span>
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="step-label">Datos Personales</div>
+                        <div class="step-indicator"></div>
+                    </div>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-number">
+                            <span>2</span>
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="step-label">Dirección</div>
+                        <div class="step-indicator"></div>
+                    </div>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-number">
+                            <span>3</span>
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="step-label">Preferencias</div>
+                        <div class="step-indicator"></div>
+                    </div>
+                    <div class="progress-step" data-step="4">
+                        <div class="step-number">
+                            <span>4</span>
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="step-label">Confirmación</div>
+                        <div class="step-indicator"></div>
+                    </div>
                 </div>
             </div>
 
             <form id="wizardForm" novalidate>
                 <!-- Paso 1: Datos Personales -->
                 <div class="form-step active" data-step="1">
-                    <h2>Datos Personales</h2>
+                    <div class="step-header">
+                        <h2><i class="fas fa-user-circle"></i> Datos Personales</h2>
+                        <p class="step-description">Por favor, ingresa tu información personal básica</p>
+                    </div>
                     
-                    <div class="form-group">
-                        <label for="firstName">Nombre *</label>
-                        <input type="text" id="firstName" name="firstName" required>
-                        <span class="error-message"></span>
-                    </div>
+                    <div class="form-content">
+                        <div class="form-row">
+                            <div class="form-group floating-label">
+                                <input type="text" id="firstName" name="firstName" required placeholder=" ">
+                                <label for="firstName">Nombre *</label>
+                                <div class="input-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <span class="error-message"></span>
+                                <div class="input-hint">Ej: Juan</div>
+                            </div>
 
-                    <div class="form-group">
-                        <label for="lastName">Apellido *</label>
-                        <input type="text" id="lastName" name="lastName" required>
-                        <span class="error-message"></span>
-                    </div>
+                            <div class="form-group floating-label">
+                                <input type="text" id="lastName" name="lastName" required placeholder=" ">
+                                <label for="lastName">Apellido *</label>
+                                <div class="input-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <span class="error-message"></span>
+                                <div class="input-hint">Ej: Pérez</div>
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" required>
-                        <span class="error-message"></span>
-                    </div>
+                        <div class="form-group floating-label">
+                            <input type="email" id="email" name="email" required placeholder=" ">
+                            <label for="email">Email *</label>
+                            <div class="input-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <span class="error-message"></span>
+                            <div class="input-hint">Ej: usuario@ejemplo.com</div>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="phone">Teléfono *</label>
-                        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
-                        <span class="error-message"></span>
+                        <div class="form-group floating-label">
+                            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required placeholder=" ">
+                            <label for="phone">Teléfono *</label>
+                            <div class="input-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <span class="error-message"></span>
+                            <div class="input-hint">10 dígitos sin espacios</div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Paso 2: Dirección -->
                 <div class="form-step" data-step="2">
-                    <h2>Dirección</h2>
+                    <div class="step-header">
+                        <h2><i class="fas fa-home"></i> Dirección</h2>
+                        <p class="step-description">Proporciona tu información de ubicación</p>
+                    </div>
                     
-                    <div class="form-group">
-                        <label for="street">Calle *</label>
-                        <input type="text" id="street" name="street" required>
-                        <span class="error-message"></span>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="city">Ciudad *</label>
-                            <input type="text" id="city" name="city" required>
+                    <div class="form-content">
+                        <div class="form-group floating-label">
+                            <input type="text" id="street" name="street" required placeholder=" ">
+                            <label for="street">Calle y número *</label>
+                            <div class="input-icon">
+                                <i class="fas fa-road"></i>
+                            </div>
                             <span class="error-message"></span>
+                            <div class="input-hint">Ej: Calle Principal #123</div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="zipCode">Código Postal *</label>
-                            <input type="text" id="zipCode" name="zipCode" pattern="[0-9]{5}" required>
+                        <div class="form-row">
+                            <div class="form-group floating-label">
+                                <input type="text" id="city" name="city" required placeholder=" ">
+                                <label for="city">Ciudad *</label>
+                                <div class="input-icon">
+                                    <i class="fas fa-city"></i>
+                                </div>
+                                <span class="error-message"></span>
+                                <div class="input-hint">Ej: Ciudad de México</div>
+                            </div>
+
+                            <div class="form-group floating-label">
+                                <input type="text" id="zipCode" name="zipCode" pattern="[0-9]{5}" required placeholder=" ">
+                                <label for="zipCode">Código Postal *</label>
+                                <div class="input-icon">
+                                    <i class="fas fa-mail-bulk"></i>
+                                </div>
+                                <span class="error-message"></span>
+                                <div class="input-hint">5 dígitos</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group floating-label">
+                            <select id="country" name="country" required>
+                                <option value="" disabled selected></option>
+                                <option value="mx">México</option>
+                                <option value="es">España</option>
+                                <option value="ar">Argentina</option>
+                                <option value="co">Colombia</option>
+                                <option value="us">Estados Unidos</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                            <label for="country">País *</label>
+                            <div class="input-icon">
+                                <i class="fas fa-globe-americas"></i>
+                            </div>
                             <span class="error-message"></span>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="country">País *</label>
-                        <select id="country" name="country" required>
-                            <option value="">Selecciona un país</option>
-                            <option value="mx">México</option>
-                            <option value="es">España</option>
-                            <option value="ar">Argentina</option>
-                            <option value="co">Colombia</option>
-                        </select>
-                        <span class="error-message"></span>
                     </div>
                 </div>
 
                 <!-- Paso 3: Preferencias -->
                 <div class="form-step" data-step="3">
-                    <h2>Preferencias</h2>
+                    <div class="step-header">
+                        <h2><i class="fas fa-heart"></i> Preferencias</h2>
+                        <p class="step-description">Cuéntanos sobre tus intereses y preferencias</p>
+                    </div>
                     
-                    <div class="form-group">
-                        <label>Intereses (Selecciona al menos uno) *</label>
-                        <div class="checkbox-group">
-                            <label>
-                                <input type="checkbox" name="interests" value="tecnologia">
-                                Tecnología
-                            </label>
-                            <label>
-                                <input type="checkbox" name="interests" value="deportes">
-                                Deportes
-                            </label>
-                            <label>
-                                <input type="checkbox" name="interests" value="musica">
-                                Música
-                            </label>
-                            <label>
-                                <input type="checkbox" name="interests" value="viajes">
-                                Viajes
-                            </label>
+                    <div class="form-content">
+                        <div class="form-group">
+                            <label class="section-label">Intereses (Selecciona al menos uno) *</label>
+                            <div class="checkbox-group grid">
+                                <div class="checkbox-card">
+                                    <input type="checkbox" id="tech" name="interests" value="tecnologia">
+                                    <label for="tech">
+                                        <div class="checkbox-icon">
+                                            <i class="fas fa-laptop-code"></i>
+                                        </div>
+                                        <div class="checkbox-text">
+                                            <h4>Tecnología</h4>
+                                            <p>Noticias sobre gadgets y software</p>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="checkbox-card">
+                                    <input type="checkbox" id="sports" name="interests" value="deportes">
+                                    <label for="sports">
+                                        <div class="checkbox-icon">
+                                            <i class="fas fa-futbol"></i>
+                                        </div>
+                                        <div class="checkbox-text">
+                                            <h4>Deportes</h4>
+                                            <p>Eventos deportivos y actividades</p>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="checkbox-card">
+                                    <input type="checkbox" id="music" name="interests" value="musica">
+                                    <label for="music">
+                                        <div class="checkbox-icon">
+                                            <i class="fas fa-music"></i>
+                                        </div>
+                                        <div class="checkbox-text">
+                                            <h4>Música</h4>
+                                            <p>Conciertos y nuevos lanzamientos</p>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="checkbox-card">
+                                    <input type="checkbox" id="travel" name="interests" value="viajes">
+                                    <label for="travel">
+                                        <div class="checkbox-icon">
+                                            <i class="fas fa-plane"></i>
+                                        </div>
+                                        <div class="checkbox-text">
+                                            <h4>Viajes</h4>
+                                            <p>Destinos y recomendaciones</p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <span class="error-message"></span>
                         </div>
-                        <span class="error-message"></span>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="newsletter">
-                            <input type="checkbox" id="newsletter" name="newsletter">
-                            Deseo recibir el newsletter
-                        </label>
-                    </div>
+                        <div class="form-group">
+                            <div class="toggle-group">
+                                <input type="checkbox" id="newsletter" name="newsletter" class="toggle-input">
+                                <label for="newsletter" class="toggle-label">
+                                    <div class="toggle-switch"></div>
+                                    <div class="toggle-text">
+                                        <h4>Recibir newsletter</h4>
+                                        <p>Recibe ofertas exclusivas y noticias</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="comments">Comentarios adicionales</label>
-                        <textarea id="comments" name="comments" rows="4"></textarea>
+                        <div class="form-group floating-label">
+                            <textarea id="comments" name="comments" rows="4" placeholder=" "></textarea>
+                            <label for="comments">Comentarios adicionales</label>
+                            <div class="input-icon">
+                                <i class="fas fa-comment-dots"></i>
+                            </div>
+                            <div class="char-counter">
+                                <span id="charCount">0</span>/500
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Paso 4: Confirmación -->
                 <div class="form-step" data-step="4">
-                    <h2>Confirmación</h2>
-                    <p class="confirmation-text">Por favor revisa tus datos antes de enviar:</p>
+                    <div class="step-header">
+                        <h2><i class="fas fa-clipboard-check"></i> Confirmación</h2>
+                        <p class="step-description">Revisa tus datos antes de enviar</p>
+                    </div>
                     
-                    <div class="summary-section">
-                        <h3>Datos Personales</h3>
-                        <div id="summaryPersonal"></div>
-                    </div>
+                    <div class="form-content">
+                        <div class="confirmation-grid">
+                            <div class="summary-card">
+                                <div class="summary-header">
+                                    <i class="fas fa-user-circle"></i>
+                                    <h3>Datos Personales</h3>
+                                </div>
+                                <div class="summary-body" id="summaryPersonal">
+                                    <div class="summary-placeholder">
+                                        <i class="fas fa-user-clock"></i>
+                                        <p>Los datos aparecerán aquí</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div class="summary-section">
-                        <h3>Dirección</h3>
-                        <div id="summaryAddress"></div>
-                    </div>
+                            <div class="summary-card">
+                                <div class="summary-header">
+                                    <i class="fas fa-home"></i>
+                                    <h3>Dirección</h3>
+                                </div>
+                                <div class="summary-body" id="summaryAddress">
+                                    <div class="summary-placeholder">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <p>Los datos aparecerán aquí</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div class="summary-section">
-                        <h3>Preferencias</h3>
-                        <div id="summaryPreferences"></div>
-                    </div>
+                            <div class="summary-card">
+                                <div class="summary-header">
+                                    <i class="fas fa-heart"></i>
+                                    <h3>Preferencias</h3>
+                                </div>
+                                <div class="summary-body" id="summaryPreferences">
+                                    <div class="summary-placeholder">
+                                        <i class="fas fa-star"></i>
+                                        <p>Los datos aparecerán aquí</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" id="terms" name="terms" required>
-                            Acepto los términos y condiciones *
-                        </label>
-                        <span class="error-message"></span>
+                        <div class="terms-card">
+                            <div class="form-group">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <label for="terms">
+                                    <div class="checkbox-check"></div>
+                                    <div class="terms-text">
+                                        Acepto los <a href="#" class="terms-link">términos y condiciones</a> y la <a href="#" class="terms-link">política de privacidad</a> *
+                                    </div>
+                                </label>
+                                <span class="error-message"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Botones de navegación -->
                 <div class="form-navigation">
-                    <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">
-                        ← Anterior
-                    </button>
-                    <button type="button" class="btn btn-primary" id="nextBtn">
-                        Siguiente →
-                    </button>
-                    <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;">
-                        Enviar
-                    </button>
+                    <div class="nav-left">
+                        <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">
+                            <i class="fas fa-arrow-left"></i> Anterior
+                        </button>
+                    </div>
+                    
+                    <div class="nav-center">
+                        <div class="step-indicator-text">
+                            Paso <span id="currentStepDisplay">1</span> de <span id="totalStepsDisplay">4</span>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-right">
+                        <button type="button" class="btn btn-skip" id="skipBtn" style="display: none;">
+                            Omitir
+                        </button>
+                        <button type="button" class="btn btn-primary" id="nextBtn">
+                            Siguiente <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;">
+                            <i class="fas fa-paper-plane"></i> Enviar Registro
+                        </button>
+                    </div>
                 </div>
             </form>
+            
+            <!-- Indicador de progreso inferior -->
+            <div class="progress-footer">
+                <div class="progress-info">
+                    <div class="progress-text">
+                        <span id="completedSteps">0</span> de <span id="totalSteps">4</span> pasos completados
+                    </div>
+                    <div class="progress-percentage">
+                        <span id="progressPercentage">0%</span>
+                    </div>
+                </div>
+                <div class="progress-bar-footer">
+                    <div class="progress-fill-footer" id="progressFillFooter"></div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Modal de éxito -->
+    <!-- Modal de éxito mejorado -->
     <div class="modal" id="successModal">
+        <div class="modal-backdrop"></div>
         <div class="modal-content">
-            <h2>✓ ¡Registro Exitoso!</h2>
-            <p>Tus datos han sido enviados correctamente.</p>
-            <button class="btn btn-primary" onclick="location.reload()">Cerrar</button>
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>¡Registro Completado!</h2>
+            <p class="modal-message">Tu registro se ha completado exitosamente. Te hemos enviado un correo de confirmación a <span id="userEmail" class="user-email"></span>.</p>
+            <div class="modal-summary" id="modalSummary"></div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="location.reload()">
+                    <i class="fas fa-redo"></i> Nuevo Registro
+                </button>
+                <button class="btn btn-primary" onclick="closeModal()">
+                    <i class="fas fa-check"></i> Continuar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Indicador de carga -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p>Enviando tu registro...</p>
         </div>
     </div>
 

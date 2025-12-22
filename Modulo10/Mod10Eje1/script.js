@@ -1,314 +1,386 @@
-const form = document.getElementById('registrationForm');
-const inputs = form.querySelectorAll('input');
-const togglePasswordBtn = document.getElementById('togglePassword');
-const toggleConfirmPasswordBtn = document.getElementById('toggleConfirmPassword');
-const notification = document.getElementById('notification');
-const notificationText = notification.querySelector('.notification-text');
-const notificationClose = notification.querySelector('.notification-close');
-
-// Mensajes de error personalizados
-const errorMessages = {
-    username: {
-        valueMissing: 'El nombre de usuario es obligatorio',
-        tooShort: 'El nombre debe tener al menos 3 caracteres'
-    },
-    email: {
-        valueMissing: 'El correo electrónico es obligatorio',
-        typeMismatch: 'Ingresa un correo electrónico válido (ejemplo@correo.com)'
-    },
-    password: {
-        valueMissing: 'La contraseña es obligatoria',
-        tooShort: 'La contraseña debe tener al menos 8 caracteres'
-    },
-    confirmPassword: {
-        valueMissing: 'Confirma tu contraseña',
-        mismatch: 'Las contraseñas no coinciden'
-    },
-    phone: {
-        patternMismatch: 'Ingresa un número de 10 dígitos (opcional)'
-    },
-    terms: {
-        valueMissing: 'Debes aceptar los términos y condiciones'
-    }
-};
-
-// Mostrar notificación
-function showNotification(message, isError = false) {
-    notificationText.textContent = message;
-    notification.classList.remove('error');
-    
-    if (isError) {
-        notification.classList.add('error');
+class FormValidator {
+    constructor() {
+        this.form = document.getElementById('registrationForm');
+        this.submitBtn = document.getElementById('submitBtn');
+        this.notification = document.getElementById('notification');
+        this.notificationText = this.notification.querySelector('.notification-text');
+        this.notificationClose = this.notification.querySelector('.notification-close');
+        
+        this.init();
     }
     
-    notification.classList.add('show');
-    
-    // Ocultar automáticamente después de 5 segundos
-    setTimeout(() => {
-        notification.classList.remove('show');
-    }, 5000);
-}
-
-// Cerrar notificación
-notificationClose.addEventListener('click', () => {
-    notification.classList.remove('show');
-});
-
-// Alternar visibilidad de contraseña
-function togglePasswordVisibility(inputId, button) {
-    const input = document.getElementById(inputId);
-    const icon = button.querySelector('i');
-    
-    if (input.type === 'password') {
-        input.type = 'text';
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
-    } else {
-        input.type = 'password';
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
+    init() {
+        this.setupEventListeners();
+        this.setupPasswordToggle();
+        this.setupNotification();
     }
-}
-
-togglePasswordBtn.addEventListener('click', () => togglePasswordVisibility('password', togglePasswordBtn));
-toggleConfirmPasswordBtn.addEventListener('click', () => togglePasswordVisibility('confirmPassword', toggleConfirmPasswordBtn));
-
-// Validación en tiempo real
-inputs.forEach(input => {
-    input.addEventListener('blur', () => validateField(input));
-    input.addEventListener('input', () => {
+    
+    setupEventListeners() {
+        // Real-time validation on blur
+        this.form.querySelectorAll('input').forEach(input => {
+            input.addEventListener('blur', () => this.validateField(input));
+            input.addEventListener('input', () => this.handleInput(input));
+        });
+        
+        // Form submission
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+        
+        // Terms links
+        document.querySelectorAll('.terms-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.showNotification('Términos y condiciones se abrirán en una nueva ventana', 'info');
+            });
+        });
+        
+        // Login link
+        document.querySelector('.login-link-a').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showNotification('Redirigiendo a la página de inicio de sesión', 'info');
+        });
+    }
+    
+    setupPasswordToggle() {
+        const togglePassword = (inputId, button) => {
+            const input = document.getElementById(inputId);
+            const icon = button.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+                button.setAttribute('aria-label', 'Ocultar contraseña');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+                button.setAttribute('aria-label', 'Mostrar contraseña');
+            }
+        };
+        
+        document.getElementById('togglePassword').addEventListener('click', (e) => {
+            togglePassword('password', e.currentTarget);
+        });
+        
+        document.getElementById('toggleConfirmPassword').addEventListener('click', (e) => {
+            togglePassword('confirmPassword', e.currentTarget);
+        });
+    }
+    
+    setupNotification() {
+        this.notificationClose.addEventListener('click', () => {
+            this.notification.classList.remove('show');
+        });
+        
+        // Auto-hide notification after 5 seconds
+        this.notification.addEventListener('animationend', (e) => {
+            if (e.animationName === 'fadeIn') {
+                setTimeout(() => {
+                    this.notification.classList.remove('show');
+                }, 5000);
+            }
+        });
+    }
+    
+    handleInput(input) {
+        // Clear error state when user starts typing
         if (input.classList.contains('invalid')) {
-            validateField(input);
+            this.validateField(input);
         }
+        
+        // Password strength check
         if (input.id === 'password') {
-            checkPasswordStrength(input.value);
+            this.checkPasswordStrength(input.value);
         }
-        // Validar confirmación de contraseña cuando se escribe en password
-        if (input.id === 'password') {
+        
+        // Confirm password validation when password changes
+        if (input.id === 'password' || input.id === 'confirmPassword') {
             const confirmPassword = document.getElementById('confirmPassword');
             if (confirmPassword.value) {
-                validateField(confirmPassword);
+                this.validateField(confirmPassword);
             }
         }
-    });
-});
-
-function validateField(input) {
-    const formGroup = input.closest('.form-group');
-    const errorElement = formGroup.querySelector('.error-message');
-    
-    // Casos especiales
-    if (input.id === 'confirmPassword') {
-        const password = document.getElementById('password').value;
-        if (input.value !== password) {
-            showError(formGroup, errorElement, errorMessages.confirmPassword.mismatch);
-            return false;
+        
+        // Phone number formatting
+        if (input.id === 'phone') {
+            this.formatPhoneNumber(input);
         }
     }
     
-    // Para el checkbox de términos
-    if (input.id === 'terms') {
-        if (!input.checked) {
-            showError(formGroup, errorElement, errorMessages.terms.valueMissing);
-            return false;
+    formatPhoneNumber(input) {
+        // Remove all non-digit characters
+        let value = input.value.replace(/\D/g, '');
+        
+        // Format based on length
+        if (value.length <= 4) {
+            input.value = value;
+        } else if (value.length === 8) {
+            // Format as XXXX XXXX for 8 digits
+            input.value = `${value.slice(0, 4)} ${value.slice(4, 8)}`;
+        } else if (value.length === 9) {
+            // Format as XXX XXX XXX for 9 digits
+            input.value = `${value.slice(0, 3)} ${value.slice(3, 6)} ${value.slice(6, 9)}`;
+        } else if (value.length === 10) {
+            // Format as XXX XXX XXXX for 10 digits
+            input.value = `${value.slice(0, 3)} ${value.slice(3, 6)} ${value.slice(6, 10)}`;
         } else {
-            showSuccess(formGroup, errorElement);
+            // If more than 10 digits, truncate to 10
+            input.value = `${value.slice(0, 3)} ${value.slice(3, 6)} ${value.slice(6, 10)}`;
+        }
+    }
+    
+    validateField(input) {
+        const formGroup = input.closest('.form-group');
+        const errorElement = formGroup.querySelector('.error-message');
+        
+        // Clear previous states
+        formGroup.classList.remove('error', 'valid');
+        input.classList.remove('invalid', 'valid');
+        
+        // Skip validation for optional empty fields
+        if (!input.hasAttribute('required') && !input.value && input.id !== 'phone') {
             return true;
         }
-    }
-    
-    // Validación estándar HTML5 (excepto para campos opcionales vacíos)
-    if (input.hasAttribute('required') || (input.value && !input.checkValidity())) {
-        if (!input.checkValidity()) {
-            const errorType = getErrorType(input.validity);
-            const message = errorMessages[input.name]?.[errorType] || 'Campo inválido';
-            showError(formGroup, errorElement, message);
-            return false;
+        
+        let isValid = true;
+        let errorMessage = '';
+        
+        // Special validations
+        switch (input.id) {
+            case 'firstName':
+            case 'lastName':
+                isValid = input.value.length >= 2;
+                if (!isValid) errorMessage = 'Debe tener al menos 2 caracteres';
+                break;
+                
+            case 'username':
+                isValid = this.validateUsername(input.value);
+                if (!isValid) errorMessage = 'Usuario inválido (3-20 caracteres, solo letras, números y _)';
+                break;
+                
+            case 'email':
+                isValid = this.validateEmail(input.value);
+                if (!isValid) errorMessage = 'Por favor ingresa un correo electrónico válido';
+                break;
+                
+            case 'password':
+                isValid = this.validatePassword(input.value);
+                if (!isValid) errorMessage = 'La contraseña no cumple con los requisitos de seguridad';
+                break;
+                
+            case 'confirmPassword':
+                const password = document.getElementById('password').value;
+                isValid = input.value === password;
+                if (!isValid) errorMessage = 'Las contraseñas no coinciden';
+                break;
+                
+            case 'phone':
+                if (input.value) {
+                    // Remove spaces for validation
+                    const phoneDigits = input.value.replace(/\s/g, '');
+                    isValid = /^[0-9]{8,10}$/.test(phoneDigits);  // Cambiado de 9-10 a 8-10
+                    if (!isValid) errorMessage = 'Ingresa un número de teléfono válido (8-10 dígitos)';
+                }
+                break;
+                
+            case 'terms':
+                isValid = input.checked;
+                if (!isValid) errorMessage = 'Debes aceptar los términos y condiciones';
+                break;
+                
+            default:
+                // Basic HTML5 validation
+                isValid = input.checkValidity();
+                if (!isValid) {
+                    errorMessage = this.getValidationMessage(input);
+                }
         }
+        
+        // Update UI
+        if (isValid) {
+            formGroup.classList.add('valid');
+            input.classList.add('valid');
+            errorElement.textContent = '';
+        } else {
+            formGroup.classList.add('error');
+            input.classList.add('invalid');
+            errorElement.textContent = errorMessage;
+        }
+        
+        return isValid;
     }
     
-    showSuccess(formGroup, errorElement);
-    return true;
-}
-
-function getErrorType(validity) {
-    if (validity.valueMissing) return 'valueMissing';
-    if (validity.typeMismatch) return 'typeMismatch';
-    if (validity.tooShort) return 'tooShort';
-    if (validity.patternMismatch) return 'patternMismatch';
-    if (validity.tooLong) return 'tooLong';
-    return 'invalid';
-}
-
-function showError(formGroup, errorElement, message) {
-    formGroup.classList.add('error');
-    formGroup.classList.remove('valid');
-    
-    const input = formGroup.querySelector('input');
-    if (input) {
-        input.classList.add('invalid');
-        input.classList.remove('valid');
+    validateUsername(username) {
+        return /^[a-zA-Z0-9_]{3,20}$/.test(username);
     }
     
-    errorElement.textContent = message;
-    
-    // Enfocar el primer campo con error
-    if (!form.querySelector('.error:first-child')) {
-        formGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-}
-
-function showSuccess(formGroup, errorElement) {
-    formGroup.classList.remove('error');
-    formGroup.classList.add('valid');
-    
-    const input = formGroup.querySelector('input');
-    if (input) {
-        input.classList.remove('invalid');
-        input.classList.add('valid');
+    validateEmail(email) {
+        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
     }
     
-    errorElement.textContent = '';
-}
-
-function checkPasswordStrength(password) {
-    const strengthBar = document.querySelector('.strength-bar');
-    const strengthText = document.querySelector('.strength-text');
-    
-    if (!password) {
-        strengthBar.className = 'strength-bar';
-        strengthText.textContent = 'Seguridad de la contraseña';
-        return;
+    validatePassword(password) {
+        const requirements = {
+            length: password.length >= 8,
+            uppercase: /[A-Z]/.test(password),
+            lowercase: /[a-z]/.test(password),
+            number: /\d/.test(password),
+            special: /[@$!%*?&]/.test(password)
+        };
+        
+        // Update password requirements UI
+        Object.keys(requirements).forEach(rule => {
+            const li = document.querySelector(`[data-rule="${rule}"]`);
+            if (li) {
+                li.classList.toggle('valid', requirements[rule]);
+            }
+        });
+        
+        return Object.values(requirements).every(req => req);
     }
     
-    let strength = 0;
-    const feedback = [];
-    
-    // Criterios de fortaleza
-    if (password.length >= 8) {
-        strength++;
-    } else {
-        feedback.push('Mínimo 8 caracteres');
+    checkPasswordStrength(password) {
+        if (!password) {
+            document.querySelectorAll('[data-rule]').forEach(li => {
+                li.classList.remove('valid');
+            });
+            return;
+        }
+        
+        this.validatePassword(password);
     }
     
-    if (password.match(/[a-z]/)) strength++;
-    else feedback.push('una minúscula');
-    
-    if (password.match(/[A-Z]/)) strength++;
-    else feedback.push('una mayúscula');
-    
-    if (password.match(/[0-9]/)) strength++;
-    else feedback.push('un número');
-    
-    if (password.match(/[^a-zA-Z0-9]/)) strength++;
-    else feedback.push('un carácter especial');
-    
-    // Actualizar visualización
-    strengthBar.className = 'strength-bar';
-    
-    let strengthMessage = '';
-    if (strength <= 2) {
-        strengthBar.classList.add('weak');
-        strengthMessage = 'Débil';
-    } else if (strength <= 4) {
-        strengthBar.classList.add('medium');
-        strengthMessage = 'Media';
-    } else {
-        strengthBar.classList.add('strong');
-        strengthMessage = 'Fuerte';
-    }
-    
-    // Mostrar retroalimentación
-    if (feedback.length > 0 && strength < 5) {
-        strengthText.textContent = `${strengthMessage} - Agrega: ${feedback.slice(0, 2).join(', ')}`;
-    } else {
-        strengthText.textContent = `${strengthMessage} - ¡Excelente contraseña!`;
-    }
-}
-
-// Manejo del submit
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    let isValid = true;
-    let firstErrorField = null;
-    
-    // Validar todos los campos
-    inputs.forEach(input => {
-        if (!validateField(input)) {
-            isValid = false;
-            if (!firstErrorField) {
-                firstErrorField = input;
+    getValidationMessage(input) {
+        const messages = {
+            valueMissing: 'Este campo es obligatorio',
+            tooShort: `Mínimo ${input.getAttribute('minlength')} caracteres`,
+            tooLong: `Máximo ${input.getAttribute('maxlength')} caracteres`,
+            typeMismatch: 'Formato inválido',
+            patternMismatch: input.getAttribute('title') || 'Formato inválido'
+        };
+        
+        for (const [key, message] of Object.entries(messages)) {
+            if (input.validity[key]) {
+                return message;
             }
         }
-    });
+        
+        return 'Campo inválido';
+    }
     
-    if (isValid) {
-        // Obtener datos del formulario
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData);
+    async handleSubmit(e) {
+        e.preventDefault();
         
-        // No incluir confirmPassword en los datos enviados
-        delete data.confirmPassword;
+        // Validate all fields
+        const inputs = this.form.querySelectorAll('input');
+        let isValid = true;
+        let firstInvalidInput = null;
         
-        console.log('Formulario válido:', data);
-        showNotification('¡Registro exitoso! Tu cuenta ha sido creada.', false);
-        
-        // Simular envío al servidor
-        setTimeout(() => {
-            // Aquí normalmente enviarías los datos al servidor
-            // fetch('/api/register', { method: 'POST', body: JSON.stringify(data) })
-            
-            // Resetear formulario después de éxito
-            form.reset();
-            
-            // Remover clases de validación
-            document.querySelectorAll('.form-group').forEach(group => {
-                group.classList.remove('valid', 'error');
-                const input = group.querySelector('input');
-                if (input) {
-                    input.classList.remove('valid', 'invalid');
+        inputs.forEach(input => {
+            if (!this.validateField(input)) {
+                isValid = false;
+                if (!firstInvalidInput) {
+                    firstInvalidInput = input;
                 }
-            });
-            
-            // Resetear barra de fortaleza
-            const strengthBar = document.querySelector('.strength-bar');
-            const strengthText = document.querySelector('.strength-text');
-            strengthBar.className = 'strength-bar';
-            strengthText.textContent = 'Seguridad de la contraseña';
-        }, 1500);
-    } else {
-        showNotification('Por favor, corrige los errores en el formulario', true);
+            }
+        });
         
-        // Enfocar el primer campo con error
-        if (firstErrorField) {
-            firstErrorField.focus();
-            firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (!isValid) {
+            this.showNotification('Por favor, corrige los errores en el formulario', 'error');
+            
+            if (firstInvalidInput) {
+                firstInvalidInput.focus();
+                firstInvalidInput.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+            }
+            return;
+        }
+        
+        // Show loading state
+        this.submitBtn.disabled = true;
+        this.submitBtn.classList.add('loading');
+        
+        try {
+            // Simulate API call
+            await this.simulateApiCall();
+            
+            // Show success message
+            this.showNotification('¡Registro exitoso! Tu cuenta ha sido creada. Redirigiendo...', 'success');
+            
+            // Simulate redirection after successful registration
+            setTimeout(() => {
+                this.showNotification('¡Bienvenido a la plataforma!', 'success');
+                
+                // Reset form
+                this.form.reset();
+                this.resetValidation();
+                this.submitBtn.disabled = false;
+                this.submitBtn.classList.remove('loading');
+                
+                // Optional: You can add actual redirection here
+                // window.location.href = 'dashboard.html';
+                
+            }, 2000);
+            
+        } catch (error) {
+            this.showNotification('Error al crear la cuenta. Por favor, intenta nuevamente.', 'error');
+            this.submitBtn.disabled = false;
+            this.submitBtn.classList.remove('loading');
         }
     }
-});
+    
+    simulateApiCall() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // Simulate random API failure (10% chance)
+                if (Math.random() < 0.9) {
+                    resolve();
+                } else {
+                    reject(new Error('API Error'));
+                }
+            }, 1500);
+        });
+    }
+    
+    resetValidation() {
+        this.form.querySelectorAll('.form-group').forEach(group => {
+            group.classList.remove('error', 'valid');
+            const input = group.querySelector('input');
+            if (input) {
+                input.classList.remove('invalid', 'valid');
+            }
+            const errorMsg = group.querySelector('.error-message');
+            if (errorMsg) {
+                errorMsg.textContent = '';
+            }
+        });
+        
+        // Reset password requirements
+        document.querySelectorAll('[data-rule]').forEach(li => {
+            li.classList.remove('valid');
+        });
+    }
+    
+    showNotification(message, type = 'success') {
+        this.notificationText.textContent = message;
+        this.notification.className = 'notification';
+        this.notification.classList.add(type, 'show');
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            this.notification.classList.remove('show');
+        }, 5000);
+    }
+}
 
-// Botones de redes sociales (solo visual)
-document.querySelectorAll('.social-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        showNotification(`Función de registro con ${button.textContent.trim()} en desarrollo`, false);
-    });
-});
-
-// Enlace de términos
-document.querySelector('.terms-link').addEventListener('click', (e) => {
-    e.preventDefault();
-    showNotification('Los términos y condiciones se mostrarían aquí', false);
-});
-
-// Enlace de inicio de sesión
-document.querySelector('.login-link-a').addEventListener('click', (e) => {
-    e.preventDefault();
-    showNotification('Redirigiendo a la página de inicio de sesión', false);
-});
-
-// Validación inicial al cargar (para mostrar estados)
-window.addEventListener('DOMContentLoaded', () => {
-    // Inicializar barra de fortaleza
-    checkPasswordStrength('');
+// Initialize form validator when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new FormValidator();
+    
+    // Add form autocomplete hints
+    document.getElementById('firstName').setAttribute('autocomplete', 'given-name');
+    document.getElementById('lastName').setAttribute('autocomplete', 'family-name');
+    document.getElementById('email').setAttribute('autocomplete', 'email');
+    document.getElementById('password').setAttribute('autocomplete', 'new-password');
+    document.getElementById('confirmPassword').setAttribute('autocomplete', 'new-password');
+    document.getElementById('phone').setAttribute('autocomplete', 'tel');
 });
