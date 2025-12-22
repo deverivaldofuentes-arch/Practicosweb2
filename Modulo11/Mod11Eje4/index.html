@@ -3,39 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería con File API</title>
+    <title>Galería - Gestor de Imágenes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>📸 Galería de Imágenes</h1>
-        <p class="subtitle">Carga y visualiza múltiples imágenes</p>
-        
-        <div class="upload-area" id="uploadArea">
-            <input type="file" id="fileInput" accept="image/*" multiple hidden>
-            <div class="upload-content">
-                <div class="upload-icon">📁</div>
-                <p>Arrastra imágenes aquí o</p>
-                <button class="btn-upload" id="browseBtn">Seleccionar Archivos</button>
-                <p class="upload-hint">Formatos: JPG, PNG, GIF, WebP</p>
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-images"></i>
+                    <h1>Galería Pro</h1>
+                </div>
+                <p class="subtitle">Gestor profesional de imágenes con vista previa</p>
             </div>
-        </div>
+        </header>
 
-        <div class="stats" id="stats" style="display: none;">
-            <span>Total: <strong id="totalImages">0</strong> imágenes</span>
-            <span>Tamaño: <strong id="totalSize">0 KB</strong></span>
-            <button class="btn-clear" id="clearAllBtn">Limpiar Todo</button>
-        </div>
+        <main class="main-content">
+            <div class="upload-section">
+                <div class="upload-card" id="uploadArea">
+                    <input type="file" id="fileInput" accept="image/*" multiple hidden>
+                    <div class="upload-content">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h3>Arrastra y suelta imágenes</h3>
+                        <p>o haz clic para seleccionar archivos</p>
+                        <button class="btn-upload" id="browseBtn">
+                            <i class="fas fa-folder-open"></i>
+                            Seleccionar imágenes
+                        </button>
+                        <div class="upload-formats">
+                            <span class="format-tag">JPG</span>
+                            <span class="format-tag">PNG</span>
+                            <span class="format-tag">GIF</span>
+                            <span class="format-tag">WebP</span>
+                            <span class="format-tag">SVG</span>
+                        </div>
+                        <p class="upload-note">Máximo 50 imágenes • 10MB por imagen</p>
+                    </div>
+                </div>
+            </div>
 
-        <div class="gallery" id="gallery"></div>
+            <div class="stats-card" id="stats" style="display: none;">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <i class="fas fa-image"></i>
+                        <div>
+                            <span class="stat-label">Total imágenes</span>
+                            <span class="stat-value" id="totalImages">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-hdd"></i>
+                        <div>
+                            <span class="stat-label">Tamaño total</span>
+                            <span class="stat-value" id="totalSize">0 KB</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-expand-alt"></i>
+                        <div>
+                            <span class="stat-label">Resolución máxima</span>
+                            <span class="stat-value" id="maxResolution">0×0</span>
+                        </div>
+                    </div>
+                    <div class="stats-actions">
+                        <button class="btn-clear" id="clearAllBtn">
+                            <i class="fas fa-trash-alt"></i>
+                            Limpiar todo
+                        </button>
+                        <button class="btn-download" id="downloadAllBtn" style="display: none;">
+                            <i class="fas fa-download"></i>
+                            Descargar ZIP
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-th"></i> Galería de imágenes</h2>
+                    <div class="view-controls">
+                        <button class="view-btn active" data-view="grid">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <i class="fas fa-list"></i>
+                        </button>
+                        <button class="view-btn" data-view="masonry">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="gallery" id="gallery"></div>
+                
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3>Galería vacía</h3>
+                    <p>Sube algunas imágenes para comenzar</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>© 2024 Galería Pro • <span id="currentDate"></span></p>
+            <p class="footer-info">v2.0 • Soporta hasta 50 imágenes simultáneamente</p>
+        </footer>
     </div>
 
     <div class="modal" id="modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-content">
-            <button class="modal-close" id="modalClose">×</button>
-            <img id="modalImage" src="" alt="">
-            <div class="modal-info" id="modalInfo"></div>
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 id="modalTitle">Vista previa</h3>
+                <div class="modal-actions">
+                    <button class="modal-btn" id="downloadBtn" title="Descargar">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="modal-btn" id="rotateBtn" title="Rotar">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                    <button class="modal-btn" id="fullscreenBtn" title="Pantalla completa">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button class="modal-close" id="modalClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-navigation">
+                    <button class="nav-btn prev-btn" id="prevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="modal-image-container">
+                        <img id="modalImage" src="" alt="Vista previa">
+                    </div>
+                    <button class="nav-btn next-btn" id="nextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="modal-info" id="modalInfo"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="image-progress">
+                    <span id="currentImage">1</span> de <span id="totalImagesModal">0</span>
+                </div>
+                <div class="modal-zoom">
+                    <button class="zoom-btn" id="zoomOut">
+                        <i class="fas fa-search-minus"></i>
+                    </button>
+                    <span class="zoom-level" id="zoomLevel">100%</span>
+                    <button class="zoom-btn" id="zoomIn">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="notificationText">Imagen cargada correctamente</span>
         </div>
     </div>
 

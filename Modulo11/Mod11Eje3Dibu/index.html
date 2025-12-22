@@ -3,49 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paint Pro Ultra - Filtros y Archivos</title>
+    <title>Paint Pro Ultra - Editor de Imágenes Profesional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <nav class="sidebar">
-        <h2>Paint Studio</h2>
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-paint-brush"></i>
+            </div>
+            <div class="logo-text">
+                <h2>Paint Pro Ultra</h2>
+                <span class="logo-subtitle">Editor Profesional</span>
+            </div>
+        </div>
         
         <div class="control-group">
-            <label class="section-title">Archivo</label>
+            <label class="section-title">
+                <i class="fas fa-folder-open"></i>
+                <span>ARCHIVO</span>
+            </label>
             <input type="file" id="imageLoader" accept="image/*" hidden>
-            <button onclick="document.getElementById('imageLoader').click()">📂 Abrir Foto</button>
-            <button id="downloadBtn" class="btn-primary">💾 Guardar PNG</button>
+            <button onclick="document.getElementById('imageLoader').click()" class="btn-file">
+                <i class="fas fa-upload"></i>
+                <span>Abrir Imagen</span>
+            </button>
+            <button id="clearBtn" class="btn-secondary">
+                <i class="fas fa-broom"></i>
+                <span>Limpiar Lienzo</span>
+            </button>
+            <button id="downloadBtn" class="btn-primary">
+                <i class="fas fa-download"></i>
+                <span>Exportar PNG</span>
+            </button>
         </div>
 
         <div class="control-group">
-            <label class="section-title">Herramientas</label>
+            <label class="section-title">
+                <i class="fas fa-pencil-alt"></i>
+                <span>HERRAMIENTAS</span>
+            </label>
             <div class="tool-grid">
-                <button class="tool active" data-tool="brush">🖌️</button>
-                <button class="tool" data-tool="rectangle">⏹️</button>
-                <button class="tool" data-tool="circle">⭕</button>
-                <button class="tool" data-tool="eraser">🧽</button>
+                <button class="tool active" data-tool="brush" title="Pincel">
+                    <i class="fas fa-paint-brush"></i>
+                    <span class="tool-label">Pincel</span>
+                </button>
+                <button class="tool" data-tool="rectangle" title="Rectángulo">
+                    <i class="fas fa-square"></i>
+                    <span class="tool-label">Rectángulo</span>
+                </button>
+                <button class="tool" data-tool="circle" title="Círculo">
+                    <i class="fas fa-circle"></i>
+                    <span class="tool-label">Círculo</span>
+                </button>
+                <button class="tool" data-tool="eraser" title="Borrador">
+                    <i class="fas fa-eraser"></i>
+                    <span class="tool-label">Borrador</span>
+                </button>
             </div>
         </div>
 
         <div class="control-group">
-            <label class="section-title">Filtros Pro</label>
-            <button id="filterGray">Escala Grises</button>
-            <button id="filterInvert">Invertir</button>
-            <button id="filterSepia">Sepia</button>
+            <label class="section-title">
+                <i class="fas fa-sliders-h"></i>
+                <span>FILTROS</span>
+            </label>
+            <div class="filter-grid">
+                <button id="filterGray" class="btn-filter" data-filter="gray">
+                    <i class="fas fa-adjust"></i>
+                    <span>Grises</span>
+                </button>
+                <button id="filterInvert" class="btn-filter" data-filter="invert">
+                    <i class="fas fa-inverse"></i>
+                    <span>Invertir</span>
+                </button>
+                <button id="filterSepia" class="btn-filter" data-filter="sepia">
+                    <i class="fas fa-image"></i>
+                    <span>Sepia</span>
+                </button>
+            </div>
         </div>
 
         <div class="control-group">
-            <label>Color</label>
-            <input type="color" id="colorPicker" value="#1a73e8">
-            <label>Grosor: <span id="wLabel">5</span>px</label>
-            <input type="range" id="lineWidth" min="1" max="100" value="5">
+            <label class="section-title">
+                <i class="fas fa-palette"></i>
+                <span>PROPIEDADES</span>
+            </label>
+            
+            <div class="color-section">
+                <label>Color Principal</label>
+                <div class="color-picker-wrapper">
+                    <input type="color" id="colorPicker" value="#1a73e8">
+                    <div class="color-info">
+                        <span id="colorValue">#1A73E8</span>
+                        <small>Haz clic para cambiar</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slider-section">
+                <div class="slider-header">
+                    <label>Grosor del Trazo</label>
+                    <span id="wLabel" class="slider-value">5px</span>
+                </div>
+                <input type="range" id="lineWidth" min="1" max="50" value="5">
+                <div class="slider-ticks">
+                    <span>Fino</span>
+                    <span>Medio</span>
+                    <span>Grueso</span>
+                </div>
+            </div>
+            
+            <div class="status-info">
+                <div class="status-item">
+                    <i class="fas fa-paint-brush status-icon"></i>
+                    <div>
+                        <span class="status-label">Herramienta activa</span>
+                        <span id="currentTool" class="status-value">Pincel</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-expand-alt status-icon"></i>
+                    <div>
+                        <span class="status-label">Tamaño lienzo</span>
+                        <span class="status-value">1000×700px</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="shortcuts">
+                <h4><i class="fas fa-keyboard"></i> Atajos Rápidos</h4>
+                <div class="shortcut-item">
+                    <kbd>Ctrl + Z</kbd>
+                    <span>Deshacer</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Ctrl + S</kbd>
+                    <span>Guardar</span>
+                </div>
+            </div>
+            <div class="version-info">
+                <span>Paint Pro Ultra v2.1</span>
+                <small>© 2024 Editor Profesional</small>
+            </div>
         </div>
     </nav>
 
     <main class="editor-area">
-        <canvas id="canvas"></canvas>
+        <div class="editor-header">
+            <h1>Lienzo de Dibujo</h1>
+            <div class="editor-controls">
+                <button class="btn-zoom" id="zoomOut" title="Alejar">
+                    <i class="fas fa-search-minus"></i>
+                </button>
+                <span class="zoom-level" id="zoomLevel">100%</span>
+                <button class="btn-zoom" id="zoomIn" title="Acercar">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="btn-grid" id="toggleGrid" title="Mostrar/ocultar cuadrícula">
+                    <i class="fas fa-th"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="canvas-container">
+            <div class="canvas-wrapper">
+                <canvas id="canvas"></canvas>
+                <div class="canvas-grid" id="canvasGrid"></div>
+            </div>
+            <div class="canvas-info">
+                <span id="cursorPos">X: 0, Y: 0</span>
+                <span class="canvas-size">1000 × 700px</span>
+            </div>
+        </div>
     </main>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Acción completada</span>
+    </div>
 
     <script src="script.js"></script>
 </body>
