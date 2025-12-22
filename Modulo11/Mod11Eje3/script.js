@@ -30,7 +30,7 @@ const modalCancel = document.querySelector('.modal-cancel');
 const modalClose = document.querySelector('.modal-close');
 
 let draggedItem = null;
-let nextId = 6; // Para nuevas tareas
+let nextId = 1; // Empezar desde 1 cuando no hay tareas
 let currentPriority = 'medium';
 let activityLog = [];
 
@@ -41,54 +41,11 @@ const priorities = [
     { name: 'Baja', class: 'low', color: '#a0d2ff' }
 ];
 
-// Datos iniciales de ejemplo
+// Datos iniciales VACÍOS
 const initialTasks = {
-    todo: [
-        {
-            id: 1,
-            title: 'Aprender HTML y CSS avanzado',
-            description: 'Estudiar flexbox, grid y animaciones CSS',
-            priority: 'high',
-            date: 'Hoy',
-            dueDate: new Date().toISOString().split('T')[0]
-        },
-        {
-            id: 2,
-            title: 'Estudiar frameworks CSS',
-            description: 'Explorar Tailwind CSS y Bootstrap 5',
-            priority: 'medium',
-            date: 'Mañana',
-            dueDate: new Date(Date.now() + 86400000).toISOString().split('T')[0]
-        },
-        {
-            id: 3,
-            title: 'Practicar JavaScript ES6+',
-            description: 'Funciones asíncronas y manipulación del DOM',
-            priority: 'low',
-            date: 'Esta semana',
-            dueDate: new Date(Date.now() + 259200000).toISOString().split('T')[0]
-        }
-    ],
-    progress: [
-        {
-            id: 4,
-            title: 'Desarrollar proyecto drag & drop',
-            description: 'Implementar funcionalidades avanzadas de arrastre',
-            priority: 'high',
-            date: 'En curso',
-            dueDate: new Date().toISOString().split('T')[0]
-        }
-    ],
-    done: [
-        {
-            id: 5,
-            title: 'Completar ejercicios básicos',
-            description: 'Finalizados todos los ejercicios del módulo 1',
-            priority: 'completed',
-            date: 'Ayer',
-            dueDate: new Date(Date.now() - 86400000).toISOString().split('T')[0]
-        }
-    ]
+    todo: [],
+    progress: [],
+    done: []
 };
 
 /**
@@ -585,7 +542,7 @@ function createItem(id, title, description, priorityClass, dateText, zoneId = 't
                 <i class="far fa-calendar"></i> ${dateText}
             </span>
             <div class="item-actions">
-                <button class="item-action-btn" title="Eliminar">
+                <button class="delete-btn item-action-btn" title="Eliminar">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
@@ -637,7 +594,7 @@ function updateCounters() {
 function updateProgressRing() {
     const totalItems = parseInt(totalCount.textContent) || 1;
     const doneItems = parseInt(doneCount.textContent) || 0;
-    const percentage = Math.round((doneItems / totalItems) * 100);
+    const percentage = totalItems === 0 ? 0 : Math.round((doneItems / totalItems) * 100);
     
     progressPercent.textContent = `${percentage}%`;
     
@@ -702,6 +659,22 @@ function updateActivityFeed() {
     if (!activityFeed) return;
     
     activityFeed.innerHTML = '';
+    
+    if (activityLog.length === 0) {
+        const emptyActivity = document.createElement('div');
+        emptyActivity.className = 'activity-item';
+        emptyActivity.innerHTML = `
+            <div class="activity-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="activity-content">
+                <div class="activity-text">No hay actividad reciente</div>
+                <div class="activity-time">Comienza a usar la aplicación</div>
+            </div>
+        `;
+        activityFeed.appendChild(emptyActivity);
+        return;
+    }
     
     activityLog.forEach(activity => {
         let icon = 'fas fa-info-circle';
@@ -776,6 +749,11 @@ function loadThemePreference() {
  */
 exportBtn.addEventListener('click', () => {
     const state = getCurrentState();
+    if (Object.keys(state.items).every(zone => state.items[zone].length === 0)) {
+        showNotification('No hay tareas para exportar', 'warning');
+        return;
+    }
+    
     const dataStr = JSON.stringify(state, null, 2);
     const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
     
@@ -803,7 +781,7 @@ function getCurrentState() {
     dropzones.forEach(zone => {
         const zoneId = zone.id;
         const itemsInZone = Array.from(zone.querySelectorAll('.item')).map(item => ({
-            id: item.dataset.id,
+            id: parseInt(item.dataset.id),
             title: item.querySelector('.item-text').textContent,
             description: item.querySelector('.item-description')?.textContent || '',
             priority: item.querySelector('.priority-badge').className,
@@ -824,6 +802,7 @@ function getCurrentState() {
 function saveState() {
     const state = getCurrentState();
     localStorage.setItem('taskflowState', JSON.stringify(state));
+    console.log('Estado guardado:', state);
     
     // Solo mostrar notificación si no es un guardado automático
     if (!saveState.debouncing) {
@@ -843,7 +822,7 @@ function loadState() {
     if (savedState) {
         try {
             const state = JSON.parse(savedState);
-            nextId = state.nextId || 6;
+            nextId = state.nextId || 1;
             activityLog = state.activityLog || [];
             
             // Limpiar zonas
@@ -857,7 +836,7 @@ function loadState() {
                 if (zone) {
                     state.items[zoneId].forEach(itemData => {
                         const item = createItem(
-                            itemData.id,
+                            parseInt(itemData.id),
                             itemData.title,
                             itemData.description,
                             itemData.priority,
@@ -866,65 +845,72 @@ function loadState() {
                             itemData.dueDate
                         );
                         zone.appendChild(item);
+                        initItemEvents(item);
                     });
                 }
             });
             
-            // Si no hay datos guardados, cargar datos iniciales
+            console.log('Estado cargado desde localStorage');
+            
+            // Si no hay items, cargar datos vacíos
             const hasItems = Object.values(state.items || {}).some(items => items.length > 0);
             if (!hasItems) {
-                loadInitialData();
+                console.log('No hay datos guardados, comenzando con columnas vacías');
             }
             
             showNotification('Estado cargado correctamente', 'success');
         } catch (error) {
             console.error('Error al cargar estado:', error);
-            loadInitialData();
             showNotification('Error al cargar datos guardados', 'error');
+            // Comenzar con columnas vacías
+            nextId = 1;
+            activityLog = [];
         }
     } else {
-        loadInitialData();
+        console.log('No hay datos guardados, comenzando con columnas vacías');
+        // Comenzar con columnas vacías
+        nextId = 1;
+        activityLog = [];
     }
     
+    // Inicializar eventos de todos los items
+    const allItems = document.querySelectorAll('.item');
+    allItems.forEach(item => {
+        initItemEvents(item);
+    });
+    
+    updateCounters();
     updateActivityFeed();
 }
 
 /**
- * Cargar datos iniciales
- */
-function loadInitialData() {
-    Object.keys(initialTasks).forEach(zoneId => {
-        const zone = document.getElementById(zoneId);
-        if (zone) {
-            initialTasks[zoneId].forEach(task => {
-                const item = createItem(
-                    task.id,
-                    task.title,
-                    task.description,
-                    `priority-badge ${task.priority}`,
-                    task.date,
-                    zoneId,
-                    task.dueDate
-                );
-                zone.appendChild(item);
-            });
-        }
-    });
-    
-    logActivity('Datos iniciales cargados', 'info');
-}
-
-/**
- * Resetear a estado inicial
+ * Resetear a estado inicial (vaciar todo)
  */
 function resetOrder() {
-    if (confirm('¿Estás seguro de que quieres restablecer todo al estado inicial? Se perderán todos los cambios.')) {
+    if (confirm('¿Estás seguro de que quieres restablecer todo? Se eliminarán todas las tareas y se perderán todos los cambios.')) {
+        // Limpiar todas las columnas
+        dropzones.forEach(zone => {
+            zone.innerHTML = '';
+        });
+        
+        // Restablecer contadores
+        nextId = 1;
+        activityLog = [];
+        
+        // Eliminar el estado guardado
         localStorage.removeItem('taskflowState');
-        location.reload();
+        
+        // Actualizar contadores y UI
+        updateCounters();
+        updateActivityFeed();
+        updateEmptyState();
+        
+        showNotification('Todas las tareas han sido restablecidas', 'success');
+        logActivity('Aplicación restablecida a estado inicial', 'info');
     }
 }
 
-// Resto de funciones auxiliares (mantener las originales con mejoras)
+// Resto de funciones auxiliares
 function enableEditMode(element) {
     element.setAttribute('contenteditable', 'true');
     element.focus();
@@ -1001,6 +987,12 @@ function createNotificationStyles() {
     
     const style = document.createElement('style');
     style.id = 'notification-styles';
+    style.textContent = `
+        .notification-success { border-left: 4px solid #06d6a0; }
+        .notification-info { border-left: 4px solid #118ab2; }
+        .notification-warning { border-left: 4px solid #ffd166; }
+        .notification-error { border-left: 4px solid #ef476f; }
+    `;
     document.head.appendChild(style);
 }
 
@@ -1020,7 +1012,7 @@ function debounce(func, wait) {
 resetBtn.addEventListener('click', resetOrder);
 saveBtn.addEventListener('click', () => {
     saveState();
-    showNotification('Cambios guardados manualmente', 'info');
+    showNotification('Cambios guardados manualmente', 'success');
 });
 
 // Inicializar cuando el DOM esté listo
