@@ -3,56 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ordenador Drag and Drop</title>
+    <title>TaskFlow - Gestor de Tareas</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 </head>
-<body>
+<body data-theme="light">
     <div class="container">
-        <h1>🎯 Ordenador Drag and Drop</h1>
-        <p class="subtitle">Arrastra los elementos para reorganizarlos</p>
+        <header class="header">
+            <div class="header-main">
+                <div class="logo">
+                    <i class="fas fa-stream"></i>
+                    <h1>TaskFlow<span class="logo-highlight">Pro</span></h1>
+                </div>
+                <div class="header-controls">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                        <span class="theme-text">Modo Oscuro</span>
+                    </button>
+                    <button class="btn btn-icon" id="exportBtn" title="Exportar datos">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+            <p class="subtitle">Organiza tus tareas de manera eficiente con arrastrar y soltar</p>
+        </header>
         
-        <div class="controls">
-            <button class="btn" id="resetBtn">↻ Resetear Orden</button>
-            <button class="btn" id="addBtn">+ Agregar Tarea</button>
+        <div class="dashboard">
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-count" id="todoCount">3</span>
+                        <span class="stat-label">Por Hacer</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-count" id="progressCount">1</span>
+                        <span class="stat-label">En Progreso</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-count" id="doneCount">1</span>
+                        <span class="stat-label">Completadas</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-count" id="totalCount">5</span>
+                        <span class="stat-label">Total Tareas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-controls">
+                <button class="btn btn-primary" id="addBtn">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Nueva Tarea</span>
+                </button>
+                <button class="btn btn-secondary" id="quickAddBtn" title="Agregar tarea rápida">
+                    <i class="fas fa-bolt"></i>
+                </button>
+                <button class="btn btn-success" id="saveBtn">
+                    <i class="fas fa-save"></i>
+                    <span>Guardar</span>
+                </button>
+                <button class="btn btn-danger" id="resetBtn">
+                    <i class="fas fa-trash-restore"></i>
+                    <span>Restablecer</span>
+                </button>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar tareas...">
+                </div>
+            </div>
         </div>
 
-        <div class="columns">
-            <div class="column">
-                <h2>📋 Por Hacer</h2>
-                <div class="dropzone" id="todo" data-zone="todo">
-                    <div class="item" draggable="true" data-id="1">
-                        <span class="drag-handle">☰</span>
-                        <span>Aprender HTML</span>
+        <div class="workspace">
+            <div class="board-columns">
+                <div class="column">
+                    <div class="column-header">
+                        <div class="column-title">
+                            <i class="fas fa-clipboard-list"></i>
+                            <h2>Por Hacer</h2>
+                        </div>
+                        <div class="column-meta">
+                            <span class="column-badge" id="todoBadge">3</span>
+                            <div class="column-actions">
+                                <button class="column-action-btn" data-action="sort" title="Ordenar por prioridad">
+                                    <i class="fas fa-sort-amount-down"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="item" draggable="true" data-id="2">
-                        <span class="drag-handle">☰</span>
-                        <span>Estudiar CSS</span>
+                    <div class="dropzone" id="todo">
+                        <!-- Tareas se generan dinámicamente -->
                     </div>
-                    <div class="item" draggable="true" data-id="3">
-                        <span class="drag-handle">☰</span>
-                        <span>Practicar JavaScript</span>
+                    <div class="column-footer">
+                        <button class="add-task-btn" data-column="todo">
+                            <i class="fas fa-plus"></i> Agregar tarea
+                        </button>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="column-header">
+                        <div class="column-title">
+                            <i class="fas fa-cogs"></i>
+                            <h2>En Progreso</h2>
+                        </div>
+                        <div class="column-meta">
+                            <span class="column-badge" id="progressBadge">1</span>
+                            <div class="column-actions">
+                                <button class="column-action-btn" data-action="sort" title="Ordenar por prioridad">
+                                    <i class="fas fa-sort-amount-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropzone" id="progress">
+                        <!-- Tareas se generan dinámicamente -->
+                    </div>
+                    <!--<div class="column-footer">
+                        <button class="add-task-btn" data-column="progress">
+                            <i class="fas fa-plus"></i> Agregar tarea
+                        </button>
+                    </div>-->
+                </div>
+
+                <div class="column">
+                    <div class="column-header">
+                        <div class="column-title">
+                            <i class="fas fa-check-circle"></i>
+                            <h2>Completado</h2>
+                        </div>
+                        <div class="column-meta">
+                            <span class="column-badge" id="doneBadge">1</span>
+                            <div class="column-actions">
+                                <button class="column-action-btn" data-action="clear" title="Vaciar completadas">
+                                    <i class="fas fa-broom"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropzone" id="done">
+                        <!-- Tareas se generan dinámicamente -->
+                    </div>
+                    <!--<div class="column-footer">
+                        <button class="add-task-btn" data-column="done">
+                            <i class="fas fa-plus"></i> Agregar tarea
+                        </button>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <h3><i class="fas fa-chart-line"></i> Progreso</h3>
+                <div class="progress-ring">
+                    <svg width="120" height="120">
+                        <circle class="progress-bg" cx="60" cy="60" r="54"></circle>
+                        <circle class="progress-fill" cx="60" cy="60" r="54"></circle>
+                    </svg>
+                    <div class="progress-text">
+                        <span id="progressPercent">20%</span>
+                        <small>Completado</small>
                     </div>
                 </div>
             </div>
 
-            <div class="column">
-                <h2>⚙️ En Progreso</h2>
-                <div class="dropzone" id="progress" data-zone="progress">
-                    <div class="item" draggable="true" data-id="4">
-                        <span class="drag-handle">☰</span>
-                        <span>Hacer proyecto</span>
-                    </div>
+            <div class="sidebar-section">
+                <h3><i class="fas fa-history"></i> Actividad Reciente</h3>
+                <div class="activity-feed" id="activityFeed">
+                    <!-- Actividad se genera dinámicamente -->
                 </div>
             </div>
 
-            <div class="column">
-                <h2>✅ Completado</h2>
-                <div class="dropzone" id="done" data-zone="done">
-                    <div class="item" draggable="true" data-id="5">
-                        <span class="drag-handle">☰</span>
-                        <span>Completar ejercicios</span>
+            <div class="sidebar-section">
+                <h3><i class="fas fa-lightbulb"></i> Consejos</h3>
+                <div class="tip">
+                    <p>💡 Usa <kbd>Doble clic</kbd> para editar tareas rápidamente</p>
+                    <p>💡 Arrastra entre columnas para cambiar el estado</p>
+                    <p>💡 Prioriza tus tareas con etiquetas de color</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para nueva tarea -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-plus-circle"></i> Nueva Tarea</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="taskTitle">Título de la tarea</label>
+                    <input type="text" id="taskTitle" placeholder="Escribe el título aquí...">
+                </div>
+                <div class="form-group">
+                    <label for="taskDescription">Descripción (opcional)</label>
+                    <textarea id="taskDescription" rows="3" placeholder="Añade detalles..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Prioridad</label>
+                    <div class="priority-selector">
+                        <button class="priority-option active" data-priority="low">
+                            <span class="priority-dot low"></span> Baja
+                        </button>
+                        <button class="priority-option" data-priority="medium">
+                            <span class="priority-dot medium"></span> Media
+                        </button>
+                        <button class="priority-option" data-priority="high">
+                            <span class="priority-dot high"></span> Alta
+                        </button>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="taskDueDate">Fecha límite</label>
+                    <input type="date" id="taskDueDate">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-cancel">Cancelar</button>
+                <button class="btn btn-primary modal-confirm">Crear Tarea</button>
             </div>
         </div>
     </div>
