@@ -57,7 +57,7 @@ function initApp() {
     initializePrioritySelector();
     initializeModal();
     loadState();
-    initDragEvents();
+    initDragEvents(); // Inicializar eventos de drag una vez
     updateCounters();
     updateProgressRing();
     logActivity('Aplicación iniciada', 'info');
@@ -209,6 +209,7 @@ function createTaskFromModal() {
     
     // Inicializar eventos del nuevo item
     initItemEvents(newItem);
+    initDragEventsForItem(newItem); // ¡ESTA ES LA LÍNEA CLAVE!
     
     // Animación de entrada
     newItem.style.opacity = '0';
@@ -255,6 +256,7 @@ function addQuickTask() {
     todoZone.prepend(newItem);
     
     initItemEvents(newItem);
+    initDragEventsForItem(newItem); // ¡ESTA ES LA LÍNEA CLAVE!
     
     // Animación
     newItem.style.opacity = '0';
@@ -351,24 +353,30 @@ function clearCompletedTasks() {
 }
 
 /**
- * Inicializar eventos de drag
+ * Inicializar eventos de drag para TODOS los items
  */
 function initDragEvents() {
-    const allItems = document.querySelectorAll('.item');
-    
-    allItems.forEach(item => {
-        item.addEventListener('dragstart', handleDragStart);
-        item.addEventListener('dragend', handleDragEnd);
-        
-        initItemEvents(item);
-    });
-    
+    // Inicializar eventos para los dropzones (columnas)
     dropzones.forEach(zone => {
         zone.addEventListener('dragover', handleDragOver);
         zone.addEventListener('drop', handleDrop);
         zone.addEventListener('dragenter', handleDragEnter);
         zone.addEventListener('dragleave', handleDragLeave);
     });
+    
+    // Inicializar eventos para todos los items existentes
+    const allItems = document.querySelectorAll('.item');
+    allItems.forEach(item => {
+        initDragEventsForItem(item);
+    });
+}
+
+/**
+ * Inicializar eventos de drag para UN SOLO item
+ */
+function initDragEventsForItem(item) {
+    item.addEventListener('dragstart', handleDragStart);
+    item.addEventListener('dragend', handleDragEnd);
 }
 
 /**
@@ -419,7 +427,7 @@ function initItemEvents(item) {
     }
 }
 
-// Drag & Drop Handlers (mantener funciones originales con mejoras)
+// Drag & Drop Handlers
 function handleDragStart(e) {
     draggedItem = this;
     this.classList.add('dragging');
@@ -802,7 +810,6 @@ function getCurrentState() {
 function saveState() {
     const state = getCurrentState();
     localStorage.setItem('taskflowState', JSON.stringify(state));
-    console.log('Estado guardado:', state);
     
     // Solo mostrar notificación si no es un guardado automático
     if (!saveState.debouncing) {
@@ -846,6 +853,7 @@ function loadState() {
                         );
                         zone.appendChild(item);
                         initItemEvents(item);
+                        initDragEventsForItem(item);
                     });
                 }
             });
@@ -872,12 +880,6 @@ function loadState() {
         nextId = 1;
         activityLog = [];
     }
-    
-    // Inicializar eventos de todos los items
-    const allItems = document.querySelectorAll('.item');
-    allItems.forEach(item => {
-        initItemEvents(item);
-    });
     
     updateCounters();
     updateActivityFeed();
