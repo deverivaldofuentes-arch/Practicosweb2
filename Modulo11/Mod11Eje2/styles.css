@@ -34,6 +34,21 @@
     --transition-slow: 0.5s ease;
 }
 
+/* Modo oscuro - Variables */
+[data-theme="dark"] {
+    --light-bg: #1a1a2e;
+    --dark-bg: #16213e;
+    --card-bg: #0f3460;
+    --text-primary: #e6e6e6;
+    --text-secondary: #a8a8a8;
+    --border-color: #2d4059;
+    
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -46,6 +61,10 @@ body {
     min-height: 100vh;
     color: var(--text-primary);
     line-height: 1.6;
+}
+
+[data-theme="dark"] body {
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
 }
 
 .container {
@@ -64,6 +83,10 @@ body {
     box-shadow: var(--shadow-lg);
     position: relative;
     overflow: hidden;
+}
+
+[data-theme="dark"] .header {
+    background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
 }
 
 .header::before {
@@ -171,6 +194,13 @@ body {
     font-size: 1rem;
     transition: var(--transition-normal);
     background: var(--light-bg);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .search-wrapper input {
+    background: #1a1a2e;
+    border-color: var(--border-color);
+    color: var(--text-primary);
 }
 
 .search-wrapper input:focus {
@@ -194,15 +224,25 @@ body {
     border: 1px solid var(--border-color);
 }
 
+[data-theme="dark"] .search-suggestions {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
 .search-suggestion {
     padding: 1rem;
     border-bottom: 1px solid var(--border-color);
     cursor: pointer;
     transition: var(--transition-fast);
+    color: var(--text-primary);
 }
 
 .search-suggestion:hover {
     background: var(--light-bg);
+}
+
+[data-theme="dark"] .search-suggestion:hover {
+    background: var(--dark-bg);
 }
 
 .search-suggestion:last-child {
@@ -252,9 +292,19 @@ body {
     border: 2px solid var(--border-color);
 }
 
+[data-theme="dark"] .btn-secondary {
+    background: #1a1a2e;
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
 .btn-secondary:hover {
     background: var(--border-color);
     transform: translateY(-2px);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: #2d4059;
 }
 
 .btn-toggle {
@@ -263,6 +313,12 @@ body {
     border: 2px solid var(--border-color);
     min-width: 50px;
     justify-content: center;
+}
+
+[data-theme="dark"] .btn-toggle {
+    background: #1a1a2e;
+    color: var(--text-secondary);
+    border-color: var(--border-color);
 }
 
 .btn-toggle.active {
@@ -282,6 +338,7 @@ body {
     align-items: center;
     justify-content: center;
     transition: var(--transition-fast);
+    color: var(--text-primary);
 }
 
 .btn-small:hover {
@@ -312,6 +369,10 @@ body {
     min-height: 300px;
     position: relative;
     overflow: hidden;
+}
+
+[data-theme="dark"] .current-weather-card {
+    background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
 }
 
 .current-weather-card::before {
@@ -499,6 +560,11 @@ body {
     border-radius: var(--border-radius-md);
     background: var(--light-bg);
     transition: var(--transition-normal);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .info-card {
+    background: var(--dark-bg);
 }
 
 .info-card:hover {
@@ -573,6 +639,10 @@ body {
     border-radius: 3px;
 }
 
+[data-theme="dark"] .forecast-scroll::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+}
+
 .forecast-scroll::-webkit-scrollbar-thumb {
     background: var(--primary-color);
     border-radius: 3px;
@@ -586,6 +656,11 @@ body {
     text-align: center;
     flex-shrink: 0;
     transition: var(--transition-normal);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .forecast-day {
+    background: var(--dark-bg);
 }
 
 .forecast-day:hover {
@@ -672,6 +747,11 @@ body {
     align-items: center;
     cursor: pointer;
     transition: var(--transition-normal);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .favorite-city {
+    background: var(--dark-bg);
 }
 
 .favorite-city:hover {
@@ -715,6 +795,11 @@ body {
     align-items: center;
     gap: 1rem;
     transition: var(--transition-normal);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .stat-card {
+    background: var(--dark-bg);
 }
 
 .stat-card:hover {
@@ -771,6 +856,7 @@ body {
     justify-content: space-between;
     padding: 0.5rem 0;
     border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
 }
 
 .location-details strong {
@@ -872,6 +958,7 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    color: var(--text-primary);
 }
 
 .modal-close {
@@ -892,6 +979,10 @@ body {
     background: var(--light-bg);
 }
 
+[data-theme="dark"] .modal-close:hover {
+    background: var(--dark-bg);
+}
+
 .modal-body {
     padding: 1.5rem;
 }
@@ -902,6 +993,7 @@ body {
     align-items: center;
     padding: 1rem 0;
     border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
 }
 
 .setting-item:last-child {
@@ -913,6 +1005,7 @@ body {
     align-items: center;
     gap: 0.5rem;
     font-weight: 500;
+    color: var(--text-primary);
 }
 
 .switch {
@@ -938,6 +1031,10 @@ body {
     background-color: #ccc;
     transition: var(--transition-normal);
     border-radius: 34px;
+}
+
+[data-theme="dark"] .slider {
+    background-color: var(--border-color);
 }
 
 .slider:before {
@@ -973,6 +1070,13 @@ input:checked + .slider:before {
     cursor: pointer;
     transition: var(--transition-fast);
     font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .unit-option {
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
 }
 
 .unit-option.active {
@@ -983,6 +1087,10 @@ input:checked + .slider:before {
 
 .unit-option:hover:not(.active) {
     background: var(--border-color);
+}
+
+[data-theme="dark"] .unit-option:hover:not(.active) {
+    background: #2d4059;
 }
 
 .modal-footer {
@@ -1017,6 +1125,11 @@ input:checked + .slider:before {
     transform: translateX(100%);
     opacity: 0;
     transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .toast {
+    background: var(--card-bg);
+    color: var(--text-primary);
 }
 
 .toast.show {
@@ -1109,6 +1222,10 @@ input:focus {
 ::-webkit-scrollbar-track {
     background: var(--light-bg);
     border-radius: 5px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: var(--dark-bg);
 }
 
 ::-webkit-scrollbar-thumb {

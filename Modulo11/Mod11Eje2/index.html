@@ -181,7 +181,7 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4><i class="fas fa-info-circle"></i> Información</h4>
-                    <p>Datos meteorológicos proporcionados por WeatherAPI.com</p>
+                    <p>Datos meteorológicos proporcionados por Open-Meteo.com</p>
                     <p>Actualizado automáticamente cada 15 minutos</p>
                 </div>
                 <div class="footer-section">
@@ -221,15 +221,6 @@
                     </label>
                 </div>
                 <div class="setting-item">
-                    <label for="notifications">
-                        <i class="fas fa-bell"></i> Notificaciones
-                    </label>
-                    <label class="switch">
-                        <input type="checkbox" id="notifications">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="setting-item">
                     <label for="darkMode">
                         <i class="fas fa-moon"></i> Modo oscuro
                     </label>
@@ -241,8 +232,12 @@
                 <div class="setting-item">
                     <label><i class="fas fa-ruler"></i> Unidades</label>
                     <div class="unit-selector">
-                        <button class="unit-option active" data-unit="metric">Métrico (°C, km/h)</button>
-                        <button class="unit-option" data-unit="imperial">Imperial (°F, mph)</button>
+                        <button class="unit-option" data-unit="metric">
+                            Métrico (°C, km/h)
+                        </button>
+                        <button class="unit-option" data-unit="imperial">
+                            Imperial (°F, mph)
+                        </button>
                     </div>
                 </div>
             </div>
@@ -300,6 +295,14 @@
             setTimeout(() => {
                 document.getElementById('settingsModal').classList.add('active');
             }, 10);
+        });
+        
+        // Cargar tema inmediatamente para evitar flash de contenido
+        document.addEventListener('DOMContentLoaded', function() {
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            if (darkMode) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
         });
     </script>
 </body>

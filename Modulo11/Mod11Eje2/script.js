@@ -164,7 +164,7 @@ async function getWeatherByCoords(lat, lon, cityName = null) {
         
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max&timezone=auto&forecast_days=6&temperature_unit=${unit}&windspeed_unit=${windUnit}&precipitation_unit=${precipitationUnit}`;
         
-        console.log('Fetching:', url); // Para debug
+        console.log('Fetching:', url);
         
         const response = await fetch(url);
         
@@ -706,7 +706,7 @@ function toggleUnits(unit) {
     currentUnit = unit;
     localStorage.setItem('weatherUnit', unit);
     
-    // Actualizar botones de unidad
+    // Actualizar botones de unidad en la barra de búsqueda
     if (unit === 'metric') {
         elements.unitToggle.classList.add('active');
         elements.unitToggleF.classList.remove('active');
@@ -715,15 +715,19 @@ function toggleUnits(unit) {
         elements.unitToggleF.classList.add('active');
     }
     
+    // Actualizar botones en el modal
+    updateUnitButtonsInModal();
+    
     // Actualizar datos si hay información cargada
     if (currentWeatherData) {
-        // Volver a cargar datos con nuevas unidades
         const lat = currentWeatherData.location.lat;
         const lon = currentWeatherData.location.lon;
         const cityName = currentWeatherData.location.name;
         
         getWeatherByCoords(lat, lon, cityName);
     }
+    
+    showToast(`Unidades cambiadas a ${unit === 'metric' ? 'métricas' : 'imperiales'}`, 'success');
 }
 
 /**
@@ -919,18 +923,18 @@ function setupAutoRefresh() {
 function saveSettings() {
     const darkMode = document.getElementById('darkMode').checked;
     const autoRefresh = document.getElementById('autoRefresh').checked;
-    const notifications = document.getElementById('notifications').checked;
     
     // Guardar en localStorage
     localStorage.setItem('darkMode', darkMode);
     localStorage.setItem('autoRefresh', autoRefresh);
-    localStorage.setItem('notifications', notifications);
     
     // Aplicar modo oscuro si está activado
     if (darkMode) {
         document.documentElement.setAttribute('data-theme', 'dark');
+        showToast('Modo oscuro activado', 'success');
     } else {
         document.documentElement.removeAttribute('data-theme');
+        showToast('Modo claro activado', 'success');
     }
     
     setupAutoRefresh();
@@ -941,17 +945,48 @@ function saveSettings() {
  * Carga configuración
  */
 function loadSettings() {
+    // Cargar unidad
+    const savedUnit = localStorage.getItem('weatherUnit');
+    if (savedUnit) {
+        currentUnit = savedUnit;
+        toggleUnits(savedUnit);
+    }
+    
+    // Cargar modo oscuro
     const darkMode = localStorage.getItem('darkMode') === 'true';
-    const autoRefresh = localStorage.getItem('autoRefresh') !== 'false'; // Por defecto true
-    const notifications = localStorage.getItem('notifications') === 'true';
-    
     document.getElementById('darkMode').checked = darkMode;
-    document.getElementById('autoRefresh').checked = autoRefresh;
-    document.getElementById('notifications').checked = notifications;
     
-    // Aplicar modo oscuro
+    // Aplicar modo oscuro inmediatamente
     if (darkMode) {
         document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+    }
+    
+    // Cargar otras configuraciones
+    const autoRefresh = localStorage.getItem('autoRefresh') !== 'false';
+    document.getElementById('autoRefresh').checked = autoRefresh;
+    
+    // Actualizar botones de unidad en el modal
+    updateUnitButtonsInModal();
+}
+
+/**
+ * Actualiza botones de unidad en el modal
+ */
+function updateUnitButtonsInModal() {
+    const metricBtn = document.querySelector('.unit-option[data-unit="metric"]');
+    const imperialBtn = document.querySelector('.unit-option[data-unit="imperial"]');
+    
+    if (metricBtn && imperialBtn) {
+        metricBtn.classList.remove('active');
+        imperialBtn.classList.remove('active');
+        
+        if (currentUnit === 'metric') {
+            metricBtn.classList.add('active');
+        } else {
+            imperialBtn.classList.add('active');
+        }
     }
 }
 
@@ -1015,9 +1050,17 @@ function initializeEventListeners() {
         }
     });
     
-    // Cambio de unidades
+    // Cambio de unidades en la barra de búsqueda
     elements.unitToggle.addEventListener('click', () => toggleUnits('metric'));
     elements.unitToggleF.addEventListener('click', () => toggleUnits('imperial'));
+    
+    // Botones de unidad en el modal
+    document.querySelectorAll('.unit-option').forEach(button => {
+        button.addEventListener('click', function() {
+            const unit = this.getAttribute('data-unit');
+            toggleUnits(unit);
+        });
+    });
     
     // Limpiar favoritos
     elements.clearFavorites.addEventListener('click', clearFavorites);
@@ -1068,8 +1111,10 @@ function initializeEventListeners() {
             localStorage.setItem('darkMode', darkModeCheckbox.checked);
             if (darkModeCheckbox.checked) {
                 document.documentElement.setAttribute('data-theme', 'dark');
+                showToast('Modo oscuro activado', 'success');
             } else {
                 document.documentElement.removeAttribute('data-theme');
+                showToast('Modo claro activado', 'success');
             }
         });
     }
@@ -1088,12 +1133,6 @@ function initializeApp() {
     try {
         // Cargar configuración
         loadSettings();
-        
-        const savedUnit = localStorage.getItem('weatherUnit');
-        if (savedUnit) {
-            currentUnit = savedUnit;
-            toggleUnits(savedUnit);
-        }
         
         // Cargar favoritos de forma segura
         try {
